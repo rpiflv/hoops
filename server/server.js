@@ -11,7 +11,9 @@ app.use(express.json())
 app.use(cors())
 app.use("/", express.static(__dirname + "../client/build")); // "/public"
 
-
+app.get('/', (req, res) => {
+    res.send('Hello World!')
+})
 
 app.get('/api/teams', async (req, res) => {
     await fetch('https://data.nba.net/data/10s/prod/v1/2022/teams.json')
