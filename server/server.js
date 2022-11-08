@@ -9,7 +9,7 @@ const cors = require('cors')
 
 app.use(express.json())
 app.use(cors())
-app.use("/", express.static(__dirname + "./client/build")); // "/public"
+app.use("/", express.static(__dirname + "/build")); // "/public"
 
 
 
