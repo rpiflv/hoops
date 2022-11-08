@@ -1,17 +1,15 @@
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args));
 
-const { default: axios } = require('axios');
 const express = require('express');
 const app = express();
 require('dotenv').config({ path: './.env' })
 
 const cors = require('cors')
 
-
 app.use(express.json())
 app.use(cors())
-app.use("/", express.static(__dirname + "/build"));
+app.use("/", express.static(__dirname + "./client/build")); // "/public"
 
 
 
