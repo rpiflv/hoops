@@ -24,6 +24,17 @@ app.get('/api/teams', async (req, res) => {
         .then(data => res.send(data.league.standard))
 })
 
+app.get('/api/teams/:teamId', async (req, res) => {
+    const teamID = req.params.teamID;
+    console.log(teamID)
+    await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
+        .then((fetchedData) => fetchedData.json())
+        .then(data => {
+            res.send(data)
+        }
+        )
+})
+
 app.listen(process.env.PORT, () => {
     console.log(`Listening to port: ${process.env.PORT}`)
 })
