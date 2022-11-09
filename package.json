@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && cd client && npm install && npm run build",
+    "build": "npm install && npx knex migrate:latest && cd client && npm install && npm run build",
     "start": "nodemon ./server/server.js"
   },
   "repository": {
