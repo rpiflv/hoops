@@ -11,7 +11,7 @@ function Teams(props) {
     const { teams, setTeams } = props;
 
     const getAllTeams = async () => {
-        const teams = await axios.get(BASE_URL + '/api/teams')
+        const teams = await axios.get('/api/teams')
         // console.log(teams.data.league.standard)
         setTeams(teams.data)
     }
