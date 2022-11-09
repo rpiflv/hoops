@@ -25,7 +25,7 @@ app.get('/api/teams', async (req, res) => {
 })
 
 app.get('/api/teams/:teamId', async (req, res) => {
-    const teamID = req.params.teamID;
+    const teamID = req.params.teamId;
     console.log(teamID)
     await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
         .then((fetchedData) => fetchedData.json())
