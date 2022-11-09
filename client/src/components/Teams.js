@@ -4,14 +4,14 @@ import { Link } from "react-router-dom";
 
 
 import axios from "axios";
-// const BASE_URL = process.env.REACT_APP_BASE_URL;
+const BASE_URL = process.env.REACT_APP_BASE_URL;
 
 function Teams(props) {
 
     const { teams, setTeams } = props;
 
     const getAllTeams = async () => {
-        const teams = await axios.get('/api/teams')
+        const teams = await axios.get(BASE_URL + '/api/teams')
         // console.log(teams.data.league.standard)
         setTeams(teams.data)
     }
