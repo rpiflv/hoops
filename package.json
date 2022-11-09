@@ -4,8 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && npx knex migrate:latest && cd client && npm install && npm run build",
-    "start": "nodemon ./server/server.js"
+    "build": "npm install && npm run migrate && cd client && npm install && npm run build",
+    "start": "nodemon ./server/server.js",
+    "migrate": "npx knex migrate:latest --knexfile ./server/db/knexfile.js"
   },
   "repository": {
     "type": "git",
