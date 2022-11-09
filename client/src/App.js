@@ -6,6 +6,7 @@ import Teams from "./components/Teams";
 import NavMenu from "./components/NavMenu";
 import Home from "./components/Home";
 import Roster from "./components/Roster";
+import Favorite from "./components/Favorite";
 
 function App() {
 
@@ -21,6 +22,7 @@ function App() {
             <Route index element={<Teams teams={teams} setTeams={setTeams} />} />
             <Route path=":teamId" element={<Roster />} />
           </Route>
+          <Route path="myplayers" element={<Favorite />} />
         </Routes>
       </div>
     </>

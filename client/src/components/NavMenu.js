@@ -15,6 +15,9 @@ function NavMenu() {
                 <Nav className="me-auto">
                     <Link to="/teams">Teams</Link>
                 </Nav>
+                <Nav className="">
+                    <Link to="/myplayers">My players</Link>
+                </Nav>
             </Navbar>
         </>
     )
