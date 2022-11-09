@@ -24,11 +24,15 @@ function Roster() {
         getRoster(teamId)
     }, [])
 
+    const addToFav = (playerId) => {
+        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}`, { playerId })
+    }
+
     return (
         <>
             {roster.map(player =>
                 <Card style={{ width: '20%' }}>
-                    <Card.Img variant="top" src="" alt="no img" />
+
                     <Card.Body>
                         <Card.Title>
                             {player.firstName} {player.lastName}
@@ -39,6 +43,12 @@ function Roster() {
                             <p>Weight: {player.weightPounds}</p>
                         </Card.Text>
                     </Card.Body>
+                    <Card.Footer >
+                        <Button onClick={() => {
+                            console.log(player.personId)
+                            addToFav(player.personId)
+                        }}>Add to favorite</Button>
+                    </Card.Footer>
                 </Card>
             )}
         </>
