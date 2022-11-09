@@ -5,13 +5,15 @@ import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
+const BASE_URL = process.env.REACT_APP_BASE_URL || '';
+
 function Roster() {
     const [roster, setRoster] = useState([])
 
     const { teamId } = useParams()
 
     const getRoster = async (teamId) => {
-        const data = await axios.get(`http://localhost:5050/api/teams/${teamId}/`)
+        const data = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
         let players = data.data.league.standard
         const filteredPlayers = players.filter(player => player.teamId === teamId)
         console.log(filteredPlayers)
