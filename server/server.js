@@ -59,7 +59,8 @@ app.get('/api/myplayers', async (req, res) => {
 
     const favPlayers = await knex('fav_players').select({
         id: "id",
-        playerId: "playerId"
+        playerId: "playerId",
+        notes: "notes"
     })
     res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
 
