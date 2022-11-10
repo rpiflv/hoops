@@ -53,6 +53,18 @@ app.get('/api/teams/:teamId', async (req, res) => {
         )
 })
 
+app.get('/api/myplayers', async (req, res) => {
+    const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
+        .then((fetchedData) => fetchedData.json())
+
+    const favPlayers = await knex('fav_players').select({
+        id: "id",
+        playerId: "playerId"
+    })
+    res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
+
+})
+
 app.post('/api/teams/:teamId/:playerId', async (req, res) => {
     const playerId = req.params.playerId
     await knex('fav_players').insert({
