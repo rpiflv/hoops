@@ -85,6 +85,14 @@ app.get('/api/myplayers/:playerId', async (req, res) => {
     res.send({ allPlayers: allPlayers.league.standard, notes: notes })
 })
 
+app.post('/api/myplayers/:playerId/edit', async (req, res) => {
+    const notes = req.body
+    const playerId = req.params.playerId
+    await knex('fav_players')
+        .update(notes)
+        .where('player_id', playerId)
+})
+
 app.listen(process.env.PORT, () => {
     console.log(`Listening to port: ${process.env.PORT}`)
 })
