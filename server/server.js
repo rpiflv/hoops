@@ -56,7 +56,7 @@ app.get('/api/teams/:teamId', async (req, res) => {
 app.post('/api/teams/:teamId/:playerId', async (req, res) => {
     const playerId = req.params.playerId
     await knex('fav_players').insert({
-        playerId: playerId
+        player_id: playerId
     })
     console.log('added to db')
 })
