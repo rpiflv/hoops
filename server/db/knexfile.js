@@ -22,7 +22,7 @@ module.exports = {
 
   productionRender: {
     client: 'pg',
-    connection: { database: process.env.DATABASE_URL },
+    connection: process.env.DATABASE_URL,
     pool: {
       min: 2,
       max: 10
