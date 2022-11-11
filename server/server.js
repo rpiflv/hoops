@@ -41,7 +41,7 @@ app.get('/api/teams', async (req, res) => {
         await fetch('https://data.nba.net/data/10s/prod/v1/2022/teams.json')
             .then((fetchedData) => fetchedData.json())
             .then(data => res.send(data.league.standard))
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 })
@@ -55,7 +55,7 @@ app.get('/api/teams/:teamId', async (req, res) => {
                 res.send(data)
             }
             )
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 })
@@ -67,7 +67,7 @@ app.post('/api/teams/:teamId/:playerId', async (req, res) => {
             player_id: playerId
         })
         console.log('added to db')
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 })
@@ -75,7 +75,7 @@ app.get('/api/myplayers', async (req, res) => {
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 
@@ -86,7 +86,7 @@ app.get('/api/myplayers', async (req, res) => {
             notes: "notes"
         })
         res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 })
@@ -96,7 +96,7 @@ app.get('/api/myplayers/:playerId', async (req, res) => {
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 
@@ -107,7 +107,7 @@ app.get('/api/myplayers/:playerId', async (req, res) => {
             })
             .where('player_id', playerId)
         res.send({ allPlayers: allPlayers.league.standard, notes: notes })
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 })
@@ -120,7 +120,7 @@ app.post('/api/myplayers/:playerId/edit', async (req, res) => {
         await knex('fav_players')
             .update(notes)
             .where('player_id', playerId)
-    } catch {
+    } catch (error) {
         console.error(error)
     }
 })

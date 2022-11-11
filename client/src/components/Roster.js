@@ -19,7 +19,7 @@ function Roster() {
             const filteredPlayers = players.filter(player => player.teamId === teamId)
             console.log(filteredPlayers)
             setRoster(filteredPlayers)
-        } catch {
+        } catch (error) {
             console.error(error)
         }
     }

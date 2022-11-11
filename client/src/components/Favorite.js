@@ -26,7 +26,7 @@ function Favorite() {
             setMyFavsNotes(favsPlayersNotes)
             const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }))
             setMyPlayerInfo(allData)
-        } catch {
+        } catch (error) {
             console.error(error)
         }
 

@@ -17,7 +17,7 @@ function PlayerProfile() {
             const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
             const info = fetchedData.data.allPlayers.find(player => player.personId === playerId)
             setPlayerInfo(info)
-        } catch {
+        } catch (error) {
             console.error(error)
         }
     }
@@ -27,7 +27,7 @@ function PlayerProfile() {
             const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
             const notes = fetchedData.data.notes
             setNotes(notes[0].notes)
-        } catch {
+        } catch (error) {
             console.error(error)
         }
     }
@@ -49,7 +49,7 @@ function PlayerProfile() {
             await axios.post(BASE_URL + `/api/myplayers/${playerId}/edit`,
                 { notes }
             )
-        } catch {
+        } catch (error) {
             console.error(error)
         }
     }

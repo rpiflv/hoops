@@ -15,7 +15,7 @@ function Teams(props) {
 
             const teams = await axios.get(BASE_URL + '/api/teams')
             setTeams(teams.data)
-        } catch {
+        } catch (error) {
             console.error(error)
         }
     }
