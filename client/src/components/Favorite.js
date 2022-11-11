@@ -15,16 +15,20 @@ function Favorite() {
     const [myPlayerInfo, setMyPlayerInfo] = useState([])
 
     const getMyFav = async () => {
-        const fetchedData = await axios.get(BASE_URL + '/api/myplayers')
-        const allPlayers = fetchedData.data.allPlayers;
-        const favsPlayersNotes = fetchedData.data.favPlayers;
-        const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId)
-        const favPlayersInfo = []
-        favPlayersID.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)))
-        setMyFavsInfo(favPlayersInfo)
-        setMyFavsNotes(favsPlayersNotes)
-        const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }))
-        setMyPlayerInfo(allData)
+        try {
+            const fetchedData = await axios.get(BASE_URL + '/api/myplayers')
+            const allPlayers = fetchedData.data.allPlayers;
+            const favsPlayersNotes = fetchedData.data.favPlayers;
+            const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId)
+            const favPlayersInfo = []
+            favPlayersID.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)))
+            setMyFavsInfo(favPlayersInfo)
+            setMyFavsNotes(favsPlayersNotes)
+            const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }))
+            setMyPlayerInfo(allData)
+        } catch {
+            console.error(error)
+        }
 
     }
 

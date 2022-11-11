@@ -11,9 +11,13 @@ function Teams(props) {
     const { teams, setTeams } = props;
 
     const getAllTeams = async () => {
-        const teams = await axios.get(BASE_URL + '/api/teams')
-        // console.log(teams.data.league.standard)
-        setTeams(teams.data)
+        try {
+
+            const teams = await axios.get(BASE_URL + '/api/teams')
+            setTeams(teams.data)
+        } catch {
+            console.error(error)
+        }
     }
 
     useEffect(() => {

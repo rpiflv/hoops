@@ -12,15 +12,24 @@ function PlayerProfile() {
     const { playerId } = useParams();
 
     const getPlayerInfo = async (playerId) => {
-        const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
-        const info = fetchedData.data.allPlayers.find(player => player.personId === playerId)
-        setPlayerInfo(info)
+        try {
+
+            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
+            const info = fetchedData.data.allPlayers.find(player => player.personId === playerId)
+            setPlayerInfo(info)
+        } catch {
+            console.error(error)
+        }
     }
 
     const getPlayerNotes = async (playerId) => {
-        const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
-        const notes = fetchedData.data.notes
-        setNotes(notes[0].notes)
+        try {
+            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
+            const notes = fetchedData.data.notes
+            setNotes(notes[0].notes)
+        } catch {
+            console.error(error)
+        }
     }
 
     useEffect(() => {
@@ -35,9 +44,14 @@ function PlayerProfile() {
         setNotes(e.target.value)
     }
     const sendNote = async () => {
-        await axios.post(BASE_URL + `/api/myplayers/${playerId}/edit`,
-            { notes }
-        )
+        try {
+
+            await axios.post(BASE_URL + `/api/myplayers/${playerId}/edit`,
+                { notes }
+            )
+        } catch {
+            console.error(error)
+        }
     }
 
     return (

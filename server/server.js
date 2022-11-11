@@ -37,60 +37,92 @@ app.get('/', (req, res) => {
 })
 
 app.get('/api/teams', async (req, res) => {
-    await fetch('https://data.nba.net/data/10s/prod/v1/2022/teams.json')
-        .then((fetchedData) => fetchedData.json())
-        .then(data => res.send(data.league.standard))
+    try {
+        await fetch('https://data.nba.net/data/10s/prod/v1/2022/teams.json')
+            .then((fetchedData) => fetchedData.json())
+            .then(data => res.send(data.league.standard))
+    } catch {
+        console.error(error)
+    }
 })
 
 app.get('/api/teams/:teamId', async (req, res) => {
     const teamID = req.params.teamId;
-    console.log(teamID)
-    await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-        .then((fetchedData) => fetchedData.json())
-        .then(data => {
-            res.send(data)
-        }
-        )
+    try {
+        await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
+            .then((fetchedData) => fetchedData.json())
+            .then(data => {
+                res.send(data)
+            }
+            )
+    } catch {
+        console.error(error)
+    }
 })
 
 app.post('/api/teams/:teamId/:playerId', async (req, res) => {
-    const playerId = req.params.playerId
-    await knex('fav_players').insert({
-        player_id: playerId
-    })
-    console.log('added to db')
+    const playerId = req.params.playerId;
+    try {
+        await knex('fav_players').insert({
+            player_id: playerId
+        })
+        console.log('added to db')
+    } catch {
+        console.error(error)
+    }
 })
 app.get('/api/myplayers', async (req, res) => {
-    const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-        .then((fetchedData) => fetchedData.json())
+    try {
+        const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
+            .then((fetchedData) => fetchedData.json())
+    } catch {
+        console.error(error)
+    }
 
-    const favPlayers = await knex('fav_players').select({
-        id: "id",
-        playerId: "player_id",
-        notes: "notes"
-    })
-    res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
+    try {
+        const favPlayers = await knex('fav_players').select({
+            id: "id",
+            playerId: "player_id",
+            notes: "notes"
+        })
+        res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
+    } catch {
+        console.error(error)
+    }
 })
 
 app.get('/api/myplayers/:playerId', async (req, res) => {
     const playerId = req.params.playerId
-    const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-        .then((fetchedData) => fetchedData.json())
+    try {
+        const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
+            .then((fetchedData) => fetchedData.json())
+    } catch {
+        console.error(error)
+    }
 
-    const notes = await knex('fav_players')
-        .select({
-            notes: "notes"
-        })
-        .where('player_id', playerId)
-    res.send({ allPlayers: allPlayers.league.standard, notes: notes })
+    try {
+        const notes = await knex('fav_players')
+            .select({
+                notes: "notes"
+            })
+            .where('player_id', playerId)
+        res.send({ allPlayers: allPlayers.league.standard, notes: notes })
+    } catch {
+        console.error(error)
+    }
 })
 
 app.post('/api/myplayers/:playerId/edit', async (req, res) => {
-    const notes = req.body
-    const playerId = req.params.playerId
-    await knex('fav_players')
-        .update(notes)
-        .where('player_id', playerId)
+    const notes = req.body;
+    const playerId = req.params.playerId;
+    try {
+
+        await knex('fav_players')
+            .update(notes)
+            .where('player_id', playerId)
+    } catch {
+        console.error(error)
+    }
 })
 
 app.listen(process.env.PORT, () => {
