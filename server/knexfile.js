@@ -4,21 +4,21 @@ require('dotenv').config({ path: '../.env' })
  */
 module.exports = {
 
-  // development: {
-  //   client: 'pg',
-  //   connection: {
-  //     database: process.env.DATABASE_NAME,
-  //     user: process.env.DATABASE_USER,
-  //     password: process.env.DATABASE_PWD
-  //   },
-  //   pool: {
-  //     min: 2,
-  //     max: 10
-  //   },
-  //   migrations: {
-  //     directory: "./migrations",
-  //   }
-  // },
+  development: {
+    client: 'pg',
+    connection: {
+      database: process.env.DATABASE_NAME,
+      user: process.env.DATABASE_USER,
+      password: process.env.DATABASE_PWD
+    },
+    pool: {
+      min: 2,
+      max: 10
+    },
+    migrations: {
+      directory: "./migrations",
+    }
+  },
 
   productionRender: {
     client: 'pg',

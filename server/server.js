@@ -3,21 +3,23 @@ const fetch = (...args) =>
 require('dotenv').config({ path: './.env' })
 
 
-const knex = require('knex')({
-    client: 'postgresql',
-    connection: {
-        database: process.env.DATABASE_NAME,
-        user: process.env.DATABASE_USER,
-        password: process.env.DATABASE_PWD
-    },
-    pool: {
-        min: 2,
-        max: 10
-    },
-    migrations: {
-        directory: "./migrations",
-    }
-})
+// const knex = require('knex')({
+//     client: 'postgresql',
+//     connection: {
+//         database: process.env.DATABASE_NAME,
+//         user: process.env.DATABASE_USER,
+//         password: process.env.DATABASE_PWD
+//     },
+//     pool: {
+//         min: 2,
+//         max: 10
+//     },
+//     migrations: {
+//         directory: "./migrations",
+//     }
+// })
+
+const knex = require('./knex')
 const express = require('express');
 const app = express();
 require('dotenv').config({ path: './.env' })
