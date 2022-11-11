@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "npm install && npm run migrate && cd client && npm install && npm run build",
+    "build": "npm install && cd client && npx react-scripts build && cd .. && npm run migrate",
     "start": "nodemon ./server/server.js",
     "migrate": "npx knex migrate:latest --knexfile ./server/db/knexfile.js"
   },
@@ -28,6 +28,11 @@
     "node-fetch": "^3.2.10",
     "nodemon": "^2.0.20",
     "pg": "^8.8.0",
-    "react-bootstrap": "^2.6.0"
+    "react": "^18.2.0",
+    "react-bootstrap": "^2.6.0",
+    "react-dom": "^18.2.0",
+    "react-router-dom": "^6.4.3",
+    "react-scripts": "5.0.1",
+    "web-vitals": "^2.1.4"
   }
 }
