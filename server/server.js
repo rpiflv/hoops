@@ -75,17 +75,16 @@ app.get('/api/myplayers', async (req, res) => {
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
-    } catch (error) {
-        console.error(error)
-    }
-
-    try {
-        const favPlayers = await knex('fav_players').select({
-            id: "id",
-            playerId: "player_id",
-            notes: "notes"
-        })
-        res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
+        try {
+            const favPlayers = await knex('fav_players').select({
+                id: "id",
+                playerId: "player_id",
+                notes: "notes"
+            })
+            res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
+        } catch (error) {
+            console.error(error)
+        }
     } catch (error) {
         console.error(error)
     }
