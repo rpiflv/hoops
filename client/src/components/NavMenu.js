@@ -17,10 +17,10 @@ function NavMenu() {
                         </Link>
                     </Navbar.Brand>
                     <Nav className="me-auto">
-                        <Link to="/teams">Teams</Link>
+                        <Nav.Link to="/teams">Teams</Nav.Link>
                     </Nav>
                     <Nav className="">
-                        <Link to="/myplayers">My players</Link>
+                        <Nav.Link to="/myplayers">My players</Nav.Link>
                     </Nav>
                 </Container>
             </Navbar>

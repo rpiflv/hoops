@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Card, Container, Form } from "react-bootstrap";
+import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -58,21 +58,28 @@ function PlayerProfile() {
         <>
             <h1>Player profile</h1>
             <Container>
-                <Card style={{ width: '30rem' }}>
+                <Row className="justify-content-md-center">
 
-                    <Card.Img variant="top"
-                        src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerInfo.personId}.png`} width={"20%"} />
-                    {playerInfo.firstName}<br />
-                    {playerInfo.lastName}<br />
-                    {playerInfo.pos}<br />
-                    #{playerInfo.jersey}<br />
-                    <Form>
-                        <input value={notes} onChange={editNote} />
-                        <Button variant="primary" type="submit" onClick={sendNote} >
-                            Edit
-                        </Button>
-                    </Form>
-                </Card>
+                    <Card style={{ width: '30rem' }}>
+
+                        <Card.Img variant="top"
+                            src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerInfo.personId}.png`} width={"20%"} />
+                        <h3>{playerInfo.firstName}<br />
+                            {playerInfo.lastName}<br />
+                        </h3>
+                        <h4>Position: {playerInfo.pos}<br /></h4>
+                        <h2>#{playerInfo.jersey}<br /></h2>
+                        <br />
+                        <h4>Notes:</h4>
+                        <Form className="mb-3">
+                            <input value={notes} onChange={editNote} class="resizedTextbox" />
+                            <Button variant="primary" type="submit" onClick={sendNote} >
+                                Edit
+                            </Button>
+                        </Form>
+                    </Card>
+
+                </Row>
             </Container>
         </>
     )
