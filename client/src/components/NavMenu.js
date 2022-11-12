@@ -9,8 +9,10 @@ function NavMenu() {
     return (
         <>
             <Navbar bg="dark" variant="dark">
-                <Navbar.Brand bg="dark">
-                    <Link to="/">Hoops</Link>
+                <Navbar.Brand >
+                    <Link to="/">
+                        <img src="./hoopsPNG.png" className="d-inline-block align-top" />
+                    </Link>
                 </Navbar.Brand>
                 <Nav className="me-auto">
                     <Link to="/teams">Teams</Link>
