@@ -1,9 +1,8 @@
 import React, { useEffect } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
-
-
 import axios from "axios";
+
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Teams(props) {
@@ -12,7 +11,6 @@ function Teams(props) {
 
     const getAllTeams = async () => {
         try {
-
             const teams = await axios.get(BASE_URL + '/api/teams')
             setTeams(teams.data)
         } catch (error) {

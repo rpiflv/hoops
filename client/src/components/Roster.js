@@ -13,11 +13,9 @@ function Roster() {
 
     const getRoster = async (teamId) => {
         try {
-
             const data = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
             let players = data.data.league.standard
             const filteredPlayers = players.filter(player => player.teamId === teamId)
-            console.log(filteredPlayers)
             setRoster(filteredPlayers)
         } catch (error) {
             console.error(error)

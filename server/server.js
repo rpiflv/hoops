@@ -21,6 +21,21 @@ app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
+app.get('/api/', async (req, res) => {
+    try {
+        await fetch('https://nba-latest-news.p.rapidapi.com/news/source/espn', {
+            headers: {
+                'X-RapidAPI-Key': '38850b2764mshee7a6652b1706b6p11e2e0jsnafce3b9c28e6',
+                'X-RapidAPI-Host': 'nba-latest-news.p.rapidapi.com'
+            }
+        })
+            .then((fetchedData) => fetchedData.json())
+            .then(data => res.send(data))
+    } catch (err) {
+        console.log(err)
+    }
+})
+
 app.get('/api/teams', async (req, res) => {
     try {
         await fetch('https://data.nba.net/data/10s/prod/v1/2022/teams.json')
