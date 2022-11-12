@@ -36,6 +36,13 @@ function Favorite() {
         getMyFav()
     }, [])
 
+    const removeFav = (playerId) => {
+        fetch(BASE_URL + `/api/myplayers/${playerId}`, {
+            method: "DELETE",
+            body: { playerId }
+        })
+    }
+
     return (
         <>
             <h2>My Favorite Players</h2>
@@ -57,7 +64,7 @@ function Favorite() {
                             <Link to={`${player.personId}`} >
                                 <Button>Details</Button>
                             </Link>
-                            <Button>Delete</Button>
+                            <Button onClick={() => removeFav(player.personId)}>Remove</Button>
                         </ListGroup.Item>
                         <br />
                     </Card>

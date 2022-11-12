@@ -2,23 +2,6 @@ const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args));
 require('dotenv').config({ path: './.env' })
 
-
-// const knex = require('knex')({
-//     client: 'postgresql',
-//     connection: {
-//         database: process.env.DATABASE_NAME,
-//         user: process.env.DATABASE_USER,
-//         password: process.env.DATABASE_PWD
-//     },
-//     pool: {
-//         min: 2,
-//         max: 10
-//     },
-//     migrations: {
-//         directory: "./migrations",
-//     }
-// })
-
 const knex = require('./knex')
 const express = require('express');
 const app = express();
@@ -49,7 +32,6 @@ app.get('/api/teams', async (req, res) => {
 })
 
 app.get('/api/teams/:teamId', async (req, res) => {
-    const teamID = req.params.teamId;
     try {
         await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
@@ -68,6 +50,7 @@ app.post('/api/teams/:teamId/:playerId', async (req, res) => {
         await knex('fav_players').insert({
             player_id: playerId
         })
+            .then(() => console.log('added to favorite'))
         console.log('added to db')
     } catch (error) {
         console.error(error)
@@ -87,6 +70,17 @@ app.get('/api/myplayers', async (req, res) => {
         } catch (error) {
             console.error(error)
         }
+    } catch (error) {
+        console.error(error)
+    }
+})
+
+app.delete('/api/myplayers/:playerId', async (req, res) => {
+    const playerId = req.params.playerId;
+    try {
+        await knex('fav_players')
+            .where('player_id', playerId).del()
+            .then(() => console.log('item deleted'))
     } catch (error) {
         console.error(error)
     }
