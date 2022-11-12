@@ -1,7 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Form } from "react-bootstrap";
+import { Button, Card, Container, Form } from "react-bootstrap";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -57,17 +57,23 @@ function PlayerProfile() {
     return (
         <>
             <h1>Player profile</h1>
+            <Container>
+                <Card style={{ width: '30rem' }}>
 
-            {playerInfo.firstName}<br />
-            {playerInfo.lastName}<br />
-            {playerInfo.pos}<br />
-            #{playerInfo.jersey}<br />
-            <Form>
-                <input value={notes} onChange={editNote} />
-                <Button variant="primary" type="submit" onClick={sendNote} >
-                    Edit
-                </Button>
-            </Form>
+                    <Card.Img variant="top"
+                        src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerInfo.personId}.png`} width={"20%"} />
+                    {playerInfo.firstName}<br />
+                    {playerInfo.lastName}<br />
+                    {playerInfo.pos}<br />
+                    #{playerInfo.jersey}<br />
+                    <Form>
+                        <input value={notes} onChange={editNote} />
+                        <Button variant="primary" type="submit" onClick={sendNote} >
+                            Edit
+                        </Button>
+                    </Form>
+                </Card>
+            </Container>
         </>
     )
 
