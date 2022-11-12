@@ -4,6 +4,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion';
 import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
@@ -46,31 +48,36 @@ function Favorite() {
     return (
         <>
             <h2>My Favorite Players</h2>
-            <ListGroup>
-                {myPlayerInfo.map((player) => (
-                    <Card style={{ width: '18rem' }}>
-                        <ListGroup.Item >
-                            <div key={player.personId} >
-                                {player.firstName} {player.lastName}
-                            </div>
-                            <Accordion >
-                                <Accordion.Item eventKey="0" key={player.personId}>
-                                    <Accordion.Header>Notes</Accordion.Header>
-                                    <Accordion.Body>
-                                        {player.notes}
-                                    </Accordion.Body>
-                                </Accordion.Item>
-                            </Accordion>
-                            <Link to={`${player.personId}`} >
-                                <Button>Details</Button>
-                            </Link>
-                            <Button onClick={() => removeFav(player.personId)}>Remove</Button>
-                        </ListGroup.Item>
-                        <br />
-                    </Card>
-                ))}
+            <Container>
+                <Row className="justify-content-md-center">
+                    <ListGroup>
+                        {myPlayerInfo.map((player) => (
+                            <Card style={{ width: '18rem' }}>
+                                <ListGroup.Item >
+                                    <div key={player.personId} >
+                                        {player.firstName} {player.lastName}
+                                    </div>
+                                    <Accordion >
+                                        <Accordion.Item eventKey="0" key={player.personId}>
+                                            <Accordion.Header>Notes</Accordion.Header>
+                                            <Accordion.Body>
+                                                {player.notes}
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                    </Accordion>
+                                    <Link to={`${player.personId}`} >
+                                        <Button>Details</Button>
+                                    </Link>
+                                    <Button onClick={() => removeFav(player.personId)}>Remove</Button>
+                                </ListGroup.Item>
+                                <br />
+                            </Card>
+                        ))}
 
-            </ListGroup>
+                    </ListGroup>
+                </Row>
+            </Container>
+
         </>
     )
 }
