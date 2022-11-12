@@ -38,12 +38,25 @@ function Favorite() {
         getMyFav()
     }, [])
 
-    const removeFav = (playerId) => {
-        fetch(BASE_URL + `/api/myplayers/${playerId}`, {
-            method: "DELETE",
-            body: { playerId }
-        })
+    const removeFav = async (playerId) => {
+        try {
+            await fetch(BASE_URL + `/api/myplayers/${playerId}`, {
+                method: "DELETE",
+                body: { playerId }
+            })
+        } catch (err) {
+            console.log(err)
+        }
     }
+
+    // const getImage = async (playerId) => {
+    //     try {
+    //         const fetchedImg = await axios.get(BASE_URL + `/api/myplayers/${playerId}/image`)
+    //     }
+    //     catch (err) {
+    //         console.log(err)
+    //     }
+    // }
 
     return (
         <>
@@ -53,9 +66,11 @@ function Favorite() {
                     <ListGroup>
                         {myPlayerInfo.map((player) => (
                             <Card style={{ width: '18rem' }}>
+                                <Card.Img variant="top"
+                                    src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`} />
                                 <ListGroup.Item >
                                     <div key={player.personId} >
-                                        {player.firstName} {player.lastName}
+                                        <h3>{player.firstName} {player.lastName}</h3>
                                     </div>
                                     <Accordion >
                                         <Accordion.Item eventKey="0" key={player.personId}>
