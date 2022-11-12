@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import ListGroup from 'react-bootstrap/ListGroup';
 import axios from "axios";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
@@ -25,8 +26,20 @@ function Home() {
     return (
         <>
             <h1>Last News</h1>
-            {lastNews.map(news =>
-                <div>{news.title}</div>)}
+            <br />
+            <ListGroup>
+                {lastNews &&
+                    lastNews.map((news, index) => (
+                        <ListGroup.Item key={index} >
+                            <a href={news.url}>
+                                <div>
+                                    {news.title}
+                                </div>
+                            </a>
+                        </ListGroup.Item>
+                    ))
+                }
+            </ListGroup>
         </>
     )
 }
