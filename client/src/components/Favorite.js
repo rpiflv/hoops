@@ -36,7 +36,7 @@ function Favorite() {
 
     useEffect(() => {
         getMyFav()
-    }, [myFavsInfo])
+    }, [])
 
     const removeFav = (playerId) => {
         fetch(BASE_URL + `/api/myplayers/${playerId}`, {

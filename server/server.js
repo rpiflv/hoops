@@ -106,7 +106,6 @@ app.get('/api/myplayers/:playerId', async (req, res) => {
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
-
         try {
             const notes = await knex('fav_players')
                 .select({
@@ -126,7 +125,6 @@ app.post('/api/myplayers/:playerId/edit', async (req, res) => {
     const notes = req.body;
     const playerId = req.params.playerId;
     try {
-
         await knex('fav_players')
             .update(notes)
             .where('player_id', playerId)
