@@ -3,6 +3,8 @@ import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -32,27 +34,34 @@ function Roster() {
 
     return (
         <>
-            {roster.map(player =>
-                <Card style={{ width: '20%' }}>
+            <h2>Roster</h2>
+            <Container>
+                <Row className="justify-content-md-center">
 
-                    <Card.Body>
-                        <Card.Title>
-                            {player.firstName} {player.lastName}
-                        </Card.Title>
-                        <Card.Text>
-                            <p>Position: {player.teamSitesOnly.posFull}</p>
-                            <p>Height: {player.heightFeet}-{player.heightInches}</p>
-                            <p>Weight: {player.weightPounds}</p>
-                        </Card.Text>
-                    </Card.Body>
-                    <Card.Footer >
-                        <Button onClick={() => {
-                            console.log(player.personId)
-                            addToFav(player.personId)
-                        }}>Add to favorite</Button>
-                    </Card.Footer>
-                </Card>
-            )}
+                    {roster.map(player =>
+                        <Card style={{ width: '20%' }}>
+
+                            <Card.Body>
+                                <Card.Title>
+                                    {player.firstName} {player.lastName}
+                                </Card.Title>
+                                <Card.Text>
+                                    <p>Position: {player.teamSitesOnly.posFull}</p>
+                                    <p>Height: {player.heightFeet}-{player.heightInches}</p>
+                                    <p>Weight: {player.weightPounds}</p>
+                                </Card.Text>
+                            </Card.Body>
+                            <Card.Footer >
+                                <Button onClick={() => {
+                                    console.log(player.personId)
+                                    addToFav(player.personId)
+                                }}>Add to favorite</Button>
+                            </Card.Footer>
+                        </Card>
+                    )}
+
+                </Row>
+            </Container>
         </>
     )
 
