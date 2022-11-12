@@ -24,6 +24,8 @@ function Teams(props) {
 
     return (
         <>
+
+            <br />
             <h2>Teams</h2>
             <ListGroup>
                 {teams.map((team) => (
