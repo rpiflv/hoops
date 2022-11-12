@@ -27,7 +27,7 @@ function Teams(props) {
             <h2>Teams</h2>
             <ListGroup>
                 {teams.map((team) => (
-
+                    team.isNBAFranchise &&
                     <ListGroup.Item key={team.teamId} >
                         <div >
                             <Link to={`${team.teamId}`} > {team.fullName}</Link>
