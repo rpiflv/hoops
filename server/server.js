@@ -66,7 +66,6 @@ app.post('/api/teams/:teamId/:playerId', async (req, res) => {
             player_id: playerId
         })
             .then(() => console.log('added to favorite'))
-        console.log('added to db')
     } catch (error) {
         console.error(error)
     }

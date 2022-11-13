@@ -1,10 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { Routes, Route, useNavigate, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -32,6 +33,8 @@ function Roster() {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}`, { playerId })
     }
 
+    const navigate = useNavigate();
+
     return (
         <>
             <h2>Roster</h2>
@@ -55,7 +58,8 @@ function Roster() {
                             <Card.Footer >
                                 <Button onClick={() => {
                                     console.log(player.personId)
-                                    addToFav(player.personId)
+                                    addToFav(player.personId);
+                                    navigate('/myplayers')
                                 }}>Add to favorite</Button>
                             </Card.Footer>
                         </Card>

@@ -2,7 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion';
-import { Button, Card } from "react-bootstrap";
+import { Button, Card, CardGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
@@ -49,47 +49,38 @@ function Favorite() {
         }
     }
 
-    // const getImage = async (playerId) => {
-    //     try {
-    //         const fetchedImg = await axios.get(BASE_URL + `/api/myplayers/${playerId}/image`)
-    //     }
-    //     catch (err) {
-    //         console.log(err)
-    //     }
-    // }
-
     return (
         <>
             <h2>My Favorite Players</h2>
             <Container>
-                <Row className="justify-content-md-center">
-                    <ListGroup>
-                        {myPlayerInfo.map((player) => (
-                            <Card style={{ width: '18rem' }}>
-                                <Card.Img variant="top"
-                                    src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`} />
-                                <ListGroup.Item >
-                                    <div key={player.personId} >
-                                        <h3>{player.firstName} {player.lastName}</h3>
-                                    </div>
-                                    <Accordion >
-                                        <Accordion.Item eventKey="0" key={player.personId}>
-                                            <Accordion.Header>Notes</Accordion.Header>
-                                            <Accordion.Body>
-                                                {player.notes}
-                                            </Accordion.Body>
-                                        </Accordion.Item>
-                                    </Accordion>
-                                    <Link to={`${player.personId}`} >
-                                        <Button>Details</Button>
-                                    </Link>
-                                    <Button onClick={() => removeFav(player.personId)}>Remove</Button>
-                                </ListGroup.Item>
-                                <br />
-                            </Card>
-                        ))}
+                <Row >
 
-                    </ListGroup>
+                    {myPlayerInfo.map((player) => (
+                        <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} key={player.personId}>
+                            <Card.Img variant="top"
+                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`} />
+                            <ListGroup.Item >
+                                <div  >
+                                    <h3>{player.firstName} {player.lastName}</h3>
+                                </div>
+                                <Accordion >
+                                    <Accordion.Item eventKey="0" key={player.personId}>
+                                        <Accordion.Header>Notes</Accordion.Header>
+                                        <Accordion.Body>
+                                            {player.notes}
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                </Accordion>
+                                <Link to={`${player.personId}`} >
+                                    <Button>Details</Button>
+                                </Link>
+                                <Button onClick={() => removeFav(player.personId)}>Remove</Button>
+                            </ListGroup.Item>
+
+                        </Card>
+                    ))}
+
+
                 </Row>
             </Container>
 
