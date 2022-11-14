@@ -71,7 +71,7 @@ function PlayerProfile() {
                         <br />
                         <h4>Notes:</h4>
                         <Form className="mb-3">
-                            <input value={notes} onChange={editNote} class="resizedTextbox" />
+                            <Form.Control value={notes} onChange={editNote} class="resizedTextbox" />
                             <Button variant="primary" onClick={sendNote} >
                                 Edit
                             </Button>
