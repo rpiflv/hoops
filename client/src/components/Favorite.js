@@ -38,12 +38,13 @@ function Favorite() {
         getMyFav()
     }, [])
 
-    const removeFav = async (playerId) => {
+    async function removeFav(playerId) {
         try {
             await fetch(BASE_URL + `/api/myplayers/${playerId}`, {
                 method: "DELETE",
                 body: { playerId }
             })
+                .then(getMyFav())
         } catch (err) {
             console.log(err)
         }
