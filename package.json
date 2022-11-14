@@ -6,8 +6,8 @@
   "scripts": {
     "build": "npm install && cd client && npm install && npx react-scripts build && cd .. && npm run migrate && npm run seed",
     "start": "nodemon ./server/server.js",
-    "migrate": "npx knex migrate:latest --knexfile ./server/knexfile.js",
-    "seed": "npx knex seed:run --knexfile ./server/knexfile.js"
+    "migrate": "npx knex migrate:latest --knexfile ./server/db/knexfile.js",
+    "seed": "npx knex seed:run --knexfile ./server/db/knexfile.js"
   },
   "repository": {
     "type": "git",
