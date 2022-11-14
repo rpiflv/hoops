@@ -9,6 +9,12 @@ require('dotenv').config({ path: './.env' })
 
 const cors = require('cors')
 
+const { check, validationResult } = require("express-validator");
+const bcrypt = require("bcrypt");
+const JWT = require("jsonwebtoken");
+const users = require("./usersDB"); // mock DB to test login
+
+
 app.use(express.json())
 app.use(cors())
 
@@ -131,6 +137,45 @@ app.post('/api/myplayers/:playerId/edit', async (req, res) => {
         console.error(error)
     }
 })
+
+app.post('/api/signup',
+    [
+        check('email', 'Invalid email').isEmail(),
+        check('password', "Password should be at 5 char long").isLength({ min: 5 })
+    ], async (req, res) => {
+        const { email, password, username } = req.body;
+
+        const errors = validationResult(req)
+        if (!errors.isEmpty()) {
+            return res.send(errors)
+        }
+
+        let user = users.find((user) => {
+
+            return email === user.email;
+        })
+
+        if (user) {
+            return res.send('User already')
+        }
+
+        const salt10 = await bcrypt.genSalt(10)
+        const hashedPWD = await bcrypt.hash(password, salt10)
+
+        users.push({
+            email,
+            username,
+            password: hashedPWD
+        })
+
+        const accessToken = await JWT.sign(
+            { username },
+            process.env.ACCESS_TOKEN_SECRET,
+            { expiresIn: "5m" }
+        )
+
+        res.send(accessToken)
+    })
 
 app.listen(process.env.PORT, () => {
     console.log(`Listening to port: ${process.env.PORT}`)
