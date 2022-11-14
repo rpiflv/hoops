@@ -1,4 +1,4 @@
-require('dotenv').config({ path: '../.env' })
+require('dotenv').config({ path: '../../.env' })
 /**
  * @type { Object.<string, import("knex").Knex.Config> }
  */
@@ -16,10 +16,10 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: "./db/migrations",
+      directory: "./migrations",
     },
     seeds: {
-      directory: "./db/seeds",
+      directory: "./seeds",
     },
   },
 
@@ -31,10 +31,10 @@ module.exports = {
       max: 10
     },
     migrations: {
-      directory: "./db/migrations",
+      directory: "./migrations",
     },
     seeds: {
-      directory: "./db/seeds",
+      directory: "./seeds",
     },
   }
 
