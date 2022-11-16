@@ -6,6 +6,10 @@ import { Button, Card, CardGroup } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
+import authHeader from "../services/authheader";
+import authService from "../services/auth.service";
+import { useNavigate } from "react-router-dom";
+
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
@@ -16,18 +20,31 @@ function Favorite() {
     const [myFavsNotes, setMyFavsNotes] = useState([])
     const [myPlayerInfo, setMyPlayerInfo] = useState([])
 
+    const navigate = useNavigate();
+
     const getMyFav = async () => {
         try {
-            const fetchedData = await axios.get(BASE_URL + '/api/myplayers')
-            const allPlayers = fetchedData.data.allPlayers;
-            const favsPlayersNotes = fetchedData.data.favPlayers;
-            const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId)
-            const favPlayersInfo = []
-            favPlayersID.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)))
-            setMyFavsInfo(favPlayersInfo)
-            setMyFavsNotes(favsPlayersNotes)
-            const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }))
-            setMyPlayerInfo(allData)
+            // const fetchedData = await axios.get(BASE_URL + '/api/myplayers', { headers: authHeader() })
+            await axios.get(BASE_URL + '/api/myplayers', { headers: authHeader() })
+                .then((fetchedData) => {
+
+                    const allPlayers = fetchedData.data.allPlayers;
+                    const favsPlayersNotes = fetchedData.data.favPlayers;
+                    const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId)
+                    const favPlayersInfo = []
+                    favPlayersID.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)))
+                    setMyFavsInfo(favPlayersInfo)
+                    setMyFavsNotes(favsPlayersNotes)
+                    const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }))
+                    setMyPlayerInfo(allData)
+                },
+                    (error) => {
+                        if (error.response) {
+                            authService.logout()
+                            navigate('/login')
+                            window.location.reload()
+                        }
+                    })
         } catch (error) {
             console.error(error)
         }
@@ -42,7 +59,8 @@ function Favorite() {
         try {
             await fetch(BASE_URL + `/api/myplayers/${playerId}`, {
                 method: "DELETE",
-                body: { playerId }
+                body: { playerId },
+                headers: authHeader()
             })
                 .then(getMyFav())
         } catch (err) {

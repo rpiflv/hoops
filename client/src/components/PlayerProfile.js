@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Button, Card, Col, Container, Form, Row } from "react-bootstrap";
+import authHeader from "../services/authheader";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -14,7 +15,7 @@ function PlayerProfile() {
     const getPlayerInfo = async (playerId) => {
         try {
 
-            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
+            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`, { headers: authHeader() })
             const info = fetchedData.data.allPlayers.find(player => player.personId === playerId)
             setPlayerInfo(info)
         } catch (error) {
@@ -24,7 +25,7 @@ function PlayerProfile() {
 
     const getPlayerNotes = async (playerId) => {
         try {
-            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`)
+            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`, { headers: authHeader() })
             const notes = fetchedData.data.notes
             setNotes(notes[0].notes)
         } catch (error) {
@@ -46,7 +47,7 @@ function PlayerProfile() {
     const sendNote = async () => {
         try {
             await axios.post(BASE_URL + `/api/myplayers/${playerId}/edit`,
-                { notes }
+                { notes }, { headers: authHeader() }
             )
         } catch (error) {
             console.error(error)
@@ -71,7 +72,7 @@ function PlayerProfile() {
                         <br />
                         <h4>Notes:</h4>
                         <Form className="mb-3">
-                            <Form.Control value={notes} onChange={editNote} class="resizedTextbox" />
+                            <Form.Control value={notes} onChange={editNote} className="resizedTextbox" />
                             <Button variant="primary" onClick={sendNote} >
                                 Edit
                             </Button>

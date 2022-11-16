@@ -1,14 +1,27 @@
 import React, { useEffect, useState } from "react";
 import { Container, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
+import authService from "../services/auth.service";
+import { useNavigate } from "react-router-dom";
+
 
 import Nav from 'react-bootstrap/Nav';
 import { Link } from "react-router-dom";
 
-function NavMenu() {
+
+
+function NavMenu(props) {
+
+    const navigate = useNavigate()
+    const { user } = props
+
+    const logout = () => {
+        authService.logout();
+        navigate('/')
+        window.location.reload()
+    }
     return (
         <>
-
             <Navbar expand="lg" bg="light" variant="light" sticky="top">
                 <Container>
                     <Navbar.Brand >
@@ -21,11 +34,27 @@ function NavMenu() {
                             <Nav.Link >Teams</Nav.Link>
                         </LinkContainer>
                     </Nav>
-                    <Nav className="">
-                        <LinkContainer to="/myplayers">
-                            <Nav.Link>My players</Nav.Link>
-                        </LinkContainer>
-                    </Nav>
+                    {user &&
+                        <Nav>
+                            <LinkContainer to="/myplayers">
+                                <Nav.Link>My players</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to="/">
+                                <Nav.Link onClick={logout}>Logout</Nav.Link>
+                            </LinkContainer>
+                        </Nav>
+                    }
+                    {!user &&
+                        <Nav>
+                            <LinkContainer to="login">
+                                <Nav.Link>Login</Nav.Link>
+                            </LinkContainer>
+                            <LinkContainer to="signup">
+                                <Nav.Link>Sign Up</Nav.Link>
+                            </LinkContainer>
+                        </Nav>
+
+                    }
                 </Container>
             </Navbar>
         </>
