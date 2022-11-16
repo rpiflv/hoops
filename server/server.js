@@ -67,19 +67,24 @@ app.get('/api/teams/:teamId', async (req, res) => {
     }
 })
 
-app.post('/api/teams/:teamId/:playerId', async (req, res) => {
+app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
     const playerId = req.params.playerId;
+    const user_id = req.params.user_id;
+
     try {
         await knex('fav_players').insert({
             player_id: playerId,
-            notes: '---'
+            notes: '---',
+            user_id: user_id
         })
             .then(() => console.log('added to favorite'))
     } catch (error) {
         console.error(error)
     }
 })
-app.get('/api/myplayers', authToken, async (req, res) => {
+app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
+    const user_id = req.params.user_id
+    console.log("params:", user_id)
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
@@ -88,7 +93,7 @@ app.get('/api/myplayers', authToken, async (req, res) => {
                 id: "id",
                 playerId: "player_id",
                 notes: "notes"
-            })
+            }).where("user_id", user_id)
             res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
         } catch (error) {
             console.error(error)
@@ -109,8 +114,9 @@ app.delete('/api/myplayers/:playerId', authToken, async (req, res) => {
     }
 })
 
-app.get('/api/myplayers/:playerId', authToken, async (req, res) => {
+app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
     const playerId = req.params.playerId
+    const user_id = req.params.user_id
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
@@ -120,6 +126,7 @@ app.get('/api/myplayers/:playerId', authToken, async (req, res) => {
                     notes: "notes"
                 })
                 .where('player_id', playerId)
+                .where('user_id', user_id)
             res.send({ allPlayers: allPlayers.league.standard, notes: notes })
         } catch (error) {
             console.error(error)
@@ -129,13 +136,15 @@ app.get('/api/myplayers/:playerId', authToken, async (req, res) => {
     }
 })
 
-app.post('/api/myplayers/:playerId/edit', authToken, async (req, res) => {
+app.post('/api/myplayers/:playerId/:user_id/edit', authToken, async (req, res) => {
     const notes = req.body;
+    const user_id = req.params.user_id
     const playerId = req.params.playerId;
     try {
         await knex('fav_players')
             .update(notes)
             .where('player_id', playerId)
+            .where('user_id', user_id)
     } catch (error) {
         console.error(error)
     }
@@ -195,8 +204,9 @@ app.post('/api/login/', async (req, res) => {
         await knex('users').where('email', email).first()
             .then((data) => user = data)
     } catch (err) {
-
+        console.log(err)
     }
+
 
     if (!user) {
         return res.send("Email does not exist")
@@ -211,7 +221,7 @@ app.post('/api/login/', async (req, res) => {
         { email },
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: "1m",
+            expiresIn: "120m",
         }
     );
 
@@ -227,7 +237,8 @@ app.post('/api/login/', async (req, res) => {
 
     res.json({
         accessToken,
-        refreshToken
+        refreshToken,
+        user_id: user.id
     });
 })
 

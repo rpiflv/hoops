@@ -14,6 +14,9 @@ function Roster() {
 
     const { teamId } = useParams()
 
+    const userData = JSON.parse(localStorage.getItem('user'))
+    const user_id = userData.user_id
+
     const getRoster = async (teamId) => {
         try {
             const data = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
@@ -30,7 +33,7 @@ function Roster() {
     }, [])
 
     const addToFav = (playerId) => {
-        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}`, { playerId })
+        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId })
     }
 
     const navigate = useNavigate();

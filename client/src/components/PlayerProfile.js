@@ -10,12 +10,15 @@ function PlayerProfile() {
     const [playerInfo, setPlayerInfo] = useState({});
     const [notes, setNotes] = useState('');
 
+    const userData = JSON.parse(localStorage.getItem('user'))
+    const user_id = userData.user_id
+
     const { playerId } = useParams();
 
     const getPlayerInfo = async (playerId) => {
         try {
 
-            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`, { headers: authHeader() })
+            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/${user_id}`, { headers: authHeader() })
             const info = fetchedData.data.allPlayers.find(player => player.personId === playerId)
             setPlayerInfo(info)
         } catch (error) {
@@ -25,7 +28,7 @@ function PlayerProfile() {
 
     const getPlayerNotes = async (playerId) => {
         try {
-            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/`, { headers: authHeader() })
+            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/${user_id}`, { headers: authHeader() })
             const notes = fetchedData.data.notes
             setNotes(notes[0].notes)
         } catch (error) {
@@ -46,7 +49,7 @@ function PlayerProfile() {
     }
     const sendNote = async () => {
         try {
-            await axios.post(BASE_URL + `/api/myplayers/${playerId}/edit`,
+            await axios.post(BASE_URL + `/api/myplayers/${playerId}/${user_id}/edit`,
                 { notes }, { headers: authHeader() }
             )
         } catch (error) {
@@ -56,7 +59,7 @@ function PlayerProfile() {
 
     return (
         <>
-            <h1>Player profile</h1>
+            <h1>Player's profile</h1>
             <Container>
                 <Row className="justify-content-md-center">
 

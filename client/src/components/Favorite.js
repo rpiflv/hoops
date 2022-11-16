@@ -20,12 +20,15 @@ function Favorite() {
     const [myFavsNotes, setMyFavsNotes] = useState([])
     const [myPlayerInfo, setMyPlayerInfo] = useState([])
 
+    const userData = JSON.parse(localStorage.getItem('user'))
+    const user_id = userData.user_id
+
     const navigate = useNavigate();
 
     const getMyFav = async () => {
         try {
             // const fetchedData = await axios.get(BASE_URL + '/api/myplayers', { headers: authHeader() })
-            await axios.get(BASE_URL + '/api/myplayers', { headers: authHeader() })
+            await axios.get(BASE_URL + `/api/myplayers/${user_id}`, { body: user_id, headers: authHeader() })
                 .then((fetchedData) => {
 
                     const allPlayers = fetchedData.data.allPlayers;
