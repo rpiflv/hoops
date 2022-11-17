@@ -127,7 +127,20 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
                 })
                 .where('player_id', playerId)
                 .where('user_id', user_id)
-            res.send({ allPlayers: allPlayers.league.standard, notes: notes })
+            try {
+                const extraNotes = await knex('notes')
+                    .join('fav_players', 'notes.fav_player_id', '=', 'fav_players.id')
+                    .select({
+                        note_content: "note_content",
+                        created_at: "created_at"
+                    })
+                    .where('player_id', playerId)
+                    .where('user_id', user_id)
+                // console.log(extraNotes)
+                res.send({ allPlayers: allPlayers.league.standard, notes: notes, extraNotes: extraNotes })
+            } catch (err) {
+                console.log(err)
+            }
         } catch (error) {
             console.error(error)
         }
@@ -147,6 +160,29 @@ app.post('/api/myplayers/:playerId/:user_id/edit', authToken, async (req, res) =
             .where('user_id', user_id)
     } catch (error) {
         console.error(error)
+    }
+})
+
+app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) => {
+    const extraNote = req.body.extraNote;
+    const user_id = req.params.user_id
+    const playerId = req.params.playerId;
+    const favPlayerId = await knex('fav_players')
+        .select('id')
+        .where('user_id', user_id)
+        .where('player_id', playerId).first()
+
+    try {
+        await knex('notes')
+            .insert({
+                note_content: extraNote,
+                fav_player_id: favPlayerId.id
+            })
+            .where('user_id', user_id)
+            .where('player_id', playerId)
+        console.log('extra note added')
+    } catch (err) {
+        console.log(err)
     }
 })
 
