@@ -1,8 +1,9 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Card, Container, Form, Row } from "react-bootstrap";
+import { Button, Card, Container, Form, Row, ListGroup } from "react-bootstrap";
 import authHeader from "../services/authheader";
+import moment from 'moment';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -67,7 +68,7 @@ function PlayerProfile() {
         try {
             await axios.post(BASE_URL + `/api/myplayers/${playerId}/${user_id}/edit`,
                 { notes }, { headers: authHeader() }
-            )
+            ).then(() => getPlayerExtraNotes(playerId))
         } catch (error) {
             console.error(error)
         }
@@ -76,13 +77,28 @@ function PlayerProfile() {
     const editExtraNote = (e) => {
         setExtraNote(e.target.value)
     }
+
     const sendExtraNote = async () => {
         try {
             await axios.post(BASE_URL + `/api/myplayers/${playerId}/${user_id}/add`,
                 { extraNote }, { headers: authHeader() }
             )
+                .then(getPlayerExtraNotes(playerId))
         } catch (error) {
             console.error(error)
+        }
+    }
+
+    const removeNote = async (noteId) => {
+        try {
+            await fetch(BASE_URL + `/api/myplayers/${playerId}/${user_id}/delete/${noteId}`, {
+                method: "DELETE",
+
+                headers: authHeader()
+            })
+                .then(getPlayerExtraNotes(playerId))
+        } catch (err) {
+            console.log(err)
         }
     }
 
@@ -102,20 +118,28 @@ function PlayerProfile() {
                         <h4>Position: {playerInfo.pos}<br /></h4>
                         <h2>#{playerInfo.jersey}<br /></h2>
                         <br />
-                        <h4>Description:</h4>
+                        <h4>Player Characteristics:</h4>
                         <Form className="mb-3">
                             <Form.Control value={notes} onChange={editNote} className="resizedTextbox" />
                             <Button variant="primary" onClick={sendNote} >
                                 Edit
                             </Button>
                         </Form>
+                        <br />
                         <h4>Extra notes</h4>
-                        {extraNotes.map(note =>
-                            <p>
-                                {note.note_content}
-                            </p>
-                        )}
+                        {extraNotes && extraNotes.map(note =>
+                            <ListGroup variant="flush">
+                                <ListGroup.Item key={note.id}>
+                                    {moment(note.created_at).format('MMMM Do YYYY, h:mm:ss a')} <br />
+                                    {note.note_content} <br />
+                                    <Button variant="secondary" size="sm" className="mb-50" onClick={() => removeNote(note.id)}>
+                                        X
+                                    </Button>
+                                </ListGroup.Item>
+                            </ListGroup>
 
+                        )}
+                        <br />
                         <Form className="mb-3">
                             <Form.Control value={extraNote} onChange={editExtraNote} className="resizedTextbox" />
                             <Button variant="primary" onClick={sendExtraNote} >

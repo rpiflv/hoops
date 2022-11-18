@@ -77,7 +77,7 @@ function Favorite() {
             <Container>
                 <Row >
 
-                    {myPlayerInfo.map((player) => (
+                    {myPlayerInfo && myPlayerInfo.map((player) => (
                         <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} key={player.personId}>
                             <Card.Img variant="top"
                                 src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`} />
@@ -87,12 +87,13 @@ function Favorite() {
                                 </div>
                                 <Accordion >
                                     <Accordion.Item eventKey="0" key={player.personId}>
-                                        <Accordion.Header>Notes</Accordion.Header>
+                                        <Accordion.Header>Player Characteristics: </Accordion.Header>
                                         <Accordion.Body>
                                             {player.notes}
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
+                                <br />
                                 <Link to={`${player.personId}`} >
                                     <Button>Details</Button>
                                 </Link>

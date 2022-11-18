@@ -12,7 +12,6 @@ const cors = require('cors')
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
-const users = require("./usersDB"); // mock DB to test login
 
 const authToken = require("./authToken")
 
@@ -31,14 +30,20 @@ app.get('/', (req, res) => {
 
 app.get('/api/', async (req, res) => {
     try {
-        await fetch('https://nba-latest-news.p.rapidapi.com/news/source/espn', {
+        const news = await fetch('https://nba-latest-news.p.rapidapi.com/news/source/espn', {
             headers: {
                 'X-RapidAPI-Key': '38850b2764mshee7a6652b1706b6p11e2e0jsnafce3b9c28e6',
                 'X-RapidAPI-Host': 'nba-latest-news.p.rapidapi.com'
             }
         })
             .then((fetchedData) => fetchedData.json())
-            .then(data => res.send(data))
+        try {
+            const matches = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json')
+                .then((fetchedData) => fetchedData.json())
+            res.send({ news: news, matches: matches })
+        } catch (err) {
+            console.log(err)
+        }
     } catch (err) {
         console.log(err)
     }
@@ -132,7 +137,8 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
                     .join('fav_players', 'notes.fav_player_id', '=', 'fav_players.id')
                     .select({
                         note_content: "note_content",
-                        created_at: "created_at"
+                        created_at: "created_at",
+                        id: "notes.id"
                     })
                     .where('player_id', playerId)
                     .where('user_id', user_id)
@@ -184,6 +190,18 @@ app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) =>
     } catch (err) {
         console.log(err)
     }
+})
+
+app.delete('/api/myplayers/:playerId/:user_id/delete/:noteId', authToken, async (req, res) => {
+    const noteId = req.params.noteId
+    try {
+        await knex('notes')
+            .where('notes.id', noteId).del()
+            .then(() => console.log('note deleted'))
+    } catch (error) {
+        console.error(error)
+    }
+
 })
 
 app.post('/api/signup/',
@@ -257,7 +275,7 @@ app.post('/api/login/', async (req, res) => {
         { email },
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: "120m",
+            expiresIn: "20m",
         }
     );
 

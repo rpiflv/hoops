@@ -10,10 +10,10 @@ const authToken = async (req, res, next) => {
 
     try {
         const user = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET)
-        req.user = user.username;
+        req.user = user.email;
         next();
     } catch (err) {
-        res.send("Token not correct")
+        res.status(403).send("Token not correct")
     }
 }
 
