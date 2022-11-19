@@ -11,7 +11,6 @@ import Favorite from "./components/Favorite";
 import PlayerProfile from "./components/PlayerProfile";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
-import axios from "axios";
 
 function App() {
 
@@ -20,15 +19,12 @@ function App() {
 
   useEffect(() => {
     const user = authService.getCurrentUser();
-    // console.log(user)
     if (user) {
       setUser(user)
     }
   }, [])
 
-  // axios.interceptors.response.use((response) => {
-  //   if (response) console.log("response:", response)
-  // })
+
 
   return (
     <>
