@@ -1,10 +1,7 @@
 
 # __Hoops!__
 
-## What it isDATABASE_PWD=[pasword of your local database]
-NODE_ENV=development
-ACCESS_TOKEN_SECRET=[any random value]
-
+## What it is
 This application let you browse NBA Teams and Players, pick your favorite players, and add your notes to it.
 
 ## How it works
