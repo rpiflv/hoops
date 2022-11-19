@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { Col, Container } from "react-bootstrap";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -28,16 +29,17 @@ function Teams(props) {
             <br />
             <h2>Teams</h2>
             <ListGroup>
-                {teams.map((team) => (
-                    team.isNBAFranchise &&
-                    <ListGroup.Item key={team.teamId} >
-                        <div >
-                            <Link to={`${team.teamId}`} > {team.fullName}</Link>
-                        </div>
-                    </ListGroup.Item>
+                <Container >
+                    {teams.map((team) => (
+                        team.isNBAFranchise &&
+                        <ListGroup.Item key={team.teamId} >
+                            <div >
+                                <Link to={`${team.teamId}`} > {team.fullName}</Link>
+                            </div>
+                        </ListGroup.Item>
 
-                ))}
-
+                    ))}
+                </Container>
             </ListGroup>
         </>
     )

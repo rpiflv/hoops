@@ -76,8 +76,8 @@ function Home() {
 
                     {todaysMatches.length > 0 ?
 
-                        todaysMatches.map((match) =>
-                            <Card style={{ width: '33%' }} className="text-center">
+                        todaysMatches.map((match, index) =>
+                            <Card style={{ width: '33%' }} className="text-center" key={index}>
                                 <Card.Body>
                                     <Card.Header>
                                         <strong>{match.awayTeam.teamTricode}</strong > <i>vs</i> <strong>{match.homeTeam.teamTricode}</strong >

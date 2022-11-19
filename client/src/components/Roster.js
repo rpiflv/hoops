@@ -7,6 +7,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 
 
+
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Roster() {
@@ -15,7 +16,8 @@ function Roster() {
     const { teamId } = useParams()
 
     const userData = JSON.parse(localStorage.getItem('user'))
-    const user_id = userData.user_id
+    const user_id = userData?.user_id;
+
 
     const getRoster = async (teamId) => {
         try {
@@ -34,6 +36,7 @@ function Roster() {
 
     const addToFav = (playerId) => {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId })
+        navigate('/myplayers')
     }
 
     const navigate = useNavigate();
@@ -60,9 +63,11 @@ function Roster() {
                             </Card.Body>
                             <Card.Footer >
                                 <Button onClick={() => {
-                                    console.log(player.personId)
-                                    addToFav(player.personId);
-                                    navigate('/myplayers')
+                                    {
+                                        user_id ?
+                                            addToFav(player.personId)
+                                            : navigate('/login')
+                                    }
                                 }}>Add to favorite</Button>
                             </Card.Footer>
                         </Card>
