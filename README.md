@@ -17,11 +17,13 @@ The fronend has been created with React, and Reacr-Bootstrap for a better stylin
 ## How to run it
 First, create a .env file in the root directory where you will add the following environment varialbles:
 
+PORT=[port number]
+
 DATABASE_NAME=[your local database name]
 
 DATABASE_USER=[username of your local database] * Windows only
 
-DATABASE_PWD=[pasword of your local database]
+DATABASE_PWD=[password of your local database]
 
 NODE_ENV=development
 
