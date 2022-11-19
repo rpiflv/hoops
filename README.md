@@ -1,6 +1,10 @@
+
 # __Hoops!__
 
-## What it is
+## What it isDATABASE_PWD=[pasword of your local database]
+NODE_ENV=development
+ACCESS_TOKEN_SECRET=[any random value]
+
 This application let you browse NBA Teams and Players, pick your favorite players, and add your notes to it.
 
 ## How it works
@@ -14,14 +18,31 @@ The fronend has been created with React, and Reacr-Bootstrap for a better stylin
 
 
 ## How to run it
-To run the application locally, enter the following commands:
+First, create a .env file in the root directory where you will add the following environment varialbles:
+
+DATABASE_NAME=[your local database name]
+
+DATABASE_USER=[username of your local database] * Windows only
+
+DATABASE_PWD=[pasword of your local database]
+
+NODE_ENV=development
+
+ACCESS_TOKEN_SECRET=[any random value]
+
+Make sure that you have installed PostgreSQL14^ in your machine, then run the application locally, by entering the following commands:
 
 > `npm init`
+
 > `npm install`
+
 > `npm run migrate`
+
 > `npm start`
-open another therminal
+
+open another terminal
 > `cd client`
+
 > `npm start`
 
 ## I cannot run it locally! ##
