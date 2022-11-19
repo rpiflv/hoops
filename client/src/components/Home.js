@@ -3,6 +3,8 @@ import ListGroup from 'react-bootstrap/ListGroup';
 import axios from "axios";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import { MDBSwitch } from 'mdb-react-ui-kit';
+import '../App.css';
+
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
@@ -51,22 +53,26 @@ function Home() {
         <>
             <h1>Last News</h1>
             <br />
-            <ListGroup>
-                {lastNews &&
-                    lastNews.map((news, index) => (
-                        <ListGroup.Item key={index} >
-                            <a href={news.url}>
-                                <div>
-                                    {news.title}
-                                </div>
-                            </a>
-                        </ListGroup.Item>
-                    ))
-                }
-            </ListGroup>
+            <Container>
+                <Col md='auto'>
+                    <ListGroup >
+                        {lastNews &&
+                            lastNews.map((news, index) => (
+                                <ListGroup.Item key={index} className="box" >
+                                    <a href={news.url}>
+                                        <div>
+                                            {news.title}
+                                        </div>
+                                    </a>
+                                </ListGroup.Item>
+                            ))
+                        }
+                    </ListGroup>
+                </Col>
+            </Container>
             <br />
-            <h2>Today's matches</h2>
-            <Col md={{ span: 2, offset: 10 }}>
+            <h2>Today's NBA matches</h2>
+            <Col md={{ span: 2, offset: 9 }}>
                 <MDBSwitch id='flexSwitchCheckDefault' label='show score' labelStyle={{ color: 'blue' }} onClick={toggleScore} />
             </Col>
 
@@ -77,7 +83,7 @@ function Home() {
                     {todaysMatches.length > 0 ?
 
                         todaysMatches.map((match, index) =>
-                            <Card style={{ width: '33%' }} className="text-center" key={index}>
+                            <Card style={{ width: '28%', margin: "5px" }} className="text-center box" key={index}>
                                 <Card.Body>
                                     <Card.Header>
                                         <strong>{match.awayTeam.teamTricode}</strong > <i>vs</i> <strong>{match.homeTeam.teamTricode}</strong >

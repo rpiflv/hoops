@@ -31,7 +31,7 @@ function NavMenu(props) {
                     </Navbar.Brand>
                     <Nav className="me-auto">
                         <LinkContainer to="/teams">
-                            <Nav.Link >Teams</Nav.Link>
+                            <Nav.Link >NBA Teams</Nav.Link>
                         </LinkContainer>
                     </Nav>
                     {user &&

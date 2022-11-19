@@ -9,3 +9,8 @@ body {
   background-size: auto;
   background-color: #eef6e0;
 }
+
+.box {
+  background-color: rgba(255, 254, 254, 0.6);
+  color: rgb(0, 0, 0);
+}

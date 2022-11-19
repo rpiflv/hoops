@@ -69,6 +69,7 @@ function PlayerProfile() {
             await axios.post(BASE_URL + `/api/myplayers/${playerId}/${user_id}/edit`,
                 { notes }, { headers: authHeader() }
             ).then(() => getPlayerExtraNotes(playerId))
+
         } catch (error) {
             console.error(error)
         }
@@ -84,9 +85,14 @@ function PlayerProfile() {
                 { extraNote }, { headers: authHeader() }
             )
                 .then(getPlayerExtraNotes(playerId))
+
         } catch (error) {
             console.error(error)
         }
+    }
+
+    const clearInput = () => {
+        setExtraNote('')
     }
 
     const removeNote = async (noteId) => {
@@ -122,7 +128,7 @@ function PlayerProfile() {
                         <Form className="mb-3">
                             <Form.Control value={notes} onChange={editNote} className="resizedTextbox" />
                             <Button variant="primary" onClick={sendNote} >
-                                Edit
+                                Save
                             </Button>
                         </Form>
                         <br />
@@ -130,8 +136,8 @@ function PlayerProfile() {
                         {extraNotes && extraNotes.map(note =>
                             <ListGroup variant="flush">
                                 <ListGroup.Item key={note.id}>
-                                    {moment(note.created_at).format('MMMM Do YYYY, h:mm:ss a')} <br />
-                                    {note.note_content} <br />
+                                    <small>{moment(note.created_at).format('MMMM Do YYYY, h:mm:ss a')}</small><br />
+                                    <h6>{note.note_content}</h6>
                                     <Button variant="secondary" size="sm" className="mb-50" onClick={() => removeNote(note.id)}>
                                         X
                                     </Button>
@@ -142,7 +148,7 @@ function PlayerProfile() {
                         <br />
                         <Form className="mb-3">
                             <Form.Control value={extraNote} onChange={editExtraNote} className="resizedTextbox" />
-                            <Button variant="primary" onClick={sendExtraNote} >
+                            <Button variant="primary" onClick={() => { sendExtraNote(); clearInput() }} >
                                 Add
                             </Button>
                         </Form>
