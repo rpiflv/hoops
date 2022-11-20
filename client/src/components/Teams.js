@@ -17,6 +17,7 @@ function Teams(props) {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
             setTeams(teams.data)
+            console.log(teams.data)
         } catch (error) {
             console.error(error)
         }
@@ -30,14 +31,25 @@ function Teams(props) {
         <>
 
             <br />
-            <h2>Teams</h2>
             <ListGroup>
                 <Container >
                     <Row className="justify-content-md-center">
 
                         <Col sm={4}>
+                        <h3>West Conf.</h3>
                             {teams.map((team) => (
-                                team.isNBAFranchise &&
+                                team.isNBAFranchise && team.confName === "West" &&
+                                <ListGroup.Item key={team.teamId} className={"box"} >
+                                    <div >
+                                        <Link to={`${team.teamId}`}> {team.fullName}</Link>
+                                    </div>
+                                </ListGroup.Item>
+
+                            ))}
+                        </Col><Col sm={4}>
+                            <h3>East Conf.</h3>
+                            {teams.map((team) => (
+                                team.isNBAFranchise && team.confName === "East" &&
                                 <ListGroup.Item key={team.teamId} className={"box"} >
                                     <div >
                                         <Link to={`${team.teamId}`}> {team.fullName}</Link>
