@@ -29,6 +29,11 @@ NODE_ENV=development
 
 ACCESS_TOKEN_SECRET=[any random value]
 
+Then you have to create a second `.env` file in the `client` folder, and add the following varialble:
+
+REACT_APP_BASE_URL=http://localhost:5050
+*make sure you use the same `PORT` number specified in the previous `.env` file .
+
 Make sure that you have installed PostgreSQL14^ in your machine, then run the application locally, by entering the following commands:
 
 > `npm init`
