@@ -13,8 +13,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 function Teams(props) {
 
     const { teams, setTeams } = props;
-    const [logoSrc, setLogoSrc] = useState('')
-
     const getAllTeams = async () => {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
@@ -27,16 +25,6 @@ function Teams(props) {
     useEffect(() => {
         getAllTeams()
     }, [])
-
-    // const getLogoSrc = (id) => {
-    //     const logo = logos.find(logo => logo.apiId = id)
-    //     console.log(logo)
-    //     // setLogoSrc(logo.src)
-    // }
-
-    // useEffect((id) => {
-    //     getLogoSrc(id)
-    // }, [])
 
     return (
         <>
