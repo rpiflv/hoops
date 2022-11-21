@@ -18,8 +18,8 @@ const Login = () => {
             await authService.login(email, pwd)
                 .then((response) => {
                     console.log(response)
-                    // navigate('/');
-                    // window.location.reload();
+                    navigate('/');
+                    window.location.reload();
                 })
         } catch (err) {
             console.log(err)
