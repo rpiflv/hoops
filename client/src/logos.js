@@ -15,7 +15,7 @@ const logos = [
         apiId: 1610612737
     },
     {
-        logoID: 3422,
+        logoID: "https://www.thesportsdb.com/images/media/team/badge/4j85bn1667936589.png",
         team: "Boston Celtics",
         apiId: 1610612738
     },
@@ -55,22 +55,22 @@ const logos = [
         apiId: 1610612757
     },
     {
-        url: 3411,
+        url: "https://www.thesportsdb.com/images/media/team/badge/yqrxrs1420568796.png",
         team: "Dallas Mavericks",
         apiId: 1610612742
     },
     {
-        logoID: 3418,
+        logoID: "https://www.thesportsdb.com/images/media/team/badge/xpswpq1422575434.png",
         team: "Oklahoma City Thunder",
         apiId: 1610612760
     },
     {
-        logoID: 3417,
+        logoID: "https://www.thesportsdb.com/images/media/team/badge/8o8j5k1546016274.png",
         team: "Denver Nuggets",
         apiId: 1610612743
     },
     {
-        logoID: 3409,
+        logoID: "https://www.thesportsdb.com/images/media/team/badge/yk7swg1547214677.png",
         team: "Chicago Bulls",
         apiId: 1610612741
     },
@@ -80,7 +80,7 @@ const logos = [
         apiId: 1610612750
     },
     {
-        logoID: 5539,
+        logoID: "https://www.thesportsdb.com/images/media/team/badge/f341s31523700397.png",
         team: "New Orleans Pelicans",
         apiId: 1610612740
     },
@@ -120,7 +120,7 @@ const logos = [
         apiId: 1610612764
     },
     {
-        logoID: 3410,
+        logoID: "https://www.thesportsdb.com/images/media/team/badge/olhug01621594702.png",
         team: "Milwaukee Bucks",
         apiId: 1610612749
     },
@@ -130,7 +130,7 @@ const logos = [
         apiId: 1610612753
     },
     {
-        logoID: 3427,
+        logoID: "https://www.thesportsdb.com/images/media/team/badge/spa6c11621594682.png",
         team: "Los Angeles Lakers",
         apiId: 1610612747
     },
