@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
 import Button from 'react-bootstrap/Button';
@@ -16,9 +16,10 @@ const Login = () => {
 
         try {
             await authService.login(email, pwd)
-                .then(() => {
-                    navigate('/');
-                    window.location.reload();
+                .then((response) => {
+                    console.log(response)
+                    // navigate('/');
+                    // window.location.reload();
                 })
         } catch (err) {
             console.log(err)

@@ -20,7 +20,7 @@ const signup = (email, password, username) => {
         });
 };
 
-const login = (email, password) => {
+const login = async (email, password) => {
     // console.log(email, password)
     return axios
         .post(BASE_URL + "/api/login", {
@@ -28,7 +28,7 @@ const login = (email, password) => {
             password,
         })
         .then((response) => {
-            console.log(response)
+            // console.log(response)
             if (response.data.accessToken) {
                 console.log(response.data)
                 localStorage.setItem("user", JSON.stringify(response.data));

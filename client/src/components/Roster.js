@@ -1,13 +1,11 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import { Routes, Route, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import logos from "../logos";
-
-
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -26,7 +24,6 @@ function Roster() {
             const teams = await axios.get(BASE_URL + '/api/teams')
             const team = teams.data.find(team => team.teamId === teamId)
             setTeamName(team.fullName)
-            console.log(team)
         } catch (error) {
             console.error(error)
         }
@@ -66,7 +63,6 @@ function Roster() {
             <br />
             <Container>
                 <Row className="justify-content-md-center">
-
                     {roster.map((player, index) =>
                         <Card style={{ width: '20%' }} key={index}>
                             <Card.Img variant="top"
@@ -76,9 +72,9 @@ function Roster() {
                                     {player.firstName} {player.lastName}
                                 </Card.Title>
                                 <Card.Text>
-                                    <p>Position: {player.teamSitesOnly.posFull}</p>
-                                    <p>Height: {player.heightFeet}-{player.heightInches}</p>
-                                    <p>Weight: {player.weightPounds}</p>
+                                    Position: {player.teamSitesOnly.posFull}<br />
+                                    Height: {player.heightFeet}-{player.heightInches}<br />
+                                    Weight: {player.weightPounds}<br />
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer >
@@ -97,7 +93,6 @@ function Roster() {
             </Container>
         </>
     )
-
 }
 
 export default Roster;
