@@ -28,15 +28,15 @@ function Teams(props) {
         getAllTeams()
     }, [])
 
-    const getLogoSrc = (id) => {
-        const logo = logos.find(logo => logo.apiId = id)
-        console.log(logo)
-        // setLogoSrc(logo.src)
-    }
+    // const getLogoSrc = (id) => {
+    //     const logo = logos.find(logo => logo.apiId = id)
+    //     console.log(logo)
+    //     // setLogoSrc(logo.src)
+    // }
 
-    useEffect((id) => {
-        getLogoSrc(id)
-    }, [])
+    // useEffect((id) => {
+    //     getLogoSrc(id)
+    // }, [])
 
     return (
         <>
@@ -52,15 +52,12 @@ function Teams(props) {
                                 team.isNBAFranchise && team.confName === "West" &&
                                 <ListGroup.Item key={team.teamId} className={"box"} >
                                     <div >
-
+                                        <img src={logos[`${team.teamId}`]} style={{ width: "35px" }} />
                                         <Link to={`${team.teamId}`}> {team.fullName}
-
-                                            <img src={getLogoSrc(team.teamId)} />
                                         </Link>
 
                                     </div>
                                 </ListGroup.Item>
-
                             ))}
                         </Col><Col sm={4}>
                             <h3>East Conf.</h3>
@@ -68,7 +65,11 @@ function Teams(props) {
                                 team.isNBAFranchise && team.confName === "East" &&
                                 <ListGroup.Item key={team.teamId} className={"box"} >
                                     <div >
-                                        <Link to={`${team.teamId}`}> {team.fullName}</Link>
+                                        <img src={logos[`${team.teamId}`]} style={{ width: "35px" }} />
+                                        <Link to={`${team.teamId}`}> {team.fullName}
+
+
+                                        </Link>
                                     </div>
                                 </ListGroup.Item>
 
