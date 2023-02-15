@@ -3,7 +3,7 @@ import { Container, Navbar } from 'react-bootstrap';
 import { LinkContainer } from 'react-router-bootstrap';
 import authService from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
-
+import "../App.css"
 
 import Nav from 'react-bootstrap/Nav';
 import { Link } from "react-router-dom";
@@ -22,7 +22,7 @@ function NavMenu(props) {
     }
     return (
         <>
-            <Navbar expand="lg" bg="light" variant="light" sticky="top">
+            <Navbar expand="lg" bg="light" variant="light" sticky="top" className="navbarGrad">
                 <Container>
                     <Navbar.Brand >
                         <Link to="/">

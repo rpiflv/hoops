@@ -1,3 +1,5 @@
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
+
 const fetch = (...args) =>
     import("node-fetch").then(({ default: fetch }) => fetch(...args));
 require('dotenv').config({ path: './.env' })
@@ -32,7 +34,7 @@ app.get('/api/', async (req, res) => {
     try {
         const news = await fetch('https://nba-latest-news.p.rapidapi.com/news/source/espn', {
             headers: {
-                'X-RapidAPI-Key': '38850b2764mshee7a6652b1706b6p11e2e0jsnafce3b9c28e6',
+                'X-RapidAPI-Key': RAPIDAPI_KEY,
                 'X-RapidAPI-Host': 'nba-latest-news.p.rapidapi.com'
             }
         })

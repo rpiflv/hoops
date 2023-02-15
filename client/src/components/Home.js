@@ -19,6 +19,7 @@ function Home() {
     const getNews = async () => {
         try {
             const fetchedData = await axios.get(BASE_URL + '/api/')
+            console.log(fetchedData.data.news)
             setLastNews(fetchedData.data.news)
         } catch (error) {
             console.log(error)
@@ -57,7 +58,7 @@ function Home() {
                 <Col md='auto'>
                     <ListGroup >
                         {lastNews &&
-                            lastNews.map((news, index) => (
+                            lastNews?.map((news, index) => (
                                 <ListGroup.Item key={index} className="box" >
                                     <a href={news.url}>
                                         <div>
