@@ -19,22 +19,21 @@ function Roster() {
     const userData = JSON.parse(localStorage.getItem('user'))
     const user_id = userData?.user_id;
 
-    const getTeamsName = async (teamId) => {
-        try {
-            const teams = await axios.get(BASE_URL + '/api/teams')
-            const team = teams.data.find(team => team.teamId === teamId)
-            setTeamName(team.fullName)
-        } catch (error) {
-            console.error(error)
-        }
-    }
-
+    // const getTeamsName = async (teamId) => {
+    //     try {
+    //         const teams = await axios.get(BASE_URL + '/api/teams')
+    //         const team = teams.data.find(team => team.teamId === teamId)
+    //         setTeamName(team.fullName)
+    //     } catch (error) {
+    //         console.error(error)
+    //     }
+    // }
+    console.log(teamId)
     const getRoster = async (teamId) => {
         try {
             const data = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
-            let players = data.data.league.standard
-            const filteredPlayers = players.filter(player => player.teamId === teamId)
-            setRoster(filteredPlayers)
+            console.log(data)
+            setRoster(data)
         } catch (error) {
             console.error(error)
         }
@@ -44,9 +43,9 @@ function Roster() {
         getRoster(teamId)
     }, [])
 
-    useEffect(() => {
-        getTeamsName(teamId)
-    }, [])
+    // useEffect(() => {
+    //     getTeamsName(teamId)
+    // }, [])
 
     const addToFav = (playerId) => {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId })

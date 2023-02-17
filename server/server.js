@@ -53,18 +53,6 @@ app.get('/api/', async (req, res) => {
 })
 
 app.get('/api/teams', (req, res) => {
-    // const teams = fetch("https://v1.basketball.api-sports.io/teams?id=139", {
-    //     "method": "GET",
-    //     "headers": {
-    //         "x-rapidapi-host": "v1.basketball.api-sports.io",
-    //         "x-rapidapi-key": KEY
-    //     }
-    // })
-    //     .then((res) => res.json())
-    //     .then((data) => res.send(data))
-    //     .catch(err => {
-    //         console.log(err);
-    //     });
 
     fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {
         "method": "GET",
@@ -81,17 +69,19 @@ app.get('/api/teams', (req, res) => {
 
 })
 
-app.get('/api/teams/:teamId', async (req, res) => {
-    try {
-        await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-            .then((fetchedData) => fetchedData.json())
-            .then(data => {
-                res.send(data)
-            }
-            )
-    } catch (error) {
-        console.error(error)
-    }
+app.get('/api/teams/:teamId', (req, res) => {
+    fetch(`https://v2.nba.api-sports.io/players?season=2022&team=${req.params.teamId}`, {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
+            "x-rapidapi-key": KEY
+        }
+    })
+        .then((fetchedData) => fetchedData.json())
+        .then(data => {
+            res.send(data)
+        }
+        )
 })
 
 app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
