@@ -9,6 +9,7 @@ const express = require('express');
 const app = express();
 require('dotenv').config({ path: './.env' })
 
+const KEY = process.env.APISPORT_KEY || 'ciao';
 const cors = require('cors')
 
 const { check, validationResult } = require("express-validator");
@@ -51,14 +52,33 @@ app.get('/api/', async (req, res) => {
     }
 })
 
-app.get('/api/teams', async (req, res) => {
-    try {
-        await fetch('https://data.nba.net/data/10s/prod/v1/2022/teams.json')
-            .then((fetchedData) => fetchedData.json())
-            .then(data => res.send(data.league.standard))
-    } catch (error) {
-        console.error(error)
-    }
+app.get('/api/teams', (req, res) => {
+    // const teams = fetch("https://v1.basketball.api-sports.io/teams?id=139", {
+    //     "method": "GET",
+    //     "headers": {
+    //         "x-rapidapi-host": "v1.basketball.api-sports.io",
+    //         "x-rapidapi-key": KEY
+    //     }
+    // })
+    //     .then((res) => res.json())
+    //     .then((data) => res.send(data))
+    //     .catch(err => {
+    //         console.log(err);
+    //     });
+
+    fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {
+        "method": "GET",
+        "headers": {
+            "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
+            "x-rapidapi-key": KEY
+        }
+    })
+        .then((res) => res.json())
+        .then((data) => res.send(data))
+        .catch(err => {
+            console.log(err);
+        });
+
 })
 
 app.get('/api/teams/:teamId', async (req, res) => {

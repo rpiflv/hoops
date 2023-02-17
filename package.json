@@ -20,6 +20,9 @@
   },
   "homepage": "https://github.com/rpiflv/hoops#readme",
   "dependencies": {
+    "@emotion/react": "^11.10.6",
+    "@emotion/styled": "^11.10.6",
+    "@mui/material": "^5.11.9",
     "axios": "^1.1.3",
     "bcrypt": "^5.1.0",
     "bootstrap": "^5.2.2",

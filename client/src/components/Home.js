@@ -16,15 +16,15 @@ function Home() {
     const [todaysMatches, setTodaysMatches] = useState([])
     const [showScore, setShowScore] = useState(true)
 
-    const getNews = async () => {
-        try {
-            const fetchedData = await axios.get(BASE_URL + '/api/')
-            console.log(fetchedData.data.news)
-            setLastNews(fetchedData.data.news)
-        } catch (error) {
-            console.log(error)
-        }
-    }
+    // const getNews = async () => {
+    //     try {
+    //         const fetchedData = await axios.get(BASE_URL + '/api/')
+    //         console.log(fetchedData.data.news)
+    //         setLastNews(fetchedData.data.news)
+    //     } catch (error) {
+    //         console.log(error)
+    //     }
+    // }
     const getMatches = async () => {
         try {
             const fetchedData = await axios.get(BASE_URL + '/api/')
@@ -34,9 +34,9 @@ function Home() {
         }
     }
 
-    useEffect(() => {
-        getNews()
-    }, [])
+    // useEffect(() => {
+    //     getNews()
+    // }, [])
 
     useEffect(() => {
         getMatches()
@@ -54,7 +54,7 @@ function Home() {
         <>
             <h1>Last News</h1>
             <br />
-            <Container>
+            {/* <Container>
                 <Col md='auto'>
                     <ListGroup >
                         {lastNews &&
@@ -70,7 +70,7 @@ function Home() {
                         }
                     </ListGroup>
                 </Col>
-            </Container>
+            </Container> */}
             <br />
             <h2>Today's NBA matches</h2>
             <Col md={{ span: 2, offset: 9 }}>

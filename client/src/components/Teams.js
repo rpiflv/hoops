@@ -1,71 +1,77 @@
-import React, { useEffect } from "react";
-import ListGroup from 'react-bootstrap/ListGroup';
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
 import '../App.css';
-import logos from "../logos";
-
+import { Typography } from "@mui/material";
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Teams(props) {
-
     const { teams, setTeams } = props;
+    const [standings, setStandings] = useState([])
     const getAllTeams = async () => {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
-            setTeams(teams.data)
+            console.log(teams)
+            setStandings(teams.data)
         } catch (error) {
             console.error(error)
         }
     }
-
     useEffect(() => {
         getAllTeams()
+        console.log(standings)
     }, [])
 
     return (
         <>
-
             <br />
-            <ListGroup>
-                <Container >
-                    <Row className="justify-content-md-center">
-
-                        <Col sm={4}>
-                            <h3>West Conf.</h3>
-                            {teams.map((team) => (
-                                team.isNBAFranchise && team.confName === "West" &&
-                                <ListGroup.Item key={team.teamId} className={"box"} >
-                                    <div >
-                                        <img src={logos[`${team.teamId}`]} style={{ width: "35px" }} />
-                                        <Link to={`${team.teamId}`}> {team.fullName}
-                                        </Link>
-
+            {/* <ListGroup> */}
+            <Container className="justify-content-md-center">
+                <h3>Standings</h3>
+                <Row className="justify-content-md-center">
+                    {/* <Container style={{ width: "75%",  }}> */}
+                    <Col >
+                        <h3>Western Conference</h3>
+                        {standings.map((standing) => (
+                            standing.group.name === "Western Conference" &&
+                            <Container className="text-center">
+                                <Link to={`${standing.team.id}`}>
+                                    <img src={standing.team.logo} className={"auto"} />
+                                    <div>
+                                        {/* <Typography > */}
+                                        {standing.position}. {standing.team.name}
+                                        {/* </Typography> */}
                                     </div>
-                                </ListGroup.Item>
-                            ))}
-                        </Col><Col sm={4}>
-                            <h3>East Conf.</h3>
-                            {teams.map((team) => (
-                                team.isNBAFranchise && team.confName === "East" &&
-                                <ListGroup.Item key={team.teamId} className={"box"} >
-                                    <div >
-                                        <img src={logos[`${team.teamId}`]} style={{ width: "35px" }} />
-                                        <Link to={`${team.teamId}`}> {team.fullName}
+                                </Link>
 
+                            </Container>
+                        ))}
+                    </Col>
+                    <Col>
+                        <h3>Eastern Conference</h3>
+                        {standings.map((standing) => (
+                            standing.group.name === "Eastern Conference" &&
 
-                                        </Link>
+                            <Container className="text-center">
+                                <Link to={`${standing.team.id}`}>
+
+                                    <img src={standing.team.logo} className={"auto"} />
+                                    <div>
+                                        {standing.position}. {standing.team.name}
                                     </div>
-                                </ListGroup.Item>
+                                </Link>
 
-                            ))}
-                        </Col>
-                    </Row>
-                </Container>
-            </ListGroup>
+                            </Container>
+                        ))}
+
+                    </Col>
+                    {/* </Container> */}
+                </Row>
+            </Container>
+            {/* </ListGroup> */}
         </>
     )
 }
