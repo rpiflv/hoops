@@ -3,7 +3,6 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Col, Container, Row } from "react-bootstrap";
 import '../App.css';
-import { Typography } from "@mui/material";
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
@@ -15,7 +14,7 @@ function Teams(props) {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
             console.log(teams)
-            setStandings(teams.data)
+            setStandings(teams.data.response)
         } catch (error) {
             console.error(error)
         }
@@ -28,7 +27,7 @@ function Teams(props) {
     return (
         <>
             <br />
-            {/* <ListGroup> */}
+            {console.log(standings)}
             <Container className="justify-content-md-center">
                 <h3>Standings</h3>
                 <Row className="justify-content-md-center">
@@ -36,13 +35,13 @@ function Teams(props) {
                     <Col >
                         <h3>Western Conference</h3>
                         {standings.map((standing) => (
-                            standing.group.name === "Western Conference" &&
+                            standing.conference.name === "west" &&
                             <Container className="text-center">
                                 <Link to={`${standing.team.id}`}>
-                                    <img src={standing.team.logo} className={"auto"} />
+                                    <img src={standing.team.logo} className={"auto"} style={{ width: "50px" }} />
                                     <div>
                                         {/* <Typography > */}
-                                        {standing.position}. {standing.team.name}
+                                        {standing.team.name}
                                         {/* </Typography> */}
                                     </div>
                                 </Link>
@@ -53,14 +52,14 @@ function Teams(props) {
                     <Col>
                         <h3>Eastern Conference</h3>
                         {standings.map((standing) => (
-                            standing.group.name === "Eastern Conference" &&
+                            standing.conference.name === "east" &&
 
                             <Container className="text-center">
                                 <Link to={`${standing.team.id}`}>
 
-                                    <img src={standing.team.logo} className={"auto"} />
+                                    <img src={standing.team.logo} className={"auto"} style={{ width: "50px" }} />
                                     <div>
-                                        {standing.position}. {standing.team.name}
+                                        {standing.team.name}
                                     </div>
                                 </Link>
 
