@@ -53,7 +53,6 @@ app.get('/api/', async (req, res) => {
 })
 
 app.get('/api/teams', (req, res) => {
-
     fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {
         "method": "GET",
         "headers": {

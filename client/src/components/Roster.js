@@ -33,7 +33,7 @@ function Roster() {
         try {
             const data = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
             console.log(data)
-            setRoster(data)
+            setRoster(data.data.response)
         } catch (error) {
             console.error(error)
         }
@@ -58,7 +58,7 @@ function Roster() {
         <>
             <br />
             <img src={logos[`${teamId}`]} style={{ width: "150px" }} />
-            <h2>{teamName}'s Roster</h2>
+            {/* <h2>{teamName}'s Roster</h2> */}
             <br />
             <Container>
                 <Row className="justify-content-md-center">
@@ -71,9 +71,9 @@ function Roster() {
                                     {player.firstName} {player.lastName}
                                 </Card.Title>
                                 <Card.Text>
-                                    Position: {player.teamSitesOnly.posFull}<br />
-                                    Height: {player.heightFeet}-{player.heightInches}<br />
-                                    Weight: {player.weightPounds}<br />
+                                    Position: {player.leagues.standard.pos}<br />
+                                    Height: {player.height.meters}<br />
+                                    Weight: {player.weight.kilograms}<br />
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer >
