@@ -19,21 +19,22 @@ function Roster() {
     const userData = JSON.parse(localStorage.getItem('user'))
     const user_id = userData?.user_id;
 
-    // const getTeamsName = async (teamId) => {
-    //     try {
-    //         const teams = await axios.get(BASE_URL + '/api/teams')
-    //         const team = teams.data.find(team => team.teamId === teamId)
-    //         setTeamName(team.fullName)
-    //     } catch (error) {
-    //         console.error(error)
-    //     }
-    // }
+    const getTeamsName = async (teamId) => {
+        try {
+            const teams = await axios.get(BASE_URL + '/api/teams')
+            const team = teams.data.response.filter(teamData =>
+                teamData.team.id.toString() === teamId
+            )
+            setTeamName(team[0].team.name)
+        } catch (error) {
+            console.error(error)
+        }
+    }
     console.log(teamId)
     const getRoster = async (teamId) => {
         try {
-            const data = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
-            console.log(data)
-            setRoster(data.data.response)
+            const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
+            setRoster(response.data)
         } catch (error) {
             console.error(error)
         }
@@ -43,9 +44,9 @@ function Roster() {
         getRoster(teamId)
     }, [])
 
-    // useEffect(() => {
-    //     getTeamsName(teamId)
-    // }, [])
+    useEffect(() => {
+        getTeamsName(teamId)
+    }, [])
 
     const addToFav = (playerId) => {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId })
@@ -58,17 +59,17 @@ function Roster() {
         <>
             <br />
             <img src={logos[`${teamId}`]} style={{ width: "150px" }} />
-            {/* <h2>{teamName}'s Roster</h2> */}
+            <h2>{teamName}'s Roster</h2>
             <br />
             <Container>
                 <Row className="justify-content-md-center">
-                    {roster.map((player, index) =>
+                    {roster?.map((player, index) =>
                         <Card style={{ width: '20%' }} key={index}>
                             <Card.Img variant="top"
-                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`} alt="**** no img *****" />
+                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personID}.png`} alt="**** no img *****" />
                             <Card.Body>
                                 <Card.Title>
-                                    {player.firstName} {player.lastName}
+                                    {player.firstname} {player.lastname}
                                 </Card.Title>
                                 <Card.Text>
                                     Position: {player.leagues.standard.pos}<br />

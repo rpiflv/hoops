@@ -69,19 +69,40 @@ app.get('/api/teams', (req, res) => {
 })
 
 app.get('/api/teams/:teamId', (req, res) => {
-    fetch(`https://v2.nba.api-sports.io/players?season=2022&team=${req.params.teamId}`, {
+    const rosterInfo = fetch(`https://v2.nba.api-sports.io/players?season=2022&team=${req.params.teamId}`, {
         "method": "GET",
         "headers": {
             "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
             "x-rapidapi-key": KEY
         }
     })
+        .then((data) =>
+            data.json()
+        )
+
+    const playersList = fetch(`https://data.nba.net/data/10s/prod/v1/2022/players.json`)
         .then((fetchedData) => fetchedData.json())
-        .then(data => {
-            res.send(data)
+
+    Promise.all([rosterInfo, playersList])
+        .then(([rosterInfo, playersList]) => {
+            // console.log("✌️", rosterInfo)
+            // console.log("❤️", playerList.league.standard)
+            const rosterAPI = rosterInfo.response;
+            const playersJSON = playersList.league.standard
+            rosterAPI.map(playerAPI => {
+                playerAPI['personID'] = playersJSON.filter(playerJson => playerJson.lastName === playerAPI.lastname)[0].personId
+                console.log("❤️", playerAPI)
+            })
+            return rosterAPI
+        })
+        .then(roster => {
+            res.send(roster)
         }
         )
+
+    // playerImg = playerList['league']['standard'].map((player) => console.log(player))
 })
+
 
 app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
     const playerId = req.params.playerId;
