@@ -81,7 +81,7 @@ function Roster() {
                                 <Button onClick={() => {
                                     {
                                         user_id ?
-                                            addToFav(player.personId)
+                                            addToFav(player.personID)
                                             : navigate('/login')
                                     }
                                 }}>Add to favorite</Button>

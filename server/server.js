@@ -121,7 +121,6 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
 })
 app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
     const user_id = req.params.user_id
-    console.log("params:", user_id)
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
