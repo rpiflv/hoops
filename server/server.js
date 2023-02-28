@@ -90,8 +90,8 @@ app.get('/api/teams/:teamId', (req, res) => {
             const rosterAPI = rosterInfo.response;
             const playersJSON = playersList.league.standard
             rosterAPI.map(playerAPI => {
-                playerAPI['personID'] = playersJSON.filter(playerJson => playerJson.lastName === playerAPI.lastname)[0].personId
-                console.log("❤️", playerAPI)
+                playerAPI['personID'] = playersJSON.filter(playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname)[0].personId
+                // console.log("❤️", playerAPI)
             })
             return rosterAPI
         })
