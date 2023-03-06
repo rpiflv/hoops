@@ -15,7 +15,10 @@ body {
   color: rgb(0, 0, 0);
 }
 
-.navbarGrad {
-  background-image: linear-gradient(to right, rgb(0, 26, 255), rgba(239, 31, 31, 0.475));
-  font-family: sans-serif;
+.navBarBlack {
+background-color: rgba(20, 20, 20);
+}
+
+.navLink {
+  color: aliceblue;
 }
