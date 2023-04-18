@@ -8,9 +8,7 @@ import Row from 'react-bootstrap/Row';
 import logos from "../logos";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
-
 function Roster() {
-
     const [roster, setRoster] = useState([])
     const [teamName, setTeamName] = useState('')
 
@@ -30,10 +28,11 @@ function Roster() {
             console.error(error)
         }
     }
-    console.log(teamId)
+    // console.log(teamId)
     const getRoster = async (teamId) => {
         try {
             const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
+            console.log(response.data)
             setRoster(response.data)
         } catch (error) {
             console.error(error)

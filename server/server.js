@@ -85,13 +85,15 @@ app.get('/api/teams/:teamId', (req, res) => {
 
     Promise.all([rosterInfo, playersList])
         .then(([rosterInfo, playersList]) => {
-            // console.log("✌️", rosterInfo)
-            // console.log("❤️", playerList.league.standard)
+
             const rosterAPI = rosterInfo.response;
-            const playersJSON = playersList.league.standard
-            rosterAPI.map(playerAPI => {
-                playerAPI['personID'] = playersJSON.filter(playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname)[0].personId
-                // console.log("❤️", playerAPI)
+            const playersJSON = playersList.league.standard;
+
+            rosterAPI?.map(playerAPI => {
+                personID = playersJSON.filter(
+                    playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname
+                )
+                playerAPI['personID'] = personID[0]?.personId;
             })
             return rosterAPI
         })

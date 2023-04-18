@@ -26,37 +26,55 @@ function NavMenu(props) {
                 <Container>
                     <Navbar.Brand >
                         <Link to="/">
-                        <img src="./hoopsBlack.png" className="d-inline-block align-top" height={100}/>
+                            <img src="./hoopsBlack.png" className="d-inline-block align-top" height={100} />
 
                             {/* <img src="./hoopsLogoTransp.png" className="d-inline-block align-top" /> */}
                         </Link>
                     </Navbar.Brand>
-                    <Nav className="me-auto">
-                        <LinkContainer to="/teams">
-                            <Nav.Link bsPrefix="navLink">NBA Teams</Nav.Link>
-                        </LinkContainer>
-                    </Nav>
-                    {user &&
-                        <Nav>
-                            <LinkContainer to="/myplayers">
-                                <Nav.Link bsPrefix="navLink">My players</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="/">
-                                <Nav.Link onClick={logout}>Logout</Nav.Link>
-                            </LinkContainer>
-                        </Nav>
-                    }
-                    {!user &&
-                        <Nav>
-                            <LinkContainer to="login">
-                                <Nav.Link bsPrefix="navLink">Login</Nav.Link>
-                            </LinkContainer>
-                            <LinkContainer to="signup">
-                                <Nav.Link bsPrefix="navLink">Sign Up</Nav.Link>
-                            </LinkContainer>
-                        </Nav>
 
-                    }
+                    <ul className="nav">
+                        <li className="nav-item">
+
+                            <Nav className="me-auto">
+                                <LinkContainer to="/teams">
+                                    <Nav.Link bsPrefix="navLink" className="nav-item">NBA Teams</Nav.Link>
+                                </LinkContainer>
+                            </Nav>
+                        </li>
+                        {user &&
+                            <Nav>
+                                <li className="nav-item">
+
+                                    <LinkContainer to="/myplayers">
+                                        <Nav.Link bsPrefix="navLink">My players</Nav.Link>
+                                    </LinkContainer>
+                                </li>
+                                <li className="nav-item">
+                                    <LinkContainer to="/">
+                                        <Nav.Link onClick={logout}>Logout</Nav.Link>
+                                    </LinkContainer>
+                                </li>
+                            </Nav>
+                        }
+                        {!user &&
+                            <>
+                                <Nav>
+                                    <li className="nav-item">
+                                        <LinkContainer to="login">
+                                            <Nav.Link bsPrefix="navLink">Login</Nav.Link>
+                                        </LinkContainer>
+                                    </li>
+                                </Nav>
+                                <Nav>
+                                    <li className="nav-item">
+                                        <LinkContainer to="signup">
+                                            <Nav.Link bsPrefix="navLink">Sign Up</Nav.Link>
+                                        </LinkContainer>
+                                    </li>
+                                </Nav>
+                            </>
+                        }
+                    </ul>
                 </Container>
             </Navbar>
         </>
