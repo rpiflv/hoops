@@ -81,9 +81,9 @@ function Home() {
             <Container>
                 <Row className="justify-content-md-center">
 
-                    {todaysMatches.length > 0 ?
+                    {todaysMatches?.length > 0 ?
 
-                        todaysMatches.map((match, index) =>
+                        todaysMatches?.map((match, index) =>
                             <Card style={{ width: '28%', margin: "5px" }} className="text-center box" key={index}>
                                 <Card.Body>
                                     <Card.Header>

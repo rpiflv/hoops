@@ -35,7 +35,7 @@ function Favorite() {
                     const favsPlayersNotes = fetchedData.data.favPlayers;
                     const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId)
                     const favPlayersInfo = []
-                    favPlayersID.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)))
+                    favPlayersID?.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)))
                     setMyFavsInfo(favPlayersInfo)
                     setMyFavsNotes(favsPlayersNotes)
                     const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }))

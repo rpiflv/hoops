@@ -1,12 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { Container, Navbar } from 'react-bootstrap';
-import { LinkContainer } from 'react-router-bootstrap';
+import Navbar from 'react-bootstrap/Navbar';
 import authService from "../services/auth.service";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import "../App.css"
 
 import Nav from 'react-bootstrap/Nav';
-import { Link } from "react-router-dom";
+
 
 
 
@@ -15,69 +14,43 @@ function NavMenu(props) {
     const navigate = useNavigate()
     const { user } = props
 
+    // const history = useHistory()
+
     const logout = () => {
         authService.logout();
         navigate('/')
         window.location.reload()
     }
     return (
-        <>
-            <Navbar expand="lg" sticky="top" className="navBarBlack">
-                <Container>
-                    <Navbar.Brand >
-                        <Link to="/">
-                            <img src="./hoopsBlack.png" className="d-inline-block align-top" height={100} />
 
-                            {/* <img src="./hoopsLogoTransp.png" className="d-inline-block align-top" /> */}
-                        </Link>
-                    </Navbar.Brand>
+        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+            <Navbar.Brand as={Link} to="/" className="mx-3">
+                <img src="./hoopsBlack.png" className="d-inline-block align-top" height={100} />
+            </Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="d-flex">
+                    <Nav.Link as={Link} to="/teams" className="">NBA Teams</Nav.Link>
+                </Nav>
+                <Nav className="d-flex ms-auto">
+                    {!user &&
+                        <>
+                            <Nav.Link as={Link} to={"login"} className="ms-auto">Login</Nav.Link>
+                            <Nav.Link as={Link} to={"signup"} className="">Sign Up</Nav.Link>
+                        </>
+                    }
+                    {user &&
+                        <>
+                            <Nav.Link as={Link} to={"myplayers"} className="ms-auto">My Players</Nav.Link>
+                            <Nav.Link as={Link} to={"/"} >Logout</Nav.Link>
+                        </>
 
-                    <ul className="nav">
-                        <li className="nav-item">
+                    }
 
-                            <Nav className="me-auto">
-                                <LinkContainer to="/teams">
-                                    <Nav.Link bsPrefix="navLink" className="nav-item">NBA Teams</Nav.Link>
-                                </LinkContainer>
-                            </Nav>
-                        </li>
-                        {user &&
-                            <Nav>
-                                <li className="nav-item">
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>
 
-                                    <LinkContainer to="/myplayers">
-                                        <Nav.Link bsPrefix="navLink">My players</Nav.Link>
-                                    </LinkContainer>
-                                </li>
-                                <li className="nav-item">
-                                    <LinkContainer to="/">
-                                        <Nav.Link onClick={logout}>Logout</Nav.Link>
-                                    </LinkContainer>
-                                </li>
-                            </Nav>
-                        }
-                        {!user &&
-                            <>
-                                <Nav>
-                                    <li className="nav-item">
-                                        <LinkContainer to="login">
-                                            <Nav.Link bsPrefix="navLink">Login</Nav.Link>
-                                        </LinkContainer>
-                                    </li>
-                                </Nav>
-                                <Nav>
-                                    <li className="nav-item">
-                                        <LinkContainer to="signup">
-                                            <Nav.Link bsPrefix="navLink">Sign Up</Nav.Link>
-                                        </LinkContainer>
-                                    </li>
-                                </Nav>
-                            </>
-                        }
-                    </ul>
-                </Container>
-            </Navbar>
-        </>
     )
 }
 
