@@ -1,19 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
-import { Col, Container, Row } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import '../App.css';
 
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Teams(props) {
-    const { teams, setTeams } = props;
+    // const { teams, setTeams } = props;
     const [standings, setStandings] = useState([])
     const getAllTeams = async () => {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
-            console.log(teams)
+            // console.log(teams)
             setStandings(teams.data.response)
         } catch (error) {
             console.error(error)
@@ -27,50 +27,49 @@ function Teams(props) {
     return (
         <>
             <br />
-            {console.log(standings)}
-            <Container className="justify-content-md-center">
-                <h3>Standings</h3>
-                <Row className="justify-content-md-center">
-                    {/* <Container style={{ width: "75%",  }}> */}
+
+            <Container >
+                <h3>Teams</h3>
+                <Row >
                     <Col >
                         <h3>Western Conference</h3>
+                        <div className="d-flex flex-column">
                         {standings.map((standing) => (
                             standing.conference.name === "west" &&
-                            <Container className="text-center">
-                                <Link to={`${standing.team.id}`}>
-                                    <img src={standing.team.logo} className={"auto"} style={{ width: "50px" }} />
-                                    <div>
-                                        {/* <Typography > */}
-                                        {standing.team.name}
-                                        {/* </Typography> */}
+                            <Card key={standing.team.id} border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
+                                <Link to={`${standing.team.id}`} style={{textDecoration: "none"}}>
+                                    <Card.Img src={standing.team.logo} variant="top" style={{ height: "5rem", width:"auto" }} />
+                                    <div className="visibility" style={{color:"black"}}>
+                                        {standing.team.name} <br/>
+                                        {standing.conference.win} - {standing.conference.loss}
                                     </div>
                                 </Link>
 
-                            </Container>
+                            </Card>
                         ))}
+                        </div>
                     </Col>
                     <Col>
                         <h3>Eastern Conference</h3>
+                        <div className="d-flex flex-column">
                         {standings.map((standing) => (
                             standing.conference.name === "east" &&
+                            <Card border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
 
-                            <Container className="text-center">
-                                <Link to={`${standing.team.id}`}>
-
-                                    <img src={standing.team.logo} className={"auto"} style={{ width: "50px" }} />
-                                    <div>
-                                        {standing.team.name}
+                                <Link to={`${standing.team.id}`} style={{textDecoration: "none"}}>
+                                <Card.Img src={standing.team.logo} variant="top" style={{ height: "5rem", width:"auto" }} />
+                                <div className="visibility" style={{color:"black"}}>
+                                        {standing.team.name}<br/>
+                                        {standing.conference.win} - {standing.conference.loss}
                                     </div>
                                 </Link>
 
-                            </Container>
+                            </Card>
                         ))}
-
+</div>
                     </Col>
-                    {/* </Container> */}
                 </Row>
             </Container>
-            {/* </ListGroup> */}
         </>
     )
 }

@@ -23,14 +23,16 @@ function NavMenu(props) {
     }
     return (
 
-        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark">
+        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="sticky-top">
             <Navbar.Brand as={Link} to="/" className="mx-3">
-                <img src="./hoopsBlack.png" className="d-inline-block align-top" height={100} />
+                <img src="./hoopsBlack.png" className="d-inline-block align-top" height={55} />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="d-flex">
-                    <Nav.Link as={Link} to="/teams" className="">NBA Teams</Nav.Link>
+                    <Nav.Link as={Link} to="/" className="nav-text">News</Nav.Link>
+                    <Nav.Link as={Link} to="/teams" className="nav-text">NBA Teams</Nav.Link>
+                    <Nav.Link as={Link} to="/games" className="nav-text">Games</Nav.Link>
                 </Nav>
                 <Nav className="d-flex ms-auto">
                     {!user &&

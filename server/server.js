@@ -1,7 +1,6 @@
-const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
 
 const fetch = (...args) =>
-    import("node-fetch").then(({ default: fetch }) => fetch(...args));
+import("node-fetch").then(({ default: fetch }) => fetch(...args));
 require('dotenv').config({ path: './.env' })
 
 const knex = require('./knex')
@@ -10,6 +9,7 @@ const app = express();
 require('dotenv').config({ path: './.env' })
 
 const KEY = process.env.APISPORT_KEY || 'ciao';
+const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
 const cors = require('cors')
 
 const { check, validationResult } = require("express-validator");
@@ -23,6 +23,7 @@ app.use(express.json())
 app.use(cors())
 
 const path = require("path");
+const { match } = require("assert");
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(express.static("public"));
 
@@ -33,24 +34,48 @@ app.get('/', (req, res) => {
 
 app.get('/api/', async (req, res) => {
     try {
-        const news = await fetch('https://nba-latest-news.p.rapidapi.com/news/source/espn', {
-            headers: {
-                'X-RapidAPI-Key': RAPIDAPI_KEY,
-                'X-RapidAPI-Host': 'nba-latest-news.p.rapidapi.com'
-            }
-        })
-            .then((fetchedData) => fetchedData.json())
-        try {
-            const matches = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json')
-                .then((fetchedData) => fetchedData.json())
-            res.send({ news: news, matches: matches })
-        } catch (err) {
-            console.log(err)
-        }
+
+        const news = await fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/nba/news')
+        .then((fetchedData) => fetchedData.json())
+        
+        const liveMatches = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json')
+        .then((fetchedData) => fetchedData.json())
+        
+        Promise.all([news, liveMatches])
+        .then(data => res.send(data))
     } catch (err) {
         console.log(err)
     }
+
+})    
+
+app.get('/api/games/:year/:month/:day', async (req, res) => {
+    try {
+        fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.year}/${req.params.month}/${req.params.day}/schedule.json?api_key=${process.env.SPORTRADAR_KEY}`)
+            .then(data => data.json())
+            .then((fetchedData) => res.send(fetchedData))
+
+        // res.send({ news: news, matches: matches })
+    } catch (err) {
+        res.render("/api/games")
+    }
+    
 })
+
+app.get('/api/games/:gameId', (req, res) => {
+    fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.gameId}/summary.json?api_key=${process.env.SPORTRADAR_KEY}`)
+    .then(res => res.json())
+    .then(fetchedData => res.send(fetchedData))
+    .catch(err => {
+        console.log(err)
+    })
+})
+
+// app.get('/api/games/:gameId', async (req, res) => {
+//     var data = require('../client/src/components/gamefake.json')
+//     res.send(data)
+// })
+
 
 app.get('/api/teams', (req, res) => {
     fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {

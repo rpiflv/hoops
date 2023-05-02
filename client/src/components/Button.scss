@@ -1,0 +1,40 @@
+.Button {
+    color: #fff;
+    font-size: 1rem;
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: -1%;
+    
+    cursor: pointer;
+    margin: 0.25rem;
+
+    &.next-day {
+        background-color: #213bff;
+        border-top-right-radius: 0.75rem;
+        border-bottom-right-radius: 0.75rem;
+    }
+    &.next-week {
+        background-color: #8e9bff;
+        
+        border-top-right-radius: 1.25rem;
+        border-bottom-right-radius: 1.25rem;
+    }
+    &.prev-day {
+        background-color: #ff4242;
+        border-top-left-radius: 0.75rem;
+        border-bottom-left-radius: 0.75rem;
+    }
+
+    &.prev-week {
+        background-color: #ff9696;
+        
+
+        border-top-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.25rem;
+    }
+    &:hover {
+        background-color: #444444;
+    }
+}
+
+  

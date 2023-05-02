@@ -11,12 +11,14 @@ import Favorite from "./components/Favorite";
 import PlayerProfile from "./components/PlayerProfile";
 import Login from "./components/Login";
 import Signup from "./components/Signup";
+import Games from "./components/Games";
+import Game from "./components/Game";
 
 function App() {
 
   const [user, setUser] = useState(undefined)
   const [teams, setTeams] = useState([])
-
+  const [games, setGames] = useState([])
   useEffect(() => {
     const user = authService.getCurrentUser();
     if (user) {
@@ -35,6 +37,10 @@ function App() {
           <Route path="teams">
             <Route index element={<Teams teams={teams} setTeams={setTeams} />} />
             <Route path=":teamId" element={<Roster />} />
+          </Route>
+          <Route path="games">
+            <Route index element={<Games games={games} setGames={setGames} />} />
+            <Route path=":gameId" element={<Game />} />
           </Route>
           <Route path="myplayers" >
             <Route index element={<Favorite />} />
