@@ -16,20 +16,20 @@ function Games () {
     const [year, setYear] = useState(d.getFullYear());
     const [loading, setLoading] = useState(false)
 
-    const getMatches = async () => {
-        setLoading(true)
-        try {
-            const fetchedData = await axios.get(BASE_URL + `/api/games/${year}/${month}/${day}`)
-            setGames(fetchedData.data)
-            setLoading(false)
-        } catch (err) {
-            console.log(err)
-        }
-    }
+    // const getMatches = async () => {
+    //     setLoading(true)
+    //     try {
+    //         const fetchedData = await axios.get(BASE_URL + `/api/games/${year}/${month}/${day}`)
+    //         setGames(fetchedData.data)
+    //         setLoading(false)
+    //     } catch (err) {
+    //         console.log(err)
+    //     }
+    // }
     
-    useEffect(() => {
-        getMatches();
-    }, [day, month, year])
+    // useEffect(() => {
+    //     getMatches();
+    // }, [day, month, year])
 
     const handleDateChange = (amount) => {
         const newDate = new Date (year, month - 1, day + amount);

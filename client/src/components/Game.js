@@ -100,7 +100,7 @@ function Game() {
         <>
         {/* {console.log(playersAway)} */}
         <Container>
-        <Card>
+        {/* <Card>
             <Card.Header>
                 <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                     <Nav.Item>
@@ -128,7 +128,7 @@ function Game() {
             <br/>
             -{game?.status}-
             </Card.Title>
-        <Card.Subtitle>{game?.venue?.name}</Card.Subtitle>
+            <Card.Subtitle>{game?.venue?.name}</Card.Subtitle>
         
             <Container>
             T: {game?.quarter} - {game?.clock}
@@ -171,10 +171,10 @@ function Game() {
                         </Table>
                     </Container>
                 </Row>
-</Row>
+            </Row>
             </Container>
 
-    {activeTab === "stats" && 
+            {activeTab === "stats" && 
             <Container>
                 <Row>
             <Container className="col-md-8">
@@ -277,9 +277,9 @@ function Game() {
                     </Container>
             </Row>
             </Container>     
-        }
-    {activeTab === `${game.away.name}` && 
-        <Container>
+            }
+            {activeTab === `${game.away.name}` && 
+           <Container>
             <div>PLAYERS</div>
           
                 <Table striped size="sm">
@@ -363,97 +363,97 @@ function Game() {
                     </tbody>
                     </Table>
            
-        </Container>
-        }
-        {activeTab === `${game.home.name}` && 
-        <Container>
-            <div>PLAYERS</div>
-          
-                <Table striped size="sm">
-                    <thead className="justify-content-center">
-                        <th>
-                        <h3>{game?.home.name}</h3>
-                        </th>
-                        <th onClick={() => sortTableDataHome("minutes")} style={{cursor: "s-resize"}}>Mins</th>
-                        <th onClick={() => sortTableDataHome("two_points_made")} style={{cursor: "s-resize"}}>2pt FG</th>
-                        <th onClick={() => sortTableDataHome("three_points_made")} style={{cursor: "s-resize"}}>3pt FG</th>
-                        <th onClick={() => sortTableDataHome("field_goals_made")} style={{cursor: "s-resize"}}>FG</th>
-                        <th onClick={() => sortTableDataHome("field_goals_pct")} style={{cursor: "s-resize"}}> FG%</th>
-                        <th onClick={() => sortTableDataHome("effective_fg_pct")} style={{cursor: "s-resize"}}>eff. % </th>
-                        <th onClick={() => sortTableDataHome("free_throws_made")} style={{cursor: "s-resize"}}>FT</th>
-                        <th onClick={() => sortTableDataHome("points")} style={{cursor: "s-resize"}}>Pts</th>
-                        <th onClick={() => sortTableDataHome("offensive_rebounds")} style={{cursor: "s-resize"}}>O. Reb</th>
-                        <th onClick={() => sortTableDataHome("defensive_rebounds")} style={{cursor: "s-resize"}}>D. Reb</th>
-                        <th onClick={() => sortTableDataHome("rebounds")} style={{cursor: "s-resize"}}>Reb</th>
-                        <th onClick={() => sortTableDataHome("assists")} style={{cursor: "s-resize"}}>Ass</th>
-                        <th onClick={() => sortTableDataHome("turnovers")} style={{cursor: "s-resize"}}>TO</th>
-                        <th onClick={() => sortTableDataHome("steals")} style={{cursor: "s-resize"}}>Steals</th>
-                        <th onClick={() => sortTableDataHome("blocks")} style={{cursor: "s-resize"}}>Blks</th>
-                        <th onClick={() => sortTableDataHome("pls_min")} style={{cursor: "s-resize"}}>+/-</th>
-                    </thead>
-                    <tbody >
-                        {playersHome?.map(player => (
-                        <tr>
-                        <td>
-                            {player.full_name}
-                        </td>
-                        <td>
-                            {player.statistics.minutes}
-                        </td>
-                        <td>
-                            {player.statistics.two_points_made} / {player.statistics.two_points_att}
-                        </td>
-                        <td>
-                            {player.statistics.three_points_made} / {player.statistics.three_points_att}
-                        </td>
-                        <td>
-                            {player.statistics.field_goals_made} / {player.statistics.field_goals_att}
-                        </td>
-                        <td>
-                            {player.statistics.field_goals_pct}%
-                        </td>
-                        <td>
-                            {player.statistics.effective_fg_pct}%
-                        </td>
-                        <td>
-                            {player.statistics.free_throws_made} / {player.statistics.free_throws_att}
-                        </td>
-                        <td>
-                            {player.statistics.points}
-                        </td>
-                        <td>
-                            {player.statistics.offensive_rebounds}
-                        </td>
-                        <td>
-                            {player.statistics.defensive_rebounds}
-                        </td>
-                        <td>
-                            {player.statistics.rebounds}
-                        </td>
-                        <td>
-                            {player.statistics.assists}
-                        </td>
-                        <td>
-                            {player.statistics.turnovers}
-                        </td>
-                        <td>
-                            {player.statistics.steals}
-                        </td>
-                        <td>
-                            {player.statistics.blocks}
-                        </td>
-                        <td>
-                            {player.statistics.pls_min}
-                        </td>
-                        </tr>
-                    ))}
-                    </tbody>
-                    </Table>
-           
-        </Container>
-        }
-        </Card.Body>
-        </Card>
+            </Container>
+            }
+            {activeTab === `${game.home.name}` && 
+            <Container>
+                <div>PLAYERS</div>
+            
+                    <Table striped size="sm">
+                        <thead className="justify-content-center">
+                            <th>
+                            <h3>{game?.home.name}</h3>
+                            </th>
+                            <th onClick={() => sortTableDataHome("minutes")} style={{cursor: "s-resize"}}>Mins</th>
+                            <th onClick={() => sortTableDataHome("two_points_made")} style={{cursor: "s-resize"}}>2pt FG</th>
+                            <th onClick={() => sortTableDataHome("three_points_made")} style={{cursor: "s-resize"}}>3pt FG</th>
+                            <th onClick={() => sortTableDataHome("field_goals_made")} style={{cursor: "s-resize"}}>FG</th>
+                            <th onClick={() => sortTableDataHome("field_goals_pct")} style={{cursor: "s-resize"}}> FG%</th>
+                            <th onClick={() => sortTableDataHome("effective_fg_pct")} style={{cursor: "s-resize"}}>eff. % </th>
+                            <th onClick={() => sortTableDataHome("free_throws_made")} style={{cursor: "s-resize"}}>FT</th>
+                            <th onClick={() => sortTableDataHome("points")} style={{cursor: "s-resize"}}>Pts</th>
+                            <th onClick={() => sortTableDataHome("offensive_rebounds")} style={{cursor: "s-resize"}}>O. Reb</th>
+                            <th onClick={() => sortTableDataHome("defensive_rebounds")} style={{cursor: "s-resize"}}>D. Reb</th>
+                            <th onClick={() => sortTableDataHome("rebounds")} style={{cursor: "s-resize"}}>Reb</th>
+                            <th onClick={() => sortTableDataHome("assists")} style={{cursor: "s-resize"}}>Ass</th>
+                            <th onClick={() => sortTableDataHome("turnovers")} style={{cursor: "s-resize"}}>TO</th>
+                            <th onClick={() => sortTableDataHome("steals")} style={{cursor: "s-resize"}}>Steals</th>
+                            <th onClick={() => sortTableDataHome("blocks")} style={{cursor: "s-resize"}}>Blks</th>
+                            <th onClick={() => sortTableDataHome("pls_min")} style={{cursor: "s-resize"}}>+/-</th>
+                        </thead>
+                        <tbody >
+                            {playersHome?.map(player => (
+                            <tr>
+                            <td>
+                                {player.full_name}
+                            </td>
+                            <td>
+                                {player.statistics.minutes}
+                            </td>
+                            <td>
+                                {player.statistics.two_points_made} / {player.statistics.two_points_att}
+                            </td>
+                            <td>
+                                {player.statistics.three_points_made} / {player.statistics.three_points_att}
+                            </td>
+                            <td>
+                                {player.statistics.field_goals_made} / {player.statistics.field_goals_att}
+                            </td>
+                            <td>
+                                {player.statistics.field_goals_pct}%
+                            </td>
+                            <td>
+                                {player.statistics.effective_fg_pct}%
+                            </td>
+                            <td>
+                                {player.statistics.free_throws_made} / {player.statistics.free_throws_att}
+                            </td>
+                            <td>
+                                {player.statistics.points}
+                            </td>
+                            <td>
+                                {player.statistics.offensive_rebounds}
+                            </td>
+                            <td>
+                                {player.statistics.defensive_rebounds}
+                            </td>
+                            <td>
+                                {player.statistics.rebounds}
+                            </td>
+                            <td>
+                                {player.statistics.assists}
+                            </td>
+                            <td>
+                                {player.statistics.turnovers}
+                            </td>
+                            <td>
+                                {player.statistics.steals}
+                            </td>
+                            <td>
+                                {player.statistics.blocks}
+                            </td>
+                            <td>
+                                {player.statistics.pls_min}
+                            </td>
+                            </tr>
+                        ))}
+                        </tbody>
+                        </Table>
+            
+            </Container>
+            }
+            </Card.Body>
+        </Card> */}
         </Container>
         </>
     )
