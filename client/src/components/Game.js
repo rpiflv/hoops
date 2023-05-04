@@ -100,7 +100,7 @@ function Game() {
         <>
         {/* {console.log(playersAway)} */}
         <Container>
-        {/* <Card>
+        <Card>
             <Card.Header>
                 <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                     <Nav.Item>
@@ -109,13 +109,13 @@ function Game() {
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey={game.away.name}>
-                        {game.away.name}
+                        <Nav.Link eventKey={game?.away.name}>
+                        {game?.away.name}
                         </Nav.Link>
                     </Nav.Item>
                     <Nav.Item>
-                        <Nav.Link eventKey={game.home.name}>
-                        {game.home.name}
+                        <Nav.Link eventKey={game?.home.name}>
+                        {game?.home.name}
                         </Nav.Link>
                     </Nav.Item>
                 </Nav>
@@ -182,8 +182,8 @@ function Game() {
                         <thead>
                             <tr>
                                 <th>TEAM</th>
-                                <th>{game.away.name}</th>
-                                <th>{game.home.name}</th>
+                                <th>{game?.away.name}</th>
+                                <th>{game?.home.name}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -278,7 +278,7 @@ function Game() {
             </Row>
             </Container>     
             }
-            {activeTab === `${game.away.name}` && 
+            {activeTab === `${game?.away.name}` && 
            <Container>
             <div>PLAYERS</div>
           
@@ -365,7 +365,7 @@ function Game() {
            
             </Container>
             }
-            {activeTab === `${game.home.name}` && 
+            {activeTab === `${game?.home.name}` && 
             <Container>
                 <div>PLAYERS</div>
             
@@ -453,7 +453,7 @@ function Game() {
             </Container>
             }
             </Card.Body>
-        </Card> */}
+        </Card>
         </Container>
         </>
     )

@@ -49,32 +49,36 @@ app.get('/api/', async (req, res) => {
 
 })    
 
-app.get('/api/games/:year/:month/:day', async (req, res) => {
-    try {
-        fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.year}/${req.params.month}/${req.params.day}/schedule.json?api_key=${process.env.SPORTRADAR_KEY}`)
-            .then(data => data.json())
-            .then((fetchedData) => res.send(fetchedData))
+// app.get('/api/games/:year/:month/:day', async (req, res) => {
+//     try {
+//         fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.year}/${req.params.month}/${req.params.day}/schedule.json?api_key=${process.env.SPORTRADAR_KEY}`)
+//             .then(data => data.json())
+//             .then((fetchedData) => res.send(fetchedData))
 
-        // res.send({ news: news, matches: matches })
-    } catch (err) {
-        res.render("/api/games")
-    }
-    
-})
-
-app.get('/api/games/:gameId', (req, res) => {
-    fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.gameId}/summary.json?api_key=${process.env.SPORTRADAR_KEY}`)
-    .then(res => res.json())
-    .then(fetchedData => res.send(fetchedData))
-    .catch(err => {
-        console.log(err)
-    })
-})
-
-// app.get('/api/games/:gameId', async (req, res) => {
-//     var data = require('../client/src/components/gamefake.json')
-//     res.send(data)
+//         // res.send({ news: news, matches: matches })
+//     } catch (err) {
+//         res.render("/api/games")
+//     }
 // })
+
+app.get('/api/games/:year/:month/:day', async (req, res) => {
+    var data = require("../client/src/components/gamefakeday.json");
+    res.send(data);
+})
+
+// app.get('/api/games/:gameId', (req, res) => {
+//     fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.gameId}/summary.json?api_key=${process.env.SPORTRADAR_KEY}`)
+//     .then(res => res.json())
+//     .then(fetchedData => res.send(fetchedData))
+//     .catch(err => {
+//         console.log(err)
+//     })
+// })
+
+app.get('/api/games/:gameId', async (req, res) => {
+    var data = require('../client/src/components/gamefake.json')
+    res.send(data)
+})
 
 
 app.get('/api/teams', (req, res) => {

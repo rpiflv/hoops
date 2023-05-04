@@ -1,0 +1,229 @@
+{
+    "date": "2023-01-05",
+    "league": {
+        "id": "4353138d-4c22-4396-95d8-5f587d2df25c",
+        "name": "NBA",
+        "alias": "NBA"
+    },
+    "games": [{
+        "id": "3f25ecab-0107-43a1-8a19-b6d7b6295dc9",
+        "status": "closed",
+        "coverage": "full",
+        "scheduled": "2023-01-06T00:00:00Z",
+        "home_points": 115,
+        "away_points": 123,
+        "track_on_court": true,
+        "sr_id": "sr:match:35433501",
+        "reference": "0022200576",
+        "time_zones": {
+            "venue": "US/Eastern",
+            "home": "US/Eastern",
+            "away": "US/Central"
+        },
+        "venue": {
+            "id": "aecd8da6-0404-599c-a792-4b33fb084a2a",
+            "name": "Amway Center",
+            "capacity": 18846,
+            "address": "400 W. Church Street",
+            "city": "Orlando",
+            "state": "FL",
+            "zip": "32801",
+            "country": "USA",
+            "sr_id": "sr:venue:6936",
+            "location": {
+                "lat": "28.539167",
+                "lng": "-81.383611"
+            }
+        },
+        "broadcasts": [{
+            "network": "BSFL",
+            "type": "TV",
+            "locale": "Home",
+            "channel": "654"
+        }, {
+            "network": "BSSE",
+            "type": "TV",
+            "locale": "Away",
+            "channel": "649"
+        }],
+        "home": {
+            "name": "Orlando Magic",
+            "alias": "ORL",
+            "id": "583ed157-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3437",
+            "reference": "1610612753"
+        },
+        "away": {
+            "name": "Memphis Grizzlies",
+            "alias": "MEM",
+            "id": "583eca88-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3415",
+            "reference": "1610612763"
+        }
+    }, {
+        "id": "de337092-cb9c-42b1-919c-77b32a45e53c",
+        "status": "closed",
+        "coverage": "full",
+        "scheduled": "2023-01-06T00:30:00Z",
+        "home_points": 95,
+        "away_points": 124,
+        "track_on_court": true,
+        "sr_id": "sr:match:35433397",
+        "reference": "0022200577",
+        "time_zones": {
+            "venue": "US/Central",
+            "home": "US/Central",
+            "away": "US/Eastern"
+        },
+        "venue": {
+            "id": "401ba62f-19b5-5bfc-84d6-021772943311",
+            "name": "American Airlines Center",
+            "capacity": 19200,
+            "address": "2500 Victory Avenue",
+            "city": "Dallas",
+            "state": "TX",
+            "zip": "75219",
+            "country": "USA",
+            "sr_id": "sr:venue:5988",
+            "location": {
+                "lat": "32.79087",
+                "lng": "-96.810338"
+            }
+        },
+        "broadcasts": [{
+            "network": "TNT",
+            "type": "TV",
+            "locale": "National",
+            "channel": "245"
+        }, {
+            "network": "NBCS-BOS",
+            "type": "TV",
+            "locale": "Away",
+            "channel": "630"
+        }],
+        "home": {
+            "name": "Dallas Mavericks",
+            "alias": "DAL",
+            "id": "583ecf50-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3411",
+            "reference": "1610612742"
+        },
+        "away": {
+            "name": "Boston Celtics",
+            "alias": "BOS",
+            "id": "583eccfa-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3422",
+            "reference": "1610612738"
+        }
+    }, {
+        "id": "a1e04cff-abd3-40be-ba88-195e44618f3f",
+        "status": "closed",
+        "coverage": "full",
+        "scheduled": "2023-01-06T01:00:00Z",
+        "home_points": 114,
+        "away_points": 131,
+        "track_on_court": true,
+        "sr_id": "sr:match:35432623",
+        "reference": "0022200578",
+        "time_zones": {
+            "venue": "US/Central",
+            "home": "US/Central",
+            "away": "US/Mountain"
+        },
+        "venue": {
+            "id": "5b239206-57ce-50aa-baaa-627f3349dfdc",
+            "name": "Toyota Center",
+            "capacity": 18500,
+            "address": "1510 Polk Street",
+            "city": "Houston",
+            "state": "TX",
+            "zip": "77002",
+            "country": "USA",
+            "sr_id": "sr:venue:6134",
+            "location": {
+                "lat": "29.750751",
+                "lng": "-95.362049"
+            }
+        },
+        "broadcasts": [{
+            "network": "SportsNet RM",
+            "type": "TV",
+            "locale": "Away",
+            "channel": "683"
+        }, {
+            "network": "SportsNet SW",
+            "type": "TV",
+            "locale": "Home",
+            "channel": "674"
+        }],
+        "home": {
+            "name": "Houston Rockets",
+            "alias": "HOU",
+            "id": "583ecb3a-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3412",
+            "reference": "1610612745"
+        },
+        "away": {
+            "name": "Utah Jazz",
+            "alias": "UTA",
+            "id": "583ece50-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3434",
+            "reference": "1610612762"
+        }
+    }, {
+        "id": "287d7883-8239-4895-a803-b3c451d1e006",
+        "status": "closed",
+        "coverage": "full",
+        "scheduled": "2023-01-06T03:00:00Z",
+        "home_points": 122,
+        "away_points": 91,
+        "track_on_court": true,
+        "sr_id": "sr:match:35432201",
+        "reference": "0022200579",
+        "time_zones": {
+            "venue": "US/Mountain",
+            "home": "US/Mountain",
+            "away": "US/Pacific"
+        },
+        "venue": {
+            "id": "1a28ef88-76c9-5bcc-b4ee-51d30ca98f4f",
+            "name": "Ball Arena",
+            "capacity": 19520,
+            "address": "1000 Chopper Circle",
+            "city": "Denver",
+            "state": "CO",
+            "zip": "80204",
+            "country": "USA",
+            "sr_id": "sr:venue:5976",
+            "location": {
+                "lat": "39.749034",
+                "lng": "-105.007604"
+            }
+        },
+        "broadcasts": [{
+            "network": "TNT",
+            "type": "TV",
+            "locale": "National",
+            "channel": "245"
+        }, {
+            "network": "BSSC",
+            "type": "TV",
+            "locale": "Away",
+            "channel": "693"
+        }],
+        "home": {
+            "name": "Denver Nuggets",
+            "alias": "DEN",
+            "id": "583ed102-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3417",
+            "reference": "1610612743"
+        },
+        "away": {
+            "name": "LA Clippers",
+            "alias": "LAC",
+            "id": "583ecdfb-fb46-11e1-82cb-f4ce4684ea4c",
+            "sr_id": "sr:team:3425",
+            "reference": "1610612746"
+        }
+    }]
+}
