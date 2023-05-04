@@ -13,6 +13,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Games from "./components/Games";
 import Game from "./components/Game";
+import AlertModalNoData from "./components/AlertModalNoData";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
     <>
       <div className="App">
         <NavMenu user={user} />
+      <AlertModalNoData/>
         <Routes >
           <Route path="/" index element={<Home />} />
           <Route path="teams">
