@@ -10,10 +10,10 @@ import LiveScores from "./LiveScores";
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Home() {
-
+    
     const [lastNews, setLastNews] = useState([]);
-    const [todaysMatches, setTodaysMatches] = useState([])
-    const [showScore, setShowScore] = useState(true)
+    const [showScore, setShowScore] = useState(true);
+    const [firstComponentHeight, setFirstComponentHeight] = useState(0);
 
     const getNews = async () => {
         try {
@@ -23,23 +23,11 @@ function Home() {
         } catch (error) {
             console.log(error)
         }
-    }
-    // const getMatches = async () => {
-    //     try {
-    //         const fetchedData = await axios.get(BASE_URL + '/api/')
-    //         setTodaysMatches(fetchedData.data[1].scoreboard.games)
-    //     } catch (err) {
-    //         console.log(err)
-    //     }
-    // }
+    }  
 
     useEffect(() => {
         getNews()
     }, [])
-
-    // useEffect(() => {
-    //     getMatches()
-    // }, [])
 
     const toggleScore = () => {
         setShowScore(!showScore)
@@ -49,16 +37,23 @@ function Home() {
         toggleScore()
     }, [])
 
+    
+
+
+    const handleFirstComponentHeight = (height) => {
+        setFirstComponentHeight(height);
+    };
+
     return (
         <>
         <br/>
         {/* {console.log(lastNews)} */}
         <Container>
-          <LiveScores/>
+          <LiveScores onHeightChange={handleFirstComponentHeight}/>
             <br/>
-                <h1>Latest News</h1>
+                <h1 style={{marginTop:firstComponentHeight + 5}}>Latest News</h1>
                 <br />
-            <Container className="d-flex align-items-center justify-content-center">
+            <Container className="d-flex align-items-center justify-content-center news-container" >
                 <Col md='8' >          
                     {lastNews?.map((news, index) => (
                         

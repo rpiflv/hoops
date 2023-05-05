@@ -33,11 +33,22 @@ body {
 }
 
 .live-container {
-  position: absolute;
+  position: fixed;
   top: auto;
   left: 0;
   right: 0;
   z-index: 000;
+  background-color: rgba(220, 220, 220, 0.356);
+  z-index: 9999;
+}
+
+.news-container {
+  z-index: 9998;
+  /* overflow: hidden; */
+}
+
+.blur {
+  backdrop-filter: blur(5px);
 }
 
 .live {

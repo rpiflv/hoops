@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {Link} from 'react-router-dom';
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from "axios";
@@ -8,10 +8,14 @@ import '../App.css';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
-function LiveScores () {
+function LiveScores ({onHeightChange}) {
+
+    const ref = useRef()
 
     const [todaysMatches, setTodaysMatches] = useState([]);
     const [showScore, setShowScore] = useState(false);
+    const [isBlurry, setIsBlurry] = useState(false);
+
 
     const getMatches = async () => {
         try {
@@ -21,6 +25,30 @@ function LiveScores () {
             console.log(err)
         }
     }
+
+    useEffect(() => {
+        function handleScroll() {
+            const scrollY = window.scrollY;
+            const height = ref.current.clientHeight;
+            if (scrollY > height / 2) {
+                setIsBlurry(true);
+            } else {
+                setIsBlurry(false);
+            }
+        }
+        window.addEventListener("scroll", handleScroll);
+
+        return () => {
+            window.removeEventListener("scroll", handleScroll);
+        }
+    }, [])
+
+    useEffect(() => {
+        if (ref.current) {
+            const height = ref.current.clientHeight;
+            onHeightChange(height)
+        }
+    }, [onHeightChange])
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -41,7 +69,8 @@ function LiveScores () {
 
     return (
         <>
-          <Container>
+          <Container className={`live-container ${isBlurry ? 'blur' : ''}`} ref={ref}>
+            <h4>today's matches</h4>
                 <Row className="justify-content-center">
                     <div className="col-md-12">
                     <Row className="justify-content-center align-items-center">
