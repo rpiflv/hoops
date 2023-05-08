@@ -62,7 +62,7 @@ function Home() {
                             <Card.Title style={{color: "black"}}> {news.headline}</Card.Title>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
-                                    <Card.Img src={news.images[0].url} style={{height: "auto", width:"20rem", padding:"8px"}} variant="bottom"/>
+                                    <Card.Img src={news.images[0]?.url} style={{height: "auto", width:"20rem", padding:"8px"}} variant="bottom"/>
                                 </div>
                                 <div className="col-md-6 content-align-center">
                                     <Card.Body className="d-flex align-items-center justify-content-center mt-4">
