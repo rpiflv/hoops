@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Card, Nav , Container, Row, Col, Table} from "react-bootstrap";
-
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 

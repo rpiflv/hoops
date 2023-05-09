@@ -15,22 +15,22 @@ function Home() {
     useEffect(() => {
         const getNews = async () => {
             try {
-                const fetchedData = await axios.get(BASE_URL + '/api/')
-                setLastNews(fetchedData.data[0].articles)
+                const fetchedData = await axios.get(BASE_URL + '/api/');
+                setLastNews(fetchedData.data[0].articles);
                 
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         }  
-        getNews()
+        getNews();
     }, [])
 
     useEffect(() => {
         const toggleScore = () => {
-            setShowScore(!showScore)
+            setShowScore(!showScore);
         }
-        toggleScore()
-    }, [showScore])
+        toggleScore();
+    }, [showScore]);
 
     const handleFirstComponentHeight = (height) => {
         setFirstComponentHeight(height);
