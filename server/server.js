@@ -1,26 +1,23 @@
+require('dotenv').config({ path: './.env' });
 
-const fetch = (...args) =>
-import("node-fetch").then(({ default: fetch }) => fetch(...args));
-require('dotenv').config({ path: './.env' })
-
-const knex = require('./knex')
+const knex = require('./knex');
 const express = require('express');
 const app = express();
-require('dotenv').config({ path: './.env' })
+require('dotenv').config({ path: './.env' });
 
 const KEY = process.env.APISPORT_KEY || 'ciao';
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
-const cors = require('cors')
+const cors = require('cors');
 
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
 
-const authToken = require("./authToken")
+const authToken = require("./authToken");
 
 
-app.use(express.json())
-app.use(cors())
+app.use(express.json());
+app.use(cors());
 
 const path = require("path");
 const { match } = require("assert");
@@ -29,26 +26,25 @@ app.use(express.static("public"));
 
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
-})
+    res.send('Hello World!');
+});
 
 app.get('/api/', async (req, res) => {
     try {
-
         const news = await fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/nba/news')
-        .then((fetchedData) => fetchedData.json())
+        .then((fetchedData) => fetchedData.json());
         
         const liveMatches = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json')
-        .then((fetchedData) => fetchedData.json())
+        .then((fetchedData) => fetchedData.json());
         
         Promise.all([news, liveMatches])
         .then(data => res.send(data))
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
+});
 
-})    
-
+// USE THIS FOR DAULY GAME API CALLS
 // app.get('/api/games/:year/:month/:day', async (req, res) => {
 //     try {
 //         fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.year}/${req.params.month}/${req.params.day}/schedule.json?api_key=${process.env.SPORTRADAR_KEY}`)
@@ -61,11 +57,13 @@ app.get('/api/', async (req, res) => {
 //     }
 // })
 
+// USE THIS FOR DAULY [MOCK] GAME API CALLS
 app.get('/api/games/:year/:month/:day', async (req, res) => {
     var data = require("../client/src/components/gamefakeday.json");
     res.send(data);
-})
+});
 
+// USE THIS FOR GAME API CALLS
 // app.get('/api/games/:gameId', (req, res) => {
 //     fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.gameId}/summary.json?api_key=${process.env.SPORTRADAR_KEY}`)
 //     .then(res => res.json())
@@ -75,10 +73,11 @@ app.get('/api/games/:year/:month/:day', async (req, res) => {
 //     })
 // })
 
+// USE THIS FOR [MOCK] GAME API CALLS
 app.get('/api/games/:gameId', async (req, res) => {
     var data = require('../client/src/components/gamefake.json')
-    res.send(data)
-})
+    res.send(data);
+});
 
 
 app.get('/api/teams', (req, res) => {
@@ -107,10 +106,10 @@ app.get('/api/teams/:teamId', (req, res) => {
     })
         .then((data) =>
             data.json()
-        )
+        );
 
     const playersList = fetch(`https://data.nba.net/data/10s/prod/v1/2022/players.json`)
-        .then((fetchedData) => fetchedData.json())
+        .then((fetchedData) => fetchedData.json());
 
     Promise.all([rosterInfo, playersList])
         .then(([rosterInfo, playersList]) => {
@@ -121,17 +120,14 @@ app.get('/api/teams/:teamId', (req, res) => {
             rosterAPI?.map(playerAPI => {
                 personID = playersJSON.filter(
                     playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname
-                )
+                );
                 playerAPI['personID'] = personID[0]?.personId;
             })
-            return rosterAPI
+            return rosterAPI;
         })
         .then(roster => {
             res.send(roster)
-        }
-        )
-
-    // playerImg = playerList['league']['standard'].map((player) => console.log(player))
+        });
 })
 
 
@@ -145,13 +141,13 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
             notes: '---',
             user_id: user_id
         })
-            .then(() => console.log('added to favorite'))
+            .then(() => console.log('added to favorite'));
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 })
 app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
-    const user_id = req.params.user_id
+    const user_id = req.params.user_id;
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
             .then((fetchedData) => fetchedData.json())
@@ -161,12 +157,12 @@ app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
                 playerId: "player_id",
                 notes: "notes"
             }).where("user_id", user_id)
-            res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers })
+            res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers });
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 })
 
@@ -175,25 +171,25 @@ app.delete('/api/myplayers/:playerId', authToken, async (req, res) => {
     try {
         await knex('fav_players')
             .where('player_id', playerId).del()
-            .then(() => console.log('item deleted'))
+            .then(() => console.log('item deleted'));
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 })
 
 app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
-    const playerId = req.params.playerId
-    const user_id = req.params.user_id
+    const playerId = req.params.playerId;
+    const user_id = req.params.user_id;
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-            .then((fetchedData) => fetchedData.json())
+            .then((fetchedData) => fetchedData.json());
         try {
             const notes = await knex('fav_players')
                 .select({
                     notes: "notes"
                 })
                 .where('player_id', playerId)
-                .where('user_id', user_id)
+                .where('user_id', user_id);
             try {
                 const extraNotes = await knex('notes')
                     .join('fav_players', 'notes.fav_player_id', '=', 'fav_players.id')
@@ -203,43 +199,42 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
                         id: "notes.id"
                     })
                     .where('player_id', playerId)
-                    .where('user_id', user_id)
+                    .where('user_id', user_id);
                 // console.log(extraNotes)
                 res.send({ allPlayers: allPlayers.league.standard, notes: notes, extraNotes: extraNotes })
             } catch (err) {
-                console.log(err)
+                console.log(err);
             }
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 })
 
 app.post('/api/myplayers/:playerId/:user_id/edit', authToken, async (req, res) => {
     const notes = req.body;
-    const user_id = req.params.user_id
+    const user_id = req.params.user_id;
     const playerId = req.params.playerId;
     try {
         await knex('fav_players')
             .update(notes)
             .where('player_id', playerId)
-            .where('user_id', user_id)
+            .where('user_id', user_id);
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 })
 
 app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) => {
     const extraNote = req.body.extraNote;
-    const user_id = req.params.user_id
+    const user_id = req.params.user_id;
     const playerId = req.params.playerId;
     const favPlayerId = await knex('fav_players')
         .select('id')
         .where('user_id', user_id)
-        .where('player_id', playerId).first()
-
+        .where('player_id', playerId).first();
     try {
         await knex('notes')
             .insert({
@@ -247,21 +242,21 @@ app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) =>
                 fav_player_id: favPlayerId.id
             })
             .where('user_id', user_id)
-            .where('player_id', playerId)
-        console.log('extra note added')
+            .where('player_id', playerId);
+        console.log('extra note added');
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
 })
 
 app.delete('/api/myplayers/:playerId/:user_id/delete/:noteId', authToken, async (req, res) => {
-    const noteId = req.params.noteId
+    const noteId = req.params.noteId;
     try {
         await knex('notes')
             .where('notes.id', noteId).del()
-            .then(() => console.log('note deleted'))
+            .then(() => console.log('note deleted'));
     } catch (error) {
-        console.error(error)
+        console.error(error);
     }
 
 })
@@ -273,64 +268,47 @@ app.post('/api/signup/',
     ], async (req, res) => {
         const { email, password, username } = req.body;
 
-        const errors = validationResult(req)
+        const errors = validationResult(req);
 
         if (!errors.isEmpty()) {
-            return res.send(errors)
+            return res.send(errors);
         }
-
-        // make KNEX query here
-        // let user = users.find((user) => {
-        //     return email === user.email;
-        // })
-
-        const salt10 = await bcrypt.genSalt(10)
-        const hashedPWD = await bcrypt.hash(password, salt10)
+        const salt10 = await bcrypt.genSalt(10);
+        const hashedPWD = await bcrypt.hash(password, salt10);
 
         try {
             await knex('users').insert({
                 email: email,
                 password: hashedPWD,
                 username: username
-            })
-
+            });
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
-
-        // if (user) {
-        //     return res.send('User already exists')
-        // }
-
         const accessToken = await JWT.sign(
             { username },
             process.env.ACCESS_TOKEN_SECRET,
             { expiresIn: "5m" }
         )
-
-        res.json(accessToken)
+        res.json(accessToken);
     })
 
 app.post('/api/login/', async (req, res) => {
     const { email, password } = req.body;
-
     let user;
-
     try {
         await knex('users').where('email', email).first()
-            .then((data) => user = data)
+            .then((data) => user = data);
     } catch (err) {
-        console.log(err)
+        console.log(err);
     }
-
-
     if (!user) {
-        return res.send("Email does not exist")
+        return res.send("Email does not exist");
     }
-    let isMatch = await bcrypt.compare(password, user.password)
+    let isMatch = await bcrypt.compare(password, user.password);
 
     if (!isMatch) {
-        return res.send("Credentials are not correct")
+        return res.send("Credentials are not correct");
     }
 
     const accessToken = await JWT.sign(
@@ -349,7 +327,7 @@ app.post('/api/login/', async (req, res) => {
         }
     );
 
-    refreshTokens.push(refreshToken)
+    refreshTokens.push(refreshToken);
 
     res.json({
         accessToken,
@@ -363,14 +341,14 @@ let refreshTokens = [];
 
 app.post('/api/token', async (req, res) => {
 
-    const refreshToken = req.header("x-auth-token")
+    const refreshToken = req.header("x-auth-token");
 
     if (!refreshToken) {
-        res.send("Token not found!")
+        res.send("Token not found!");
     }
 
     if (!refreshTokens.includes(refreshToken)) {
-        res.send("Invalid refresh token")
+        res.send("Invalid refresh token");
     }
 
     try {
@@ -386,16 +364,15 @@ app.post('/api/token', async (req, res) => {
         );
         res.json({ accessToken });
     } catch (err) {
-        res.send("invalid token")
+        res.send("invalid token");
     }
-})
+});
 
 app.delete("/api/logout/", (req, res) => {
-    const refreshToken = req.header("x-auth-token")
-
-    refreshTokens = refreshTokensl.filter((token) => token !== refreshToken)
+    const refreshToken = req.header("x-auth-token");
+    refreshTokens = refreshTokensl.filter((token) => token !== refreshToken);
 })
 
 app.listen(process.env.PORT, () => {
-    console.log(`Listening to port: ${process.env.PORT}`)
+    console.log(`Listening to port: ${process.env.PORT}`);
 })
