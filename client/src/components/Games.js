@@ -15,18 +15,17 @@ function Games () {
     const [year, setYear] = useState(d.getFullYear());
     const [loading, setLoading] = useState(false);
 
-    const getMatches = async () => {
-        setLoading(true);
-        try {
-            const fetchedData = await axios.get(BASE_URL + `/api/games/${year}/${month}/${day}`);
-            setGames(fetchedData.data);
-            setLoading(false);
-        } catch (err) {
-            console.log(err);
-        }
-    }
-    
     useEffect(() => {
+        const getMatches = async () => {
+            setLoading(true);
+            try {
+                const fetchedData = await axios.get(BASE_URL + `/api/games/${year}/${month}/${day}`);
+                setGames(fetchedData.data);
+                setLoading(false);
+            } catch (err) {
+                console.log(err);
+            }
+        }
         getMatches();
     }, [day, month, year]);
 
@@ -70,7 +69,7 @@ function Games () {
                                     <Col className="col-md-5 justify-content-md-center">
                                         <Row className="justify-content-md-center">
                                             <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.away.alias.toLowerCase()}.png`} 
-                                            style={{width:"20rem", marginRight:"1px", marginRight:"1px"}}/>
+                                            style={{width:"20rem", marginRight:"1px", marginLeft:"1px"}} alt="img"/>
                                         </Row>
                                         <Row className="justify-content-md-center">
                                             {game.away.alias} 
@@ -82,7 +81,7 @@ function Games () {
                                     <Col className="col-md-5">
                                         <Row className="justify-content-md-center">
                                             <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.home.alias.toLowerCase()}.png`} 
-                                            style={{width:"20rem", marginLeft:"1px", marginRight:"1px"}}/> 
+                                            style={{width:"20rem", marginLeft:"1px", marginRight:"1px"}} alt="img"/> 
                                         </Row>
                                         <Row className="justify-content-md-center">
                                             {game.home.alias} 
@@ -106,7 +105,7 @@ function Games () {
                                     <Col className="col-md-5 justify-content-md-center">
                                         <Row className="justify-content-md-center">
                                             <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.away.alias.toLowerCase()}.png`} 
-                                            style={{width:"5rem", marginRight:"1px", marginRight:"1px"}}/>
+                                            style={{width:"5rem", marginRight:"1px", marginLeft:"1px"}} alt="img"/>
                                         </Row>
                                         <Row className="justify-content-md-center">
                                             {game.away.alias} 
@@ -118,7 +117,7 @@ function Games () {
                                     <Col className="col-md-5">
                                         <Row className="justify-content-md-center">
                                             <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.home.alias.toLowerCase()}.png`} 
-                                            style={{width:"5rem", marginLeft:"1px", marginRight:"1px"}}/> 
+                                            style={{width:"5rem", marginLeft:"1px", marginRight:"1px"}} alt="img"/> 
                                         </Row>
                                         <Row className="justify-content-md-center">
                                             {game.home.alias} 
