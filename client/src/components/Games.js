@@ -66,8 +66,6 @@ function Games () {
             <Col key={game.id}>
                 {console.log(game)}
                     { 
-                    
-                     
                         game.status !== "unnecessary" ? 
                     
                    <Card className="games-box shadow-sm">

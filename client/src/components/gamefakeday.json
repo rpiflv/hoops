@@ -117,7 +117,7 @@
         }
     }, {
         "id": "a1e04cff-abd3-40be-ba88-195e44618f3f",
-        "status": "closed",
+        "status": "unnecessary",
         "coverage": "full",
         "scheduled": "2023-01-06T01:00:00Z",
         "home_points": 114,
