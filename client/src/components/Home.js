@@ -58,7 +58,7 @@ function Home() {
                     {lastNews?.map((news, index) => (
                         
                         <a href={news.links.web.href} style={{textDecoration:"none", color:"darkgray"}} target="_blank">
-                        <Card key={index} className="box-news mb-3 shadow-sm"    >
+                        <Card key={index} className="box-news mb-3"    >
                             <Card.Title style={{color: "black"}}> {news.headline}</Card.Title>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
