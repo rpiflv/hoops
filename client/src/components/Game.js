@@ -93,7 +93,7 @@ function Game() {
     return (
         <>
         <Container>
-        <Card>
+        <Card className="border-light game-box">
             <Card.Header>
                 <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
                     <Nav.Item>

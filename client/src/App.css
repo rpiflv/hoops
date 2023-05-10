@@ -55,7 +55,6 @@ background-color: rgba(20, 20, 20);
 .visibility {
   display: none;
   text-shadow:1rem;
-
 }
 
 .team {
@@ -79,12 +78,17 @@ opacity: 1;
 
 .games-box {
   background-color: rgba(52, 91, 248, 0.835);
-  color: antiquewhite;
+  color: rgb(220, 212, 212);
   width: 15rem;
   height:auto;
   border-radius: 5px;
   margin-top: 5%;
   font-weight: 500;
+}
+
+.game-box {
+  margin-top: 1rem;
+  background-color: rgba(189, 189, 189, 0.196);
 }
 
 .games-box:hover {
