@@ -6,33 +6,28 @@ import { Card, Nav , Container, Row, Col, Table} from "react-bootstrap";
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Game() {
-    const { gameId } = useParams()
+    const { gameId } = useParams();
     const [game, setGame] = useState();
     const [playersAway, setPlayersAway] = useState();
     const [playersHome, setPlayersHome] = useState();
     const [activeTab, setActiveTab] = useState("stats");
     
-    
-    const getGameInfo = async () => {
-        try {
-            const fetchedData = await axios.get(BASE_URL + `/api/games/${gameId}`)
-            console.log(fetchedData)
-            setGame(fetchedData.data)
-            setPlayersAway(fetchedData.data.away.players);
-            setPlayersHome(fetchedData.data.home.players);
-
-        } catch (err) {
-            console.log(err)
-        }
-    }
-
-
     useEffect(() => {
-        getGameInfo()
+        const getGameInfo = async () => {
+            try {
+                const fetchedData = await axios.get(BASE_URL + `/api/games/${gameId}`)
+                setGame(fetchedData.data);
+                setPlayersAway(fetchedData.data.away.players);
+                setPlayersHome(fetchedData.data.home.players);
+            } catch (err) {
+                console.log(err);
+            }
+        }
+        getGameInfo();
     }, [])
 
     const handleSelect = (tab) => {
-        setActiveTab(tab)
+        setActiveTab(tab);
     }
     
     const sortTableDataAway = (column) => {
@@ -97,7 +92,6 @@ function Game() {
 
     return (
         <>
-        {/* {console.log(playersAway)} */}
         <Container>
         <Card>
             <Card.Header>
@@ -119,18 +113,19 @@ function Game() {
                     </Nav.Item>
                 </Nav>
             </Card.Header>
-            <Card.Body>
             <Card.Title>
-            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.away.alias.toLowerCase()}.png`} style={{width:"8rem", marginRight:"1px", marginRight:"1px"}}/>
-            {game?.away?.name} @ {game?.home?.name}
-            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.home.alias.toLowerCase()}.png`} style={{width:"8rem", marginRight:"1px", marginRight:"1px"}}/>
-            <br/>
-            -{game?.status}-
+                <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.away.alias.toLowerCase()}.png`} 
+                style={{width:"8rem", marginRight:"1px", marginLeft:"1px"}} alt="img"/>
+                {game?.away?.name} @ {game?.home?.name}
+                <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${game?.home.alias.toLowerCase()}.png`} 
+                style={{width:"8rem", marginRight:"1px", marginLeft:"1px"}} alt="img"/>
+                <br/>
+                -{game?.status}-
             </Card.Title>
+            <Card.Body>
             <Card.Subtitle>{game?.venue?.name}</Card.Subtitle>
-        
             <Container>
-            T: {game?.quarter} - {game?.clock}
+                T: {game?.quarter} - {game?.clock}
             <Row>
                 <Col className="col-md-5">
                     <Row className=" d-flex justify-content-center" style={{fontSize:"8rem"}}>
@@ -138,7 +133,7 @@ function Game() {
                     </Row>
                 </Col>
                 <Col className="col-md-2">
-                <Row className=" d-flex justify-content-center" style={{fontSize:"8rem"}}>
+                    <Row className=" d-flex justify-content-center" style={{fontSize:"8rem"}}>
                     -
                     </Row>
                 </Col>
@@ -172,11 +167,10 @@ function Game() {
                 </Row>
             </Row>
             </Container>
-
             {activeTab === "stats" && 
             <Container>
                 <Row>
-            <Container className="col-md-8">
+                <Container className="col-md-8">
                     <Table striped>
                         <thead>
                             <tr>
@@ -273,14 +267,13 @@ function Game() {
                             </tr>
                         </tbody>
                     </Table>
-                    </Container>
-            </Row>
+                </Container>
+                </Row>
             </Container>     
             }
             {activeTab === `${game?.away.name}` && 
            <Container>
             <div>PLAYERS</div>
-          
                 <Table striped size="sm">
                     <thead className="justify-content-center">
                         <th>
@@ -360,94 +353,92 @@ function Game() {
                         </tr>
                     ))}
                     </tbody>
-                    </Table>
-           
+                </Table>
             </Container>
             }
             {activeTab === `${game?.home.name}` && 
             <Container>
                 <div>PLAYERS</div>
-            
-                    <Table striped size="sm">
-                        <thead className="justify-content-center">
-                            <th>
-                            <h3>{game?.home.name}</h3>
-                            </th>
-                            <th onClick={() => sortTableDataHome("minutes")} style={{cursor: "s-resize"}}>Mins</th>
-                            <th onClick={() => sortTableDataHome("two_points_made")} style={{cursor: "s-resize"}}>2pt FG</th>
-                            <th onClick={() => sortTableDataHome("three_points_made")} style={{cursor: "s-resize"}}>3pt FG</th>
-                            <th onClick={() => sortTableDataHome("field_goals_made")} style={{cursor: "s-resize"}}>FG</th>
-                            <th onClick={() => sortTableDataHome("field_goals_pct")} style={{cursor: "s-resize"}}> FG%</th>
-                            <th onClick={() => sortTableDataHome("effective_fg_pct")} style={{cursor: "s-resize"}}>eff. % </th>
-                            <th onClick={() => sortTableDataHome("free_throws_made")} style={{cursor: "s-resize"}}>FT</th>
-                            <th onClick={() => sortTableDataHome("points")} style={{cursor: "s-resize"}}>Pts</th>
-                            <th onClick={() => sortTableDataHome("offensive_rebounds")} style={{cursor: "s-resize"}}>O. Reb</th>
-                            <th onClick={() => sortTableDataHome("defensive_rebounds")} style={{cursor: "s-resize"}}>D. Reb</th>
-                            <th onClick={() => sortTableDataHome("rebounds")} style={{cursor: "s-resize"}}>Reb</th>
-                            <th onClick={() => sortTableDataHome("assists")} style={{cursor: "s-resize"}}>Ass</th>
-                            <th onClick={() => sortTableDataHome("turnovers")} style={{cursor: "s-resize"}}>TO</th>
-                            <th onClick={() => sortTableDataHome("steals")} style={{cursor: "s-resize"}}>Steals</th>
-                            <th onClick={() => sortTableDataHome("blocks")} style={{cursor: "s-resize"}}>Blks</th>
-                            <th onClick={() => sortTableDataHome("pls_min")} style={{cursor: "s-resize"}}>+/-</th>
-                        </thead>
-                        <tbody >
-                            {playersHome?.map(player => (
-                            <tr>
-                            <td>
-                                {player.full_name}
-                            </td>
-                            <td>
-                                {player.statistics.minutes}
-                            </td>
-                            <td>
-                                {player.statistics.two_points_made} / {player.statistics.two_points_att}
-                            </td>
-                            <td>
-                                {player.statistics.three_points_made} / {player.statistics.three_points_att}
-                            </td>
-                            <td>
-                                {player.statistics.field_goals_made} / {player.statistics.field_goals_att}
-                            </td>
-                            <td>
-                                {player.statistics.field_goals_pct}%
-                            </td>
-                            <td>
-                                {player.statistics.effective_fg_pct}%
-                            </td>
-                            <td>
-                                {player.statistics.free_throws_made} / {player.statistics.free_throws_att}
-                            </td>
-                            <td>
-                                {player.statistics.points}
-                            </td>
-                            <td>
-                                {player.statistics.offensive_rebounds}
-                            </td>
-                            <td>
-                                {player.statistics.defensive_rebounds}
-                            </td>
-                            <td>
-                                {player.statistics.rebounds}
-                            </td>
-                            <td>
-                                {player.statistics.assists}
-                            </td>
-                            <td>
-                                {player.statistics.turnovers}
-                            </td>
-                            <td>
-                                {player.statistics.steals}
-                            </td>
-                            <td>
-                                {player.statistics.blocks}
-                            </td>
-                            <td>
-                                {player.statistics.pls_min}
-                            </td>
-                            </tr>
-                        ))}
-                        </tbody>
-                        </Table>
+                <Table striped size="sm">
+                    <thead className="justify-content-center">
+                        <th>
+                        <h3>{game?.home.name}</h3>
+                        </th>
+                        <th onClick={() => sortTableDataHome("minutes")} style={{cursor: "s-resize"}}>Mins</th>
+                        <th onClick={() => sortTableDataHome("two_points_made")} style={{cursor: "s-resize"}}>2pt FG</th>
+                        <th onClick={() => sortTableDataHome("three_points_made")} style={{cursor: "s-resize"}}>3pt FG</th>
+                        <th onClick={() => sortTableDataHome("field_goals_made")} style={{cursor: "s-resize"}}>FG</th>
+                        <th onClick={() => sortTableDataHome("field_goals_pct")} style={{cursor: "s-resize"}}> FG%</th>
+                        <th onClick={() => sortTableDataHome("effective_fg_pct")} style={{cursor: "s-resize"}}>eff. % </th>
+                        <th onClick={() => sortTableDataHome("free_throws_made")} style={{cursor: "s-resize"}}>FT</th>
+                        <th onClick={() => sortTableDataHome("points")} style={{cursor: "s-resize"}}>Pts</th>
+                        <th onClick={() => sortTableDataHome("offensive_rebounds")} style={{cursor: "s-resize"}}>O. Reb</th>
+                        <th onClick={() => sortTableDataHome("defensive_rebounds")} style={{cursor: "s-resize"}}>D. Reb</th>
+                        <th onClick={() => sortTableDataHome("rebounds")} style={{cursor: "s-resize"}}>Reb</th>
+                        <th onClick={() => sortTableDataHome("assists")} style={{cursor: "s-resize"}}>Ass</th>
+                        <th onClick={() => sortTableDataHome("turnovers")} style={{cursor: "s-resize"}}>TO</th>
+                        <th onClick={() => sortTableDataHome("steals")} style={{cursor: "s-resize"}}>Steals</th>
+                        <th onClick={() => sortTableDataHome("blocks")} style={{cursor: "s-resize"}}>Blks</th>
+                        <th onClick={() => sortTableDataHome("pls_min")} style={{cursor: "s-resize"}}>+/-</th>
+                    </thead>
+                    <tbody >
+                        {playersHome?.map(player => (
+                        <tr>
+                        <td>
+                            {player.full_name}
+                        </td>
+                        <td>
+                            {player.statistics.minutes}
+                        </td>
+                        <td>
+                            {player.statistics.two_points_made} / {player.statistics.two_points_att}
+                        </td>
+                        <td>
+                            {player.statistics.three_points_made} / {player.statistics.three_points_att}
+                        </td>
+                        <td>
+                            {player.statistics.field_goals_made} / {player.statistics.field_goals_att}
+                        </td>
+                        <td>
+                            {player.statistics.field_goals_pct}%
+                        </td>
+                        <td>
+                            {player.statistics.effective_fg_pct}%
+                        </td>
+                        <td>
+                            {player.statistics.free_throws_made} / {player.statistics.free_throws_att}
+                        </td>
+                        <td>
+                            {player.statistics.points}
+                        </td>
+                        <td>
+                            {player.statistics.offensive_rebounds}
+                        </td>
+                        <td>
+                            {player.statistics.defensive_rebounds}
+                        </td>
+                        <td>
+                            {player.statistics.rebounds}
+                        </td>
+                        <td>
+                            {player.statistics.assists}
+                        </td>
+                        <td>
+                            {player.statistics.turnovers}
+                        </td>
+                        <td>
+                            {player.statistics.steals}
+                        </td>
+                        <td>
+                            {player.statistics.blocks}
+                        </td>
+                        <td>
+                            {player.statistics.pls_min}
+                        </td>
+                        </tr>
+                    ))}
+                    </tbody>
+                </Table>
             
             </Container>
             }
