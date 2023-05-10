@@ -30,7 +30,7 @@ function Home() {
             setShowScore(!showScore);
         }
         toggleScore();
-    }, [showScore]);
+    }, []);
 
     const handleFirstComponentHeight = (height) => {
         setFirstComponentHeight(height);

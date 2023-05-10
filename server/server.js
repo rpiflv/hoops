@@ -302,14 +302,35 @@ app.post('/api/login/', async (req, res) => {
     } catch (err) {
         console.log(err);
     }
+    // if (!user) {
+    //     // return res.send("Email does not exist");
+    //     return res.status(401).json({message: "no email registered"});
+    // }
     if (!user) {
-        return res.send("Email does not exist");
+        return res.status(400).json({
+          errors: [
+            {
+              msg: "Invalid credentials",
+            },
+          ],
+        });
     }
     let isMatch = await bcrypt.compare(password, user.password);
 
+    // if (!isMatch) {
+    //     // return res.send("Credentials are not correct");
+    //     return res.status(401).json([{message: "invalid email or password"}]);
+    // }
+
     if (!isMatch) {
-        return res.send("Credentials are not correct");
-    }
+        return res.status(401).json({
+          errors: [
+            {
+              msg: "Email or password is invalid",
+            },
+          ],
+        });
+      }
 
     const accessToken = await JWT.sign(
         { email },

@@ -3,26 +3,24 @@ import { useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Col, Container } from "react-bootstrap";
+import { Col, Container, Modal} from "react-bootstrap";
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
 
-    const navigate = useNavigate()
-
+    const navigate = useNavigate();
     const sendLogin = async (e) => {
         e.preventDefault();
-
         try {
             await authService.login(email, pwd)
                 .then((response) => {
-                    console.log(response)
                     navigate('/');
                     window.location.reload();
                 })
         } catch (err) {
-            console.log(err)
+            setErrorMessage(err.response.data.errors[0].msg);
         }
     }
 
@@ -44,6 +42,17 @@ const Login = () => {
                         </Button>
                     </Col>
                 </Form>
+                {errorMessage ? 
+                    <div className="modal display-block" >
+                        <section className="modal-main">
+                            <p><h4>Login Error</h4></p>
+                                <p>{errorMessage}</p>
+                            <button onClick={() => setErrorMessage(null)}>Close</button>
+                        </section>
+                    </div>
+                    :
+                    <></>
+                }
             </Container>
         </>
     )

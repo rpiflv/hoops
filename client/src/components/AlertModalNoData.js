@@ -9,7 +9,6 @@ function AlertModalNoData(props) {
             <section className="modal-main">
                 <p>The app may currently show mock data.</p>
                 <p>Thank you for your understanding.</p>
-
                 <button onClick={() => setShowModal(false)}>Close</button>
             </section>
         </div>
