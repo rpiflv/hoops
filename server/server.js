@@ -59,7 +59,7 @@ app.get('/api/', async (req, res) => {
 
 // USE THIS FOR DAULY [MOCK] GAME API CALLS
 app.get('/api/games/:year/:month/:day', async (req, res) => {
-    var data = require("../client/src/components/gamefakeday.json");
+    const data = require("../client/src/components/gamefakeday.json");
     res.send(data);
 });
 
@@ -75,7 +75,7 @@ app.get('/api/games/:year/:month/:day', async (req, res) => {
 
 // USE THIS FOR [MOCK] GAME API CALLS
 app.get('/api/games/:gameId', async (req, res) => {
-    var data = require('../client/src/components/gamefake.json')
+    const data = require('../client/src/components/gamefake.json')
     res.send(data);
 });
 

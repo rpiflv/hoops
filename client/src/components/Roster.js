@@ -6,50 +6,49 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import logos from "../logos";
+import anonymous from "../anonymous.png";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 function Roster() {
-    const [roster, setRoster] = useState([])
-    const [teamName, setTeamName] = useState('')
+    const [roster, setRoster] = useState([]);
+    const [teamName, setTeamName] = useState('');
 
-    const { teamId } = useParams()
+    const { teamId } = useParams();
 
-    const userData = JSON.parse(localStorage.getItem('user'))
+    const userData = JSON.parse(localStorage.getItem('user'));
     const user_id = userData?.user_id;
 
     const getTeamsName = async (teamId) => {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
             const team = teams.data.response.filter(teamData =>
-                teamData.team.id.toString() === teamId
-            )
-            setTeamName(team[0].team.name)
+                teamData.team.id.toString() === teamId);
+            setTeamName(team[0].team.name);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
     // console.log(teamId)
     const getRoster = async (teamId) => {
         try {
-            const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`)
-            console.log(response.data)
-            setRoster(response.data)
+            const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`);
+            setRoster(response.data);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
 
     useEffect(() => {
-        getRoster(teamId)
+        getRoster(teamId);
     }, [])
 
     useEffect(() => {
-        getTeamsName(teamId)
+        getTeamsName(teamId);
     }, [])
 
     const addToFav = (playerId) => {
-        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId })
-        navigate('/myplayers')
+        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId });
+        navigate('/myplayers');
     }
 
     const navigate = useNavigate();
@@ -63,9 +62,12 @@ function Roster() {
             <Container>
                 <Row className="justify-content-md-center">
                     {roster?.map((player, index) =>
-                        <Card style={{ width: '20%' }} key={index}>
+                        <Card style={{ width: '20%' }} key={index}>               
                             <Card.Img variant="top"
-                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personID}.png`} alt="**** no img *****" />
+                            style={{height:"auto"}}
+                                src={player?.personID ? 
+                                `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personID}.png` : anonymous} 
+                                />
                             <Card.Body>
                                 <Card.Title>
                                     {player.firstname} {player.lastname}
