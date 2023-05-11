@@ -8,35 +8,32 @@ import '../App.css';
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Teams(props) {
-    // const { teams, setTeams } = props;
     const [standings, setStandings] = useState([])
     const getAllTeams = async () => {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
-            // console.log(teams)
-            setStandings(teams.data.response)
+            setStandings(teams.data.response);
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
     }
     useEffect(() => {
-        getAllTeams()
-        console.log(standings)
+        getAllTeams();
+        console.log(standings);
     }, [])
 
     return (
         <>
             <br />
-
             <Container >
                 <h3>Teams</h3>
                 <Row >
                     <Col >
                         <h3>Western Conference</h3>
                         <div className="d-flex flex-column">
-                        {standings.map((standing) => (
+                        {standings.map((standing, index) => (
                             standing.conference.name === "west" &&
-                            <Card key={standing.team.id} border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
+                            <Card key={index} border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
                                 <Link to={`${standing.team.id}`} style={{textDecoration: "none"}}>
                                     <Card.Img src={standing.team.logo} variant="top" style={{ height: "5rem", width:"auto" }} />
                                     <div className="visibility" style={{color:"black"}}>
