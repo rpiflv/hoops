@@ -10,8 +10,9 @@ const Signup = () => {
     const [email, setEmail] = useState('');
     const [pwd, setPwd] = useState('');
     const [username, setUsername] = useState('');
+    const [errorMessage, setErrorMessage] = useState(null);
 
-    const navigate = useNavigate()
+    const navigate = useNavigate();
 
     const sendSignup = async (e) => {
         e.preventDefault();
@@ -23,16 +24,15 @@ const Signup = () => {
                     window.location.reload();
                 })
         } catch (err) {
-            console.log(err)
+            console.log(err);
+            setErrorMessage(err.response.data.errors[0].msg);
         }
     }
 
     return (
-        <Form>
-            <Container>
-
+        <Container>
+            <Form>
                 <Col xs={7}>
-
                     <Form.Group className="mb-3" controlId="username">
                         <Form.Label>Username</Form.Label>
                         <Form.Control type="text" placeholder="Username" onChange={(e) => setUsername(e.target.value)} />
@@ -49,8 +49,19 @@ const Signup = () => {
                         Submit
                     </Button>
                 </Col>
-            </Container>
-        </Form>
+            </Form>
+            {errorMessage ? 
+                <div className="modal display-block" >
+                    <section className="modal-main">
+                        <p><h4>Sign Up Error</h4></p>
+                            <p>{errorMessage}</p>
+                        <button onClick={() => setErrorMessage(null)}>Close</button>
+                    </section>
+                </div>
+                :
+                <></>
+            }
+        </Container>
     )
 }
 

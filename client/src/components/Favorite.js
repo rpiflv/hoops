@@ -16,42 +16,39 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Favorite() {
 
-    const [myFavsInfo, setMyFavsInfo] = useState([])
-    const [myFavsNotes, setMyFavsNotes] = useState([])
-    const [myPlayerInfo, setMyPlayerInfo] = useState([])
+    const [myFavsInfo, setMyFavsInfo] = useState([]);
+    const [myFavsNotes, setMyFavsNotes] = useState([]);
+    const [myPlayerInfo, setMyPlayerInfo] = useState([]);
 
-    const userData = JSON.parse(localStorage.getItem('user'))
-    const user_id = userData.user_id
+    const userData = JSON.parse(localStorage.getItem('user'));
+    const user_id = userData.user_id;
 
     const navigate = useNavigate();
 
     const getMyFav = async () => {
         try {
-            // const fetchedData = await axios.get(BASE_URL + '/api/myplayers', { headers: authHeader() })
             await axios.get(BASE_URL + `/api/myplayers/${user_id}`, { body: user_id, headers: authHeader() })
                 .then((fetchedData) => {
-
                     const allPlayers = fetchedData.data.allPlayers;
                     const favsPlayersNotes = fetchedData.data.favPlayers;
-                    const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId)
+                    const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId);
                     const favPlayersInfo = []
-                    favPlayersID?.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)))
-                    setMyFavsInfo(favPlayersInfo)
-                    setMyFavsNotes(favsPlayersNotes)
-                    const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }))
-                    setMyPlayerInfo(allData)
+                    favPlayersID?.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)));
+                    setMyFavsInfo(favPlayersInfo);
+                    setMyFavsNotes(favsPlayersNotes);
+                    const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }));
+                    setMyPlayerInfo(allData);
                 },
                     (error) => {
                         if (error.response) {
-                            authService.logout()
-                            navigate('/login')
-                            window.location.reload()
+                            authService.logout();
+                            navigate('/login');
+                            window.location.reload();
                         }
                     })
         } catch (error) {
-            console.error(error)
+            console.error(error);
         }
-
     }
 
     useEffect(() => {
@@ -67,7 +64,7 @@ function Favorite() {
             })
                 .then(getMyFav())
         } catch (err) {
-            console.log(err)
+            console.log(err);
         }
     }
 
@@ -76,7 +73,6 @@ function Favorite() {
             <h2>My Favorite Players</h2>
             <Container>
                 <Row >
-
                     {myPlayerInfo && myPlayerInfo.map((player) => (
                         <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} key={player.personId}>
                             <Card.Img variant="top"
@@ -99,14 +95,10 @@ function Favorite() {
                                 </Link>
                                 <Button onClick={() => removeFav(player.personId)}>Remove</Button>
                             </ListGroup.Item>
-
                         </Card>
                     ))}
-
-
                 </Row>
             </Container>
-
         </>
     )
 }

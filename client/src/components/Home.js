@@ -9,8 +9,8 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 function Home() {
     
     const [lastNews, setLastNews] = useState([]);
-    const [showScore, setShowScore] = useState(true);
     const [firstComponentHeight, setFirstComponentHeight] = useState(0);
+    const [showScore, setShowScore] = useState(true);
     
     useEffect(() => {
         const getNews = async () => {
@@ -24,7 +24,7 @@ function Home() {
         }  
         getNews();
     }, [])
-
+    
     useEffect(() => {
         const toggleScore = () => {
             setShowScore(!showScore);

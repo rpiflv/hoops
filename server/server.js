@@ -267,12 +267,51 @@ app.post('/api/signup/',
         check('password', "Password should be at least 5 char long").isLength({ min: 5 })
     ], async (req, res) => {
         const { email, password, username } = req.body;
-
         const errors = validationResult(req);
-
         if (!errors.isEmpty()) {
-            return res.send(errors);
-        }
+            return res.status(400).json({
+              errors: errors.array(),
+            });
+          }
+
+        //   let user = users.find((user) => {
+        //     return user.email === email;
+        //   });
+      
+        //   if (user) {
+        //     return res.status(200).json({
+        //       errors: [
+        //         {
+        //           email: user.email,
+        //           msg: "The user already exists",
+        //         },
+        //       ],
+        //     });
+        //   }
+        
+        //
+        knex('users')
+        .select('*')
+        .where('email', email)
+        .first()
+        .then(user => {
+        if (user) {
+            res.status(404).json({
+                errors: [
+                    {
+                        msg: `User with email ${email} already exists`,
+                    },
+                ],
+            }
+            )
+            
+        } else {
+          res.json(user);
+        }})
+        .catch(err => {
+        res.status(500).json({ error: err.message });
+        });
+        //
         const salt10 = await bcrypt.genSalt(10);
         const hashedPWD = await bcrypt.hash(password, salt10);
 
@@ -302,10 +341,6 @@ app.post('/api/login/', async (req, res) => {
     } catch (err) {
         console.log(err);
     }
-    // if (!user) {
-    //     // return res.send("Email does not exist");
-    //     return res.status(401).json({message: "no email registered"});
-    // }
     if (!user) {
         return res.status(400).json({
           errors: [
@@ -316,12 +351,6 @@ app.post('/api/login/', async (req, res) => {
         });
     }
     let isMatch = await bcrypt.compare(password, user.password);
-
-    // if (!isMatch) {
-    //     // return res.send("Credentials are not correct");
-    //     return res.status(401).json([{message: "invalid email or password"}]);
-    // }
-
     if (!isMatch) {
         return res.status(401).json({
           errors: [

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import authService from "../services/auth.service";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
-import { Col, Container, Modal} from "react-bootstrap";
+import { Col, Container} from "react-bootstrap";
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -20,7 +20,7 @@ const Login = () => {
                     window.location.reload();
                 })
         } catch (err) {
-            setErrorMessage(err.response.data.errors[0].msg);
+            setErrorMessage(err.response?.data.errors[0].msg);
         }
     }
 
