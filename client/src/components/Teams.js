@@ -7,8 +7,9 @@ import '../App.css';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
-function Teams(props) {
-    const [standings, setStandings] = useState([])
+function Teams() {
+    const [standings, setStandings] = useState([]);
+    
     const getAllTeams = async () => {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
@@ -31,7 +32,7 @@ function Teams(props) {
                     <Col >
                         <h3>Western Conference</h3>
                         <div className="d-flex flex-column">
-                        {standings.map((standing, index) => (
+                            {standings.map((standing, index) => (
                             standing.conference.name === "west" &&
                             <Card key={index} border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
                                 <Link to={`${standing.team.id}`} style={{textDecoration: "none"}}>
@@ -41,7 +42,6 @@ function Teams(props) {
                                         {standing.conference.win} - {standing.conference.loss}
                                     </div>
                                 </Link>
-
                             </Card>
                         ))}
                         </div>
@@ -49,10 +49,9 @@ function Teams(props) {
                     <Col>
                         <h3>Eastern Conference</h3>
                         <div className="d-flex flex-column">
-                        {standings.map((standing) => (
+                            {standings.map((standing, index) => (
                             standing.conference.name === "east" &&
-                            <Card border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
-
+                            <Card key={index} border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
                                 <Link to={`${standing.team.id}`} style={{textDecoration: "none"}}>
                                 <Card.Img src={standing.team.logo} variant="top" style={{ height: "5rem", width:"auto" }} />
                                 <div className="visibility" style={{color:"black"}}>
@@ -60,10 +59,9 @@ function Teams(props) {
                                         {standing.conference.win} - {standing.conference.loss}
                                     </div>
                                 </Link>
-
                             </Card>
-                        ))}
-</div>
+                            ))}
+                        </div>
                     </Col>
                 </Row>
             </Container>
