@@ -9,7 +9,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Teams() {
     const [standings, setStandings] = useState([]);
-    
+
     const getAllTeams = async () => {
         try {
             const teams = await axios.get(BASE_URL + '/api/teams')
@@ -20,7 +20,6 @@ function Teams() {
     }
     useEffect(() => {
         getAllTeams();
-        console.log(standings);
     }, [])
 
     return (
