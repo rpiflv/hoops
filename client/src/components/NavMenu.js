@@ -5,19 +5,14 @@ import { useNavigate, Link } from "react-router-dom";
 import "../App.css"
 
 import Nav from 'react-bootstrap/Nav';
-
-
-
-
+import logo from "../hoopsBlack.png"
 function NavMenu(props) {
 
     const navigate = useNavigate()
     const { user } = props
-
-    // const history = useHistory()
-
     const logout = () => {
         authService.logout();
+        console.log("logging out")
         navigate('/')
         window.location.reload()
     }
@@ -25,7 +20,7 @@ function NavMenu(props) {
 
         <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="sticky-top">
             <Navbar.Brand as={Link} to="/" className="mx-3">
-                <img src="./hoopsBlack.png" className="d-inline-block align-top" height={55} />
+                <img src={logo} className="d-inline-block align-top" height={55} />
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -38,13 +33,13 @@ function NavMenu(props) {
                     {!user &&
                         <>
                             <Nav.Link as={Link} to={"login"} className="ms-auto">Login</Nav.Link>
-                            <Nav.Link as={Link} to={"signup"} className="">Sign Up</Nav.Link>
+                            <Nav.Link as={Link} to={"signup"} className="" >Sign Up</Nav.Link>
                         </>
                     }
                     {user &&
                         <>
                             <Nav.Link as={Link} to={"myplayers"} className="ms-auto">My Players</Nav.Link>
-                            <Nav.Link as={Link} to={"/"} >Logout</Nav.Link>
+                            <Nav.Link as={Link} to={"/"} onClick={logout}>Logout</Nav.Link>
                         </>
 
                     }
