@@ -327,7 +327,7 @@ app.post('/api/signup/',
         const accessToken = await JWT.sign(
             { username },
             process.env.ACCESS_TOKEN_SECRET,
-            { expiresIn: "5m" }
+            { expiresIn: "10m" }
         )
         res.json(accessToken);
     })
@@ -419,8 +419,10 @@ app.post('/api/token', async (req, res) => {
 });
 
 app.delete("/api/logout/", (req, res) => {
-    const refreshToken = req.header("x-auth-token");
-    refreshTokens = refreshTokensl.filter((token) => token !== refreshToken);
+    const authToken = req.header("x-auth-token");
+    // authToken = authToken.filter((token) => )
+    // const refreshToken = req.header("x-auth-token");
+    // refreshTokens = refreshToken.filter((token) => token !== refreshToken);
 })
 
 app.listen(process.env.PORT, () => {

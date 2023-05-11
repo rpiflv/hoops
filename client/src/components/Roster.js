@@ -64,7 +64,6 @@ function Roster() {
                     {roster?.map((player, index) =>
                         <Card style={{ width: '20%' }} key={index}>               
                             <Card.Img variant="top"
-                            style={{height:"auto"}}
                                 src={player?.personID ? 
                                 `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personID}.png` : anonymous} 
                                 />
