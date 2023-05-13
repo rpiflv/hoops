@@ -3,29 +3,26 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { Card, Col, Container, Row } from "react-bootstrap";
 import '../App.css';
-import logos from "../logos"
+import logos from "../logos";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Teams() {
-    // const [west, setWest] = useState([]);
-    // const [east, setEast] = useState([]);
 
     const [conferences, setConferences] = useState([]);
 
     const getAllTeams = async () => {
         try {
-            const standings = await axios.get(BASE_URL + '/api/teams')
-            // setWest(conf.data.conferences[0]);
-            // setEast(conf.data.conferences[1]);
-            setConferences(standings.data.conferences)
+            const standings = await axios.get(BASE_URL + '/api/teams');
+            setConferences(standings.data.conferences);
         } catch (error) {
             console.error(error);
         }
-    }
+    };
+
     useEffect(() => {
         getAllTeams();
-    }, [])
+    }, []);
 
     return (
         <>
@@ -71,28 +68,10 @@ function Teams() {
                         </div>
                     </Col>
                     ))}
-                    
-                    {/* <Col>
-                        <h3>Eastern Conference</h3>
-                        <div className="d-flex flex-column">
-                            {standings.map((standing, index) => (
-                            standing.conference.name === "east" &&
-                            <Card key={index} border="light" style={{height: "auto", width:"20rem", padding:"8px"}} className="team align-self-center">
-                                <Link to={`${standing.team.id}`} style={{textDecoration: "none"}}>
-                                <Card.Img src={standing.team.logo} variant="top" style={{ height: "5rem", width:"auto" }} />
-                                <div className="visibility" style={{color:"black"}}>
-                                        {standing.team.name}<br/>
-                                        {standing.conference.win} - {standing.conference.loss}
-                                    </div>
-                                </Link>
-                            </Card>
-                            ))}
-                        </div>
-                    </Col> */}
                 </Row>
             </Container>
         </>
     )
-}
+};
 
 export default Teams;
