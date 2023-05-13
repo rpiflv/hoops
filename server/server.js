@@ -1,7 +1,7 @@
 const fetch = (...args) =>
 import("node-fetch").then(({ default: fetch }) => fetch(...args));
 require('dotenv').config({ path: './.env' });
-const KEY = process.env.APISPORT_KEY || 'ciao';
+const KEY = process.env.APISPORT_KEY;
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
 const express = require('express');
 const app = express();
@@ -54,7 +54,7 @@ app.get('/api/', async (req, res) => {
 // USE THIS FOR DAULY [MOCK] GAME API CALLS
 // *** it might be used in case the monthly limit has been reached ***
 app.get('/api/games/:year/:month/:day', async (req, res) => {
-    const data = require("../client/src/components/gamefakeday.json");
+    const data = require("../client/src/mockdata/gamefakeday.json");
     res.send(data);
 });
 
@@ -72,25 +72,29 @@ app.get('/api/games/:year/:month/:day', async (req, res) => {
 // USE THIS FOR [MOCK] GAME API CALLS
 // *** it might be used in case the monthly limit has been reached ***
 app.get('/api/games/:gameId', async (req, res) => {
-    const data = require('../client/src/components/gamefake.json');
+    const data = require('../client/src/mockdata/gamefake.json');
     res.send(data);
 });
 
-app.get('/api/teams', (req, res) => {
-    fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-            "x-rapidapi-key": KEY
-        }
-    })
-        .then((res) => res.json())
-        .then((data) => res.send(data))
-        .catch(err => {
-            console.log(err);
-        });
+app.get("/api/teams", (req, res) => {
+    const data = require("../client/src/mockdata/standing.json");
+    res.send(data);
+});
 
-})
+// app.get('/api/teams', (req, res) => {
+//     fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {
+//         "method": "GET",
+//         "headers": {
+//             "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
+//             "x-rapidapi-key": KEY
+//         }
+//     })
+//         .then((res) => res.json())
+//         .then((data) => res.send(data))
+//         .catch(err => {
+//             console.log(err);
+//         });
+// });
 
 app.get('/api/teams/:teamId', (req, res) => {
     const rosterInfo = fetch(`https://v2.nba.api-sports.io/players?season=2022&team=${req.params.teamId}`, {
