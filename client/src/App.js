@@ -17,17 +17,16 @@ import AlertModalNoData from "./components/AlertModalNoData";
 
 function App() {
 
-  const [user, setUser] = useState(undefined)
-  const [teams, setTeams] = useState([])
-  const [games, setGames] = useState([])
+  const [user, setUser] = useState(undefined);
+  const [teams, setTeams] = useState([]);
+  const [games, setGames] = useState([]);
+  
   useEffect(() => {
     const user = authService.getCurrentUser();
     if (user) {
-      setUser(user)
+      setUser(user);
     }
-  }, [])
-
-
+  }, []);
 
   return (
     <>

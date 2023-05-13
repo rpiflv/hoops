@@ -2,15 +2,13 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import Accordion from 'react-bootstrap/Accordion';
-import { Button, Card, CardGroup } from "react-bootstrap";
+import { Button, Card } from "react-bootstrap";
 import { Link } from "react-router-dom";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import authHeader from "../services/authheader";
 import authService from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
-
-
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -32,7 +30,7 @@ function Favorite() {
                     const allPlayers = fetchedData.data.allPlayers;
                     const favsPlayersNotes = fetchedData.data.favPlayers;
                     const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId);
-                    const favPlayersInfo = []
+                    const favPlayersInfo = [];
                     favPlayersID?.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)));
                     setMyFavsInfo(favPlayersInfo);
                     setMyFavsNotes(favsPlayersNotes);
@@ -49,13 +47,13 @@ function Favorite() {
         } catch (error) {
             console.error(error);
         }
-    }
-
+    };
+    
     useEffect(() => {
-        getMyFav()
-    }, [])
+        getMyFav();
+    }, []);
 
-    async function removeFav(playerId) {
+    const removeFav = async (playerId) => {
         try {
             await fetch(BASE_URL + `/api/myplayers/${playerId}`, {
                 method: "DELETE",
@@ -66,7 +64,7 @@ function Favorite() {
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 
     return (
         <>

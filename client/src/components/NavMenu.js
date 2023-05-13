@@ -2,22 +2,21 @@ import React, { useEffect, useState } from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import authService from "../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
-import "../App.css"
+import "../App.css";
 
 import Nav from 'react-bootstrap/Nav';
-import logo from "../hoopsBlack.png"
+import logo from "../hoopsBlack.png";
 function NavMenu(props) {
 
-    const navigate = useNavigate()
-    const { user } = props
+    const { user } = props;
+    const navigate = useNavigate();
+    
     const logout = () => {
         authService.logout();
-        console.log("logging out")
-        navigate('/')
-        window.location.reload()
+        navigate('/');
+        window.location.reload();
     }
     return (
-
         <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="sticky-top">
             <Navbar.Brand as={Link} to="/" className="mx-3">
                 <img src={logo} className="d-inline-block align-top" height={55} />
@@ -41,13 +40,10 @@ function NavMenu(props) {
                             <Nav.Link as={Link} to={"myplayers"} className="ms-auto">My Players</Nav.Link>
                             <Nav.Link as={Link} to={"/"} onClick={logout}>Logout</Nav.Link>
                         </>
-
                     }
-
                 </Nav>
             </Navbar.Collapse>
         </Navbar>
-
     )
 }
 

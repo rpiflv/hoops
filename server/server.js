@@ -1,29 +1,20 @@
 require('dotenv').config({ path: './.env' });
-
-const knex = require('./knex');
-const express = require('express');
-const app = express();
-require('dotenv').config({ path: './.env' });
-
 const KEY = process.env.APISPORT_KEY || 'ciao';
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
+const express = require('express');
+const app = express();
+const knex = require('./knex');
 const cors = require('cors');
-
+app.use(cors());
+app.use(express.json());
 const { check, validationResult } = require("express-validator");
 const bcrypt = require("bcrypt");
 const JWT = require("jsonwebtoken");
-
 const authToken = require("./authToken");
-
-
-app.use(express.json());
-app.use(cors());
-
 const path = require("path");
 const { match } = require("assert");
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(express.static("public"));
-
 
 app.get('/', (req, res) => {
     res.send('Hello World!');
@@ -44,7 +35,8 @@ app.get('/api/', async (req, res) => {
     }
 });
 
-// USE THIS FOR DAULY GAME API CALLS
+// USE THIS FOR DAILY GAME API CALLS 
+// *** it might be disabled in case the monthly limit has been reached ***
 // app.get('/api/games/:year/:month/:day', async (req, res) => {
 //     try {
 //         fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.year}/${req.params.month}/${req.params.day}/schedule.json?api_key=${process.env.SPORTRADAR_KEY}`)
@@ -58,12 +50,14 @@ app.get('/api/', async (req, res) => {
 // })
 
 // USE THIS FOR DAULY [MOCK] GAME API CALLS
+// *** it might be used in case the monthly limit has been reached ***
 app.get('/api/games/:year/:month/:day', async (req, res) => {
     const data = require("../client/src/components/gamefakeday.json");
     res.send(data);
 });
 
 // USE THIS FOR GAME API CALLS
+// *** it might be disabled in case the monthly limit has been reached ***
 // app.get('/api/games/:gameId', (req, res) => {
 //     fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.gameId}/summary.json?api_key=${process.env.SPORTRADAR_KEY}`)
 //     .then(res => res.json())
@@ -74,11 +68,11 @@ app.get('/api/games/:year/:month/:day', async (req, res) => {
 // })
 
 // USE THIS FOR [MOCK] GAME API CALLS
+// *** it might be used in case the monthly limit has been reached ***
 app.get('/api/games/:gameId', async (req, res) => {
-    const data = require('../client/src/components/gamefake.json')
+    const data = require('../client/src/components/gamefake.json');
     res.send(data);
 });
-
 
 app.get('/api/teams', (req, res) => {
     fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {
@@ -113,10 +107,8 @@ app.get('/api/teams/:teamId', (req, res) => {
 
     Promise.all([rosterInfo, playersList])
         .then(([rosterInfo, playersList]) => {
-
             const rosterAPI = rosterInfo.response;
             const playersJSON = playersList.league.standard;
-
             rosterAPI?.map(playerAPI => {
                 personID = playersJSON.filter(
                     playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname
@@ -128,13 +120,11 @@ app.get('/api/teams/:teamId', (req, res) => {
         .then(roster => {
             res.send(roster)
         });
-})
-
+});
 
 app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
     const playerId = req.params.playerId;
     const user_id = req.params.user_id;
-
     try {
         await knex('fav_players').insert({
             player_id: playerId,
@@ -145,18 +135,19 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
     } catch (error) {
         console.error(error);
     }
-})
+});
+
 app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
     const user_id = req.params.user_id;
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-            .then((fetchedData) => fetchedData.json())
+            .then((fetchedData) => fetchedData.json());
         try {
             const favPlayers = await knex('fav_players').select({
                 id: "id",
                 playerId: "player_id",
                 notes: "notes"
-            }).where("user_id", user_id)
+            }).where("user_id", user_id);
             res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers });
         } catch (error) {
             console.error(error);
@@ -164,7 +155,7 @@ app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
     } catch (error) {
         console.error(error);
     }
-})
+});
 
 app.delete('/api/myplayers/:playerId', authToken, async (req, res) => {
     const playerId = req.params.playerId;
@@ -175,7 +166,7 @@ app.delete('/api/myplayers/:playerId', authToken, async (req, res) => {
     } catch (error) {
         console.error(error);
     }
-})
+});
 
 app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
     const playerId = req.params.playerId;
@@ -200,7 +191,6 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
                     })
                     .where('player_id', playerId)
                     .where('user_id', user_id);
-                // console.log(extraNotes)
                 res.send({ allPlayers: allPlayers.league.standard, notes: notes, extraNotes: extraNotes })
             } catch (err) {
                 console.log(err);
@@ -211,7 +201,7 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
     } catch (error) {
         console.error(error);
     }
-})
+});
 
 app.post('/api/myplayers/:playerId/:user_id/edit', authToken, async (req, res) => {
     const notes = req.body;
@@ -225,7 +215,7 @@ app.post('/api/myplayers/:playerId/:user_id/edit', authToken, async (req, res) =
     } catch (error) {
         console.error(error);
     }
-})
+});
 
 app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) => {
     const extraNote = req.body.extraNote;
@@ -247,7 +237,7 @@ app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) =>
     } catch (err) {
         console.log(err);
     }
-})
+});
 
 app.delete('/api/myplayers/:playerId/:user_id/delete/:noteId', authToken, async (req, res) => {
     const noteId = req.params.noteId;
@@ -258,8 +248,7 @@ app.delete('/api/myplayers/:playerId/:user_id/delete/:noteId', authToken, async 
     } catch (error) {
         console.error(error);
     }
-
-})
+});
 
 app.post('/api/signup/',
     [
@@ -273,23 +262,6 @@ app.post('/api/signup/',
               errors: errors.array(),
             });
           }
-
-        //   let user = users.find((user) => {
-        //     return user.email === email;
-        //   });
-      
-        //   if (user) {
-        //     return res.status(200).json({
-        //       errors: [
-        //         {
-        //           email: user.email,
-        //           msg: "The user already exists",
-        //         },
-        //       ],
-        //     });
-        //   }
-        
-        //
         knex('users')
         .select('*')
         .where('email', email)
@@ -302,19 +274,15 @@ app.post('/api/signup/',
                         msg: `User with email ${email} already exists`,
                     },
                 ],
-            }
-            )
-            
+            });            
         } else {
           res.json(user);
         }})
         .catch(err => {
         res.status(500).json({ error: err.message });
         });
-        //
         const salt10 = await bcrypt.genSalt(10);
         const hashedPWD = await bcrypt.hash(password, salt10);
-
         try {
             await knex('users').insert({
                 email: email,
@@ -330,7 +298,7 @@ app.post('/api/signup/',
             { expiresIn: "10m" }
         )
         res.json(accessToken);
-    })
+    });
 
 app.post('/api/login/', async (req, res) => {
     const { email, password } = req.body;
@@ -360,7 +328,6 @@ app.post('/api/login/', async (req, res) => {
           ],
         });
       }
-
     const accessToken = await JWT.sign(
         { email },
         process.env.ACCESS_TOKEN_SECRET,
@@ -368,7 +335,6 @@ app.post('/api/login/', async (req, res) => {
             expiresIn: "20m",
         }
     );
-
     const refreshToken = await JWT.sign(
         { email },
         process.env.REFRESH_TOKEN_SECRET,
@@ -376,31 +342,23 @@ app.post('/api/login/', async (req, res) => {
             expiresIn: "90d",
         }
     );
-
     refreshTokens.push(refreshToken);
-
     res.json({
         accessToken,
         refreshToken,
         user_id: user.id
     });
 })
-
 // this should be stored in the DB
 let refreshTokens = [];
-
 app.post('/api/token', async (req, res) => {
-
     const refreshToken = req.header("x-auth-token");
-
     if (!refreshToken) {
         res.send("Token not found!");
     }
-
     if (!refreshTokens.includes(refreshToken)) {
         res.send("Invalid refresh token");
     }
-
     try {
         const user = await JWT.verify(
             refreshToken,
@@ -420,11 +378,8 @@ app.post('/api/token', async (req, res) => {
 
 app.delete("/api/logout/", (req, res) => {
     const authToken = req.header("x-auth-token");
-    // authToken = authToken.filter((token) => )
-    // const refreshToken = req.header("x-auth-token");
-    // refreshTokens = refreshToken.filter((token) => token !== refreshToken);
-})
+});
 
 app.listen(process.env.PORT, () => {
     console.log(`Listening to port: ${process.env.PORT}`);
-})
+});
