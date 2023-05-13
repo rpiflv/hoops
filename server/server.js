@@ -1,3 +1,4 @@
+import("node-fetch").then(({ default: fetch }) => fetch(...args));
 require('dotenv').config({ path: './.env' });
 const KEY = process.env.APISPORT_KEY || 'ciao';
 const RAPIDAPI_KEY = process.env.RAPIDAPI_KEY || '';
