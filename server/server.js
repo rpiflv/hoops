@@ -98,7 +98,8 @@ app.get("/api/teams", (req, res) => {
 
 app.get('/api/teams/:teamId', (req, res) => {
     const data = require("../client/src/mockdata/teamRoster.json");
-    res.send(data);
+    const stats = require("../client/src/mockdata/teamstats.json");
+    res.send({data, stats});
 });
 
 // app.get('/api/teams/:teamId', (req, res) => {
