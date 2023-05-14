@@ -95,7 +95,7 @@ function LiveScores ({onHeightChange}) {
                             </Card>
                                 ) 
                                 :
-                                <h3>No mathes today</h3>
+                                <h3>No matches today</h3>
                         }
                     </Row>
                     </div>
