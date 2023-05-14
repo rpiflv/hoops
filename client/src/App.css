@@ -130,16 +130,16 @@ opacity: 1;
 }
 
 .player-card-text{
-  opacity: 0.70;
+  opacity: 0.60;
 }
 
 .player-card-footer{
   opacity: 0.5;
 }
 
-.player-card {
+/* .player-card {
   background-color: rgba(234, 234, 234, 0.392);
-}
+} */
 
 .player-card:hover {
   box-shadow: 0 0 10px rgba(87, 87, 87, 0.5); 
@@ -153,3 +153,13 @@ opacity: 1;
   opacity: 1;
 }
 
+.hr-roster {
+  border: line 2px rgba(73, 73, 73, 0.584);
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
+hr {
+  margin-top:5px ;
+  margin-bottom: 5px;
+}

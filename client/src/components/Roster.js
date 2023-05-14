@@ -13,6 +13,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 function Roster() {
     const [roster, setRoster] = useState([]);
     const [teamcolor, setTeamColor] = useState('');
+    const [teamcolorSec, setTeamColorSec] = useState('');
 
     const { teamId } = useParams();
 
@@ -24,7 +25,9 @@ function Roster() {
             const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`);
             console.log(response.data)
             setRoster(response.data.players);
-            setTeamColor(response.data.team_colors[0].hex_color)
+            setTeamColor(response.data.team_colors[0].hex_color);
+            setTeamColorSec(response.data.team_colors[1].hex_color);
+
         } catch (error) {
             console.error(error);
         }
@@ -46,42 +49,42 @@ function Roster() {
     return (
         <>
             <br />
-            <img src={logos[`${teamId}`]} style={{ width: "150px" }} />
-            <h2> Roster</h2>
+            <img src={logos[`${teamId}`]} style={{ width: "150px", marginBottom:"5%" }} />
             <br />
-            {console.log(teamcolor)}
+            
             <Container>
                 {console.log(roster)}
                 <Row className="justify-content-md-center">
                     {
                         roster?.map((player) => (
-                            <Card style={{ width: '20%', marginRight:"1%", marginBottom:"2%" }} key={player.id} className="player-card">
+                            <Card style={{height:"100%", width: '15%', marginRight:"1%", marginBottom:"2%", padding:"0", backgroundColor:`${teamcolor}10` }} key={player.id} 
+                            className="player-card" border="light">
                                 <Card.Img variant="top" 
                                 src={player?.reference ? 
                                 `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.reference}.png` : anonymous} 
                                 className="player-card-img"
                                 style={{backgroundColor:`${teamcolor}`}}
                                 />
-                                <Card.Body className="player-card-body">
+                                <Card.Body className="player-card-body" style={{backgroundColor:`${teamcolorSec}10`}}>
                                 <Card.Title>
-                                    {player.first_name} {player.last_name}
-                                    <hr class="hr" />
+                                    {player?.first_name} {player?.last_name}
+                                    <hr className="hr" />
                                 </Card.Title>
                                 
                                 <Card.Text className="player-card-text">
-                                    Draft: {player.draft.year}<br/>
-                                    Pick: {player.draft.pick ? player.draft.pick : "undrafted"} <br/>
-                                    <hr class="hr" />
-                                    Position: {player.primary_position}<br />
-                                    Height: {Math.floor(player.height/12)}-{player.height%12}<br />
-                                    Weight: {player.weight}<br />
+                                    Draft: {player?.draft.year}<br/>
+                                    Pick: {player?.draft.pick ? player?.draft.pick : "undrafted"} <br/>
+                                    <hr className="hr" />
+                                    Position: {player?.primary_position}<br />
+                                    Height: {Math.floor(player?.height/12)}-{player?.height%12}<br />
+                                    Weight: {player?.weight}<br />
                                 </Card.Text>
                             </Card.Body>
-                            <Card.Footer style={{backgroundColor:`${teamcolor}10`}} className="player-card-footer">
-                                <Button className="player-card-body" variant="outline-dark" onClick={() => {
+                            <Card.Footer style={{backgroundColor:`${teamcolorSec}50`}} className="player-card-footer">
+                                <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`}} variant="outline-dark" onClick={() => {
                                     {
                                         user_id ?
-                                            addToFav(player.id)
+                                            addToFav(player?.id)
                                             : navigate('/login')
                                     }
                                 }}>Add to favorite</Button>
