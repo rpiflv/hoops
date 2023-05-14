@@ -125,8 +125,8 @@ opacity: 1;
   box-shadow: 0 0 10px rgba(87, 87, 87, 0.5);
 }
 
-.roster-box {
-  margin-top: 5%;
+.team-box {
+  margin-top: 1rem;
   font-weight: 500;
   background-color: rgba(240, 248, 255, 0);
 }
