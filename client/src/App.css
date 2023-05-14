@@ -124,3 +124,32 @@ opacity: 1;
 .box-news:hover {
   box-shadow: 0 0 10px rgba(87, 87, 87, 0.5);
 }
+
+.player-card-img {
+  opacity: 1;
+}
+
+.player-card-text{
+  opacity: 0.70;
+}
+
+.player-card-footer{
+  opacity: 0.5;
+}
+
+.player-card {
+  background-color: rgba(234, 234, 234, 0.392);
+}
+
+.player-card:hover {
+  box-shadow: 0 0 10px rgba(87, 87, 87, 0.5); 
+}
+
+.player-card:hover .player-card-text{
+  opacity: 1;
+}
+
+.player-card:hover .player-card-footer{
+  opacity: 1;
+}
+

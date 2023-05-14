@@ -7,44 +7,34 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import logos from "../logos";
 import anonymous from "../anonymous.png";
+import '../App.css';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 function Roster() {
     const [roster, setRoster] = useState([]);
-    const [teamName, setTeamName] = useState('');
+    const [teamcolor, setTeamColor] = useState('');
 
     const { teamId } = useParams();
 
     const userData = JSON.parse(localStorage.getItem('user'));
     const user_id = userData?.user_id;
 
-    const getTeamsName = async (teamId) => {
-        try {
-            const teams = await axios.get(BASE_URL + '/api/teams')
-            const team = teams.data.response.filter(teamData =>
-                teamData.team.id.toString() === teamId);
-            setTeamName(team[0].team.name);
-        } catch (error) {
-            console.error(error);
-        }
-    }
-    // console.log(teamId)
     const getRoster = async (teamId) => {
         try {
             const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`);
-            setRoster(response.data);
+            console.log(response.data)
+            setRoster(response.data.players);
+            setTeamColor(response.data.team_colors[0].hex_color)
         } catch (error) {
             console.error(error);
         }
-    }
+    };
 
     useEffect(() => {
         getRoster(teamId);
-    }, [])
+    }, []);
 
-    useEffect(() => {
-        getTeamsName(teamId);
-    }, [])
+
 
     const addToFav = (playerId) => {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId });
@@ -57,38 +47,48 @@ function Roster() {
         <>
             <br />
             <img src={logos[`${teamId}`]} style={{ width: "150px" }} />
-            <h2>{teamName}'s Roster</h2>
+            <h2> Roster</h2>
             <br />
+            {console.log(teamcolor)}
             <Container>
+                {console.log(roster)}
                 <Row className="justify-content-md-center">
-                    {roster?.map((player, index) =>
-                        <Card style={{ width: '20%' }} key={index}>               
-                            <Card.Img variant="top"
-                                src={player?.personID ? 
-                                `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personID}.png` : anonymous} 
+                    {
+                        roster?.map((player) => (
+                            <Card style={{ width: '20%', marginRight:"1%", marginBottom:"2%" }} key={player.id} className="player-card">
+                                <Card.Img variant="top" 
+                                src={player?.reference ? 
+                                `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.reference}.png` : anonymous} 
+                                className="player-card-img"
+                                style={{backgroundColor:`${teamcolor}`}}
                                 />
-                            <Card.Body>
+                                <Card.Body className="player-card-body">
                                 <Card.Title>
-                                    {player.firstname} {player.lastname}
+                                    {player.first_name} {player.last_name}
+                                    <hr class="hr" />
                                 </Card.Title>
-                                <Card.Text>
-                                    Position: {player.leagues.standard.pos}<br />
-                                    Height: {player.height.meters}<br />
-                                    Weight: {player.weight.kilograms}<br />
+                                
+                                <Card.Text className="player-card-text">
+                                    Draft: {player.draft.year}<br/>
+                                    Pick: {player.draft.pick ? player.draft.pick : "undrafted"} <br/>
+                                    <hr class="hr" />
+                                    Position: {player.primary_position}<br />
+                                    Height: {Math.floor(player.height/12)}-{player.height%12}<br />
+                                    Weight: {player.weight}<br />
                                 </Card.Text>
                             </Card.Body>
-                            <Card.Footer >
-                                <Button onClick={() => {
+                            <Card.Footer style={{backgroundColor:`${teamcolor}10`}} className="player-card-footer">
+                                <Button className="player-card-body" variant="outline-dark" onClick={() => {
                                     {
                                         user_id ?
-                                            addToFav(player.personID)
+                                            addToFav(player.id)
                                             : navigate('/login')
                                     }
                                 }}>Add to favorite</Button>
                             </Card.Footer>
-                        </Card>
-                    )}
-
+                            </Card>  
+                        ))
+                    }
                 </Row>
             </Container>
         </>
