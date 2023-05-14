@@ -97,36 +97,41 @@ app.get("/api/teams", (req, res) => {
 // });
 
 app.get('/api/teams/:teamId', (req, res) => {
-    const rosterInfo = fetch(`https://v2.nba.api-sports.io/players?season=2022&team=${req.params.teamId}`, {
-        "method": "GET",
-        "headers": {
-            "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-            "x-rapidapi-key": KEY
-        }
-    })
-        .then((data) =>
-            data.json()
-        );
-
-    const playersList = fetch(`https://data.nba.net/data/10s/prod/v1/2022/players.json`)
-        .then((fetchedData) => fetchedData.json());
-
-    Promise.all([rosterInfo, playersList])
-        .then(([rosterInfo, playersList]) => {
-            const rosterAPI = rosterInfo.response;
-            const playersJSON = playersList.league.standard;
-            rosterAPI?.map(playerAPI => {
-                personID = playersJSON.filter(
-                    playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname
-                );
-                playerAPI['personID'] = personID[0]?.personId;
-            })
-            return rosterAPI;
-        })
-        .then(roster => {
-            res.send(roster)
-        });
+    const data = require("../client/src/mockdata/teamRoster.json");
+    res.send(data);
 });
+
+// app.get('/api/teams/:teamId', (req, res) => {
+//     const rosterInfo = fetch(`https://v2.nba.api-sports.io/players?season=2022&team=${req.params.teamId}`, {
+//         "method": "GET",
+//         "headers": {
+//             "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
+//             "x-rapidapi-key": KEY
+//         }
+//     })
+//         .then((data) =>
+//             data.json()
+//         );
+
+//     const playersList = fetch(`https://data.nba.net/data/10s/prod/v1/2022/players.json`)
+//         .then((fetchedData) => fetchedData.json());
+
+//     Promise.all([rosterInfo, playersList])
+//         .then(([rosterInfo, playersList]) => {
+//             const rosterAPI = rosterInfo.response;
+//             const playersJSON = playersList.league.standard;
+//             rosterAPI?.map(playerAPI => {
+//                 personID = playersJSON.filter(
+//                     playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname
+//                 );
+//                 playerAPI['personID'] = personID[0]?.personId;
+//             })
+//             return rosterAPI;
+//         })
+//         .then(roster => {
+//             res.send(roster)
+//         });
+// });
 
 app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
     const playerId = req.params.playerId;
