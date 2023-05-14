@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import './App.css';
 import { Routes, Route } from "react-router-dom";
 import authService from "./services/auth.service";
-
 import Teams from "./components/Teams";
 import NavMenu from "./components/NavMenu";
 import Home from "./components/Home";
@@ -14,6 +13,7 @@ import Signup from "./components/Signup";
 import Games from "./components/Games";
 import Game from "./components/Game";
 import AlertModalNoData from "./components/AlertModalNoData";
+import Team from "./components/Team";
 
 function App() {
 
@@ -37,7 +37,7 @@ function App() {
           <Route path="/" index element={<Home />} />
           <Route path="teams">
             <Route index element={<Teams teams={teams} setTeams={setTeams} />} />
-            <Route path=":teamId" element={<Roster />} />
+            <Route path=":teamId" element={<Team />} />
           </Route>
           <Route path="games">
             <Route index element={<Games games={games} setGames={setGames} />} />

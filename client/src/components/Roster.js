@@ -37,8 +37,6 @@ function Roster() {
         getRoster(teamId);
     }, []);
 
-
-
     const addToFav = (playerId) => {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId });
         navigate('/myplayers');
@@ -48,12 +46,11 @@ function Roster() {
 
     return (
         <>
-            <br />
-            <img src={logos[`${teamId}`]} style={{ width: "150px", marginBottom:"5%" }} />
-            <br />
+            
             
             <Container>
                 {console.log(roster)}
+
                 <Row className="justify-content-center">
                     {
                         roster?.map((player) => (
@@ -93,7 +90,6 @@ function Roster() {
                         ))
                     }
                 </Row>
-                    
             </Container>
         </>
     )
