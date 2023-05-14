@@ -10,32 +10,13 @@ import anonymous from "../anonymous.png";
 import '../App.css';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
-function Roster() {
-    const [roster, setRoster] = useState([]);
-    const [teamcolor, setTeamColor] = useState('');
-    const [teamcolorSec, setTeamColorSec] = useState('');
-
+function Roster(props) {
+    const {roster, teamcolor, teamcolorSec} = props;
+    
     const { teamId } = useParams();
 
     const userData = JSON.parse(localStorage.getItem('user'));
     const user_id = userData?.user_id;
-
-    const getRoster = async (teamId) => {
-        try {
-            const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`);
-            console.log(response.data)
-            setRoster(response.data.players);
-            setTeamColor(response.data.team_colors[0].hex_color);
-            setTeamColorSec(response.data.team_colors[1].hex_color);
-
-        } catch (error) {
-            console.error(error);
-        }
-    };
-
-    useEffect(() => {
-        getRoster(teamId);
-    }, []);
 
     const addToFav = (playerId) => {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId });
@@ -46,8 +27,6 @@ function Roster() {
 
     return (
         <>
-            
-            
             <Container>
                 {console.log(roster)}
 
