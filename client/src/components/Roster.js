@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
+import {Row, Col} from 'react-bootstrap';
 import logos from "../logos";
 import anonymous from "../anonymous.png";
 import '../App.css';
@@ -54,10 +54,10 @@ function Roster() {
             
             <Container>
                 {console.log(roster)}
-                <Row className="justify-content-md-center">
+                <Row className="justify-content-center">
                     {
                         roster?.map((player) => (
-                            <Card style={{height:"100%", width: '15%', marginRight:"1%", marginBottom:"2%", padding:"0", backgroundColor:`${teamcolor}10` }} key={player.id} 
+                            <Card style={{height:"100%", width: '15rem', marginRight:"1%", marginBottom:"2%", padding:"0", backgroundColor:`${teamcolor}10` }} key={player.id} 
                             className="player-card" border="light">
                                 <Card.Img variant="top" 
                                 src={player?.reference ? 
@@ -93,6 +93,7 @@ function Roster() {
                         ))
                     }
                 </Row>
+                    
             </Container>
         </>
     )
