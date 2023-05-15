@@ -18,6 +18,7 @@ const { match } = require("assert");
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(express.static("public"));
 
+
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
@@ -37,102 +38,73 @@ app.get('/api/', async (req, res) => {
     }
 });
 
-// USE THIS FOR DAILY GAME API CALLS 
-// *** it might be disabled in case the monthly limit has been reached ***
-// app.get('/api/games/:year/:month/:day', async (req, res) => {
-//     try {
-//         fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.year}/${req.params.month}/${req.params.day}/schedule.json?api_key=${process.env.SPORTRADAR_KEY}`)
-//             .then(data => data.json())
-//             .then((fetchedData) => res.send(fetchedData))
-
-//         // res.send({ news: news, matches: matches })
-//     } catch (err) {
-//         res.render("/api/games")
-//     }
-// })
-
-// USE THIS FOR DAULY [MOCK] GAME API CALLS
-// *** it might be used in case the monthly limit has been reached ***
 app.get('/api/games/:year/:month/:day', async (req, res) => {
-    const data = require("../client/src/mockdata/gamefakeday.json");
-    res.send(data);
+    try {
+        const response = axios.get(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.year}/${req.params.month}/${req.params.day}/schedule.json?api_key=${process.env.SPORTRADAR_KEY}`)
+            response.json();
+            res.send(response);
+    } catch (err) {
+        console.error(err);
+        try {
+            const data = require("../client/src/mockdata/gamefakeday.json");
+            res.send(data);
+        } catch(err) {
+            res.status(500).send('Unable to fetch data');
+        };
+    }
 });
 
-// USE THIS FOR GAME API CALLS
-// *** it might be disabled in case the monthly limit has been reached ***
-// app.get('/api/games/:gameId', (req, res) => {
-//     fetch(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.gameId}/summary.json?api_key=${process.env.SPORTRADAR_KEY}`)
-//     .then(res => res.json())
-//     .then(fetchedData => res.send(fetchedData))
-//     .catch(err => {
-//         console.log(err)
-//     })
-// })
 
-// USE THIS FOR [MOCK] GAME API CALLS
-// *** it might be used in case the monthly limit has been reached ***
-app.get('/api/games/:gameId', async (req, res) => {
-    const data = require('../client/src/mockdata/gamefake.json');
-    res.send(data);
+app.get('/api/games/:gameId', (req, res) => {
+    try {
+        const response = axios.get(`https://api.sportradar.com/nba/trial/v8/en/games/${req.params.gameId}/summary.json?api_key=${process.env.SPORTRADAR_KEY}`);
+        response.json();
+        res.send(response);
+    } catch(err) {
+        console.error(err);
+        try {
+            const data = require("../client/src/mockdata/gamefake.json");
+            res.send(data)
+        } catch (err) {
+            res.status(500).send('Unable to fetch data');
+        }
+    }
 });
 
-app.get("/api/teams", (req, res) => {
-    const data = require("../client/src/mockdata/standing.json");
-    res.send(data);
+app.get('/api/teams', (req, res) => {
+    try {
+        const response = axios.get(`http://api.sportradar.us/nba/trial/v8/en/seasons/2022/REG/standings.json?api_key=ejty8s7zptq2tc2cf3yq8jgq`);
+        response.json();
+        res.send(response);
+    } catch(err) {
+        console.error(err);
+        try {
+            const data = require("../client/src/mockdata/standing.json");
+            res.send(data);
+        } catch(err) {
+            res.status(500).send('Unable to fetch data');
+        }
+    }
+ 
 });
-
-// app.get('/api/teams', (req, res) => {
-//     fetch("https://v2.nba.api-sports.io/standings?league=standard&season=2022", {
-//         "method": "GET",
-//         "headers": {
-//             "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-//             "x-rapidapi-key": KEY
-//         }
-//     })
-//         .then((res) => res.json())
-//         .then((data) => res.send(data))
-//         .catch(err => {
-//             console.log(err);
-//         });
-// });
 
 app.get('/api/teams/:teamId', (req, res) => {
-    const data = require("../client/src/mockdata/teamRoster.json");
-    const stats = require("../client/src/mockdata/teamstats.json");
-    res.send({data, stats});
+    try {
+        const response = axios.get(`http://api.sportradar.us/nba/trial/v8/en/teams/${req.params.teamId}/profile.json?api_key=ejty8s7zptq2tc2cf3yq8jgq`)
+        response.json();
+        res.send(response);
+    } catch(err) {
+        console.error(err);
+        try {
+            const data = require("../client/src/mockdata/teamRoster.json");
+            const stats = require("../client/src/mockdata/teamstats.json");
+            res.send({data, stats});
+        } catch(err) {
+            console.error(err);
+            res.status(500).send('Unable to fetch data');
+        }
+    }
 });
-
-// app.get('/api/teams/:teamId', (req, res) => {
-//     const rosterInfo = fetch(`https://v2.nba.api-sports.io/players?season=2022&team=${req.params.teamId}`, {
-//         "method": "GET",
-//         "headers": {
-//             "x-rapidapi-host": "api-nba-v1.p.rapidapi.com",
-//             "x-rapidapi-key": KEY
-//         }
-//     })
-//         .then((data) =>
-//             data.json()
-//         );
-
-//     const playersList = fetch(`https://data.nba.net/data/10s/prod/v1/2022/players.json`)
-//         .then((fetchedData) => fetchedData.json());
-
-//     Promise.all([rosterInfo, playersList])
-//         .then(([rosterInfo, playersList]) => {
-//             const rosterAPI = rosterInfo.response;
-//             const playersJSON = playersList.league.standard;
-//             rosterAPI?.map(playerAPI => {
-//                 personID = playersJSON.filter(
-//                     playerJson => playerJson.lastName === playerAPI.lastname && playerJson.firstName === playerAPI.firstname
-//                 );
-//                 playerAPI['personID'] = personID[0]?.personId;
-//             })
-//             return rosterAPI;
-//         })
-//         .then(roster => {
-//             res.send(roster)
-//         });
-// });
 
 app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
     const playerId = req.params.playerId;
