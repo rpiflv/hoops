@@ -64,6 +64,9 @@ function Roster(props) {
                                             : navigate('/login')
                                     }
                                 }}>Add to favorite</Button>
+                                <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`, marginLeft:"5%"}} variant="outline-dark" onClick={() => navigate(`/${player.id}`)}>
+                                    Details
+                                </Button>
                             </Card.Footer>
                             </Card>  
                         ))
