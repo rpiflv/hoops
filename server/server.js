@@ -123,8 +123,18 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
 app.get('/api/:playerId', async (req, res) => {
     const playerId = req.params.playerId;
     try {
-
+        const response = axios.get(`http://api.sportradar.us/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`);
+        response.json();
+        res.send(response.data);
     } catch(err) {
+        console.error(err);
+        try {
+            const data = require("../client/src/mockdata/playerfake.json");
+            res.send(data);
+        } catch(err) {
+            console.error(err);
+            res.status(500).send("unable to fetch data");
+        }
 
     }
 })
