@@ -5,7 +5,6 @@ import authService from "./services/auth.service";
 import Teams from "./components/Teams";
 import NavMenu from "./components/NavMenu";
 import Home from "./components/Home";
-import Roster from "./components/Roster";
 import Favorite from "./components/Favorite";
 import PlayerProfile from "./components/PlayerProfile";
 import Login from "./components/Login";
@@ -35,6 +34,8 @@ function App() {
       <AlertModalNoData/>
         <Routes >
           <Route path="/" index element={<Home />} />
+          <Route path="/:playerId" index element={<PlayerProfile />} />
+
           <Route path="teams">
             <Route index element={<Teams teams={teams} setTeams={setTeams} />} />
             <Route path=":teamId" element={<Team />} />
