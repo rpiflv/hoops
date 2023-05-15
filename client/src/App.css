@@ -7,7 +7,7 @@ body {
   background-image: url("../public/basketscoutpaper.png");
   background-blend-mode: lighten;
   background-size: auto;
-  background-color: hsl(0, 0%, 96%);
+  background-color: hsl(0, 0%, 97.5%);
 }
 
 .live-score {
@@ -137,6 +137,13 @@ opacity: 1;
 }
 
 .team-box {
+  margin-top: 1rem;
+  font-weight: 500;
+  background-color: rgba(240, 248, 255, 0);
+  width: 100%;
+}
+
+.player-box {
   margin-top: 1rem;
   font-weight: 500;
   background-color: rgba(240, 248, 255, 0);

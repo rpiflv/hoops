@@ -167,13 +167,13 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function PlayerProfile() {
     const [playerInfo, setPlayerInfo] = useState([]);
+    const [activeTab, setActiveTab] = useState('playerInfo')
     const { playerId } = useParams();
 
     useEffect(() => {
         const getPlayerInfo = async (playerId) => {
             try {
                 const response = await axios.get(BASE_URL + `/api/${playerId}/`);
-                console.log(response.data)
                 setPlayerInfo(response.data);
             } catch (error) {
                 console.error(error);
@@ -182,8 +182,41 @@ function PlayerProfile() {
         getPlayerInfo(playerId);
     }, []);
 
+    const handleSelect = (tab) => {
+        setActiveTab(tab);
+    };
+
     return (
-        <PlayerInfo playerInfo={playerInfo}/>
+        <Container>
+            <Card className="border-light player-box">
+                <Card.Header>
+                    <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className="custom-nav-pills">
+                        <Nav.Item>
+                            <Nav.Link eventKey="playerInfo">
+                            Details
+                            </Nav.Link>
+                        </Nav.Item>
+                        
+                        <Nav.Item>
+                            <Nav.Link eventKey="playerStats">
+                            Stats
+                            </Nav.Link>
+                        </Nav.Item>
+                    </Nav>
+                </Card.Header>
+                <Card.Title>
+                <Card.Img src={logos[`${playerInfo?.team?.id}`]} style={{ width: "150px", marginBottom:"1%" }} alt="logo"/>
+                <h4>{playerInfo.full_name}</h4>
+                </Card.Title>
+                <Card.Body>
+                {activeTab === "playerInfo" && 
+                <PlayerInfo playerInfo={playerInfo}/>
+                }
+                </Card.Body>
+
+
+            </Card>
+        </Container>
     )
 }
 
