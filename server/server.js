@@ -18,7 +18,6 @@ const { match } = require("assert");
 app.use(express.static(path.resolve(__dirname, "../client/build")));
 app.use(express.static("public"));
 
-
 app.get('/', (req, res) => {
     res.send('Hello World!');
 });
@@ -73,7 +72,7 @@ app.get('/api/games/:gameId', (req, res) => {
 
 app.get('/api/teams', (req, res) => {
     try {
-        const response = axios.get(`http://api.sportradar.us/nba/trial/v8/en/seasons/2022/REG/standings.json?api_key=ejty8s7zptq2tc2cf3yq8jgq`);
+        const response = axios.get(`http://api.sportradar.us/nba/trial/v8/en/seasons/2022/REG/standings.json?api_key=${process.env.SPORTRADAR_KEY}`);
         response.json();
         res.send(response);
     } catch(err) {
@@ -90,7 +89,7 @@ app.get('/api/teams', (req, res) => {
 
 app.get('/api/teams/:teamId', (req, res) => {
     try {
-        const response = axios.get(`http://api.sportradar.us/nba/trial/v8/en/teams/${req.params.teamId}/profile.json?api_key=ejty8s7zptq2tc2cf3yq8jgq`)
+        const response = axios.get(`http://api.sportradar.us/nba/trial/v8/en/teams/${req.params.teamId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`)
         response.json();
         res.send(response);
     } catch(err) {
@@ -120,6 +119,15 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
         console.error(error);
     }
 });
+
+app.get('/api/:playerId', async (req, res) => {
+    const playerId = req.params.playerId;
+    try {
+
+    } catch(err) {
+
+    }
+})
 
 app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
     const user_id = req.params.user_id;
