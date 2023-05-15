@@ -7,7 +7,7 @@ body {
   background-image: url("../public/basketscoutpaper.png");
   background-blend-mode: lighten;
   background-size: auto;
-  background-color: hsl(0, 0%, 95%);
+  background-color: hsl(0, 0%, 96%);
 }
 
 .live-score {
@@ -56,6 +56,17 @@ background-color: rgba(20, 20, 20);
   display: none;
   text-shadow:1rem;
 }
+
+.custom-nav-pills .nav-link {
+  color: rgba(55, 55, 55, 0.749);
+}
+
+.custom-nav-pills .nav-link.active,
+.custom-nav-pills .nav-link:hover {
+  background-color: #000000a6;
+  color: #f8f8f8;
+}
+
 
 .team {
   opacity: 0.75;
@@ -129,6 +140,7 @@ opacity: 1;
   margin-top: 1rem;
   font-weight: 500;
   background-color: rgba(240, 248, 255, 0);
+  width: 100%;
 }
 
 .player-card-img {
