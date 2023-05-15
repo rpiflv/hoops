@@ -50,16 +50,16 @@ const teamStats = props.teamStats;
                         
                         </td>
                         <td style={{width:"10rem"}}>
-                        2 pts %
+                        2pt FG%
                         </td>
                         <td style={{width:"10rem"}} >
-                        Opp. 2 pts %
+                        Opp. 2pt FG%
                         </td>
                         <td style={{width:"10rem"}} >
-                        3 pts %
+                        3pt FG%
                         </td>
                         <td style={{width:"10rem"}} >
-                        Opp. 3 pts %
+                        Opp. 3pt FG%
                         </td>
                     </tr>
                     <tr style={{fontWeight:"300"}}>
@@ -83,10 +83,10 @@ const teamStats = props.teamStats;
                         
                         </td>
                         <td style={{width:"10rem"}}>
-                        Eff. %
+                        Eff. FG%
                         </td>
                         <td style={{width:"10rem"}} >
-                        Opp. Eff. %
+                        Opp. Eff. FG%
                         </td>
                         <td style={{width:"10rem"}} >
                         Pts in paint

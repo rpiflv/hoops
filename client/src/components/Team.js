@@ -41,10 +41,10 @@ function Team () {
     };
 
     return (
-        <Container>
+        <Container maxWidth="x1">
             <Card className="border-light team-box"> 
             <Card.Header>
-                <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
+                <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className="custom-nav-pills">
                     <Nav.Item>
                         <Nav.Link eventKey="roster">
                         Roster

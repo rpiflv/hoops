@@ -95,7 +95,7 @@ function Game() {
         <Container>
         <Card className="border-light game-box">
             <Card.Header>
-                <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect}>
+                <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className="custom-nav-pills">
                     <Nav.Item>
                         <Nav.Link eventKey="stats">
                         Stats
@@ -121,13 +121,13 @@ function Game() {
                 style={{width:"8rem", marginRight:"1px", marginLeft:"1px"}} alt="img"/>
                 <br/>
                 -{game?.status}-
-            </Card.Title>
+                </Card.Title>
             <Card.Body>
             <Card.Subtitle>{game?.venue?.name}</Card.Subtitle>
             <Container>
                 T: {game?.quarter} - {game?.clock}
-            <Row>
-                <Col className="col-md-5">
+            <Row className="">
+                <Col className="col-md-5ß">
                     <Row className=" d-flex justify-content-center" style={{fontSize:"8rem"}}>
                     {game?.away.points}
                     </Row>
@@ -171,7 +171,7 @@ function Game() {
             <Container>
                 <Row>
                 <Container className="col-md-8">
-                    <Table striped>
+                    <Table striped hover>
                         <thead>
                             <tr>
                                 <th>TEAM</th>
