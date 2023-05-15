@@ -23,6 +23,10 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  });
+
 app.get('/api/', async (req, res) => {
     try {
         const news = await fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/nba/news')
