@@ -23,10 +23,6 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.get('/*', function(req, res) {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
-
 app.get('/api/', async (req, res) => {
     try {
         const news = await fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/nba/news')
@@ -367,6 +363,10 @@ app.post('/api/token', async (req, res) => {
 app.delete("/api/logout/", (req, res) => {
     const authToken = req.header("x-auth-token");
 });
+
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, '../client/build', 'index.html'));
+  });
 
 app.listen(process.env.PORT, () => {
     console.log(`Listening to port: ${process.env.PORT}`);
