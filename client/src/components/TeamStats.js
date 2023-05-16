@@ -11,7 +11,7 @@ const teamStats = props.teamStats;
             {console.log(teamStats)}
             <Table striped="columns" hover>
                 <tbody>
-                    <tr>
+                    <tr style={{fontWeight:"500"}}>
                         <td style={{width:"2rem"}}>
                         Games
                         </td>
@@ -45,7 +45,7 @@ const teamStats = props.teamStats;
                             {teamStats?.opponents.total.points}
                         </td>
                     </tr>
-                    <tr>
+                    <tr style={{fontWeight:"500"}}>
                         <td style={{width:"2rem"}}>
                         
                         </td>
@@ -78,7 +78,7 @@ const teamStats = props.teamStats;
                             {teamStats?.opponents.total.three_points_pct}
                         </td>
                     </tr>
-                    <tr>
+                    <tr style={{fontWeight:"500"}}>
                         <td style={{width:"2rem"}}>
                         
                         </td>
@@ -111,7 +111,7 @@ const teamStats = props.teamStats;
                             {teamStats?.opponents.average.points_in_paint}
                         </td>
                     </tr>
-                    <tr>
+                    <tr style={{fontWeight:"500"}}>
                         <td style={{width:"2rem"}}>
                         
                         </td>
@@ -144,7 +144,7 @@ const teamStats = props.teamStats;
                             {teamStats?.opponents.average.off_rebounds}
                         </td>
                     </tr>
-                    <tr>
+                    <tr style={{fontWeight:"500"}}>
                         <td style={{width:"2rem"}}>
                         
                         </td>
