@@ -8,6 +8,9 @@ function PlayerStats(props) {
     return (
         <>
         <Container>
+        <div className='d-flex ms-0' style={{fontWeight:"200"}}>
+            {stats.year}/{stats.year+1}
+        </div>
             {console.log(stats.teams)}
         {stats.teams.map(team => (
         <div>
