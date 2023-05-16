@@ -1,17 +1,12 @@
-import {Container, Card, Row, Table} from 'react-bootstrap/';
-import logos from "../logos";
-import anonymous from "../anonymous.png";
+import {Container, Table} from 'react-bootstrap/';
 import '../App.css';
-
-const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function PlayerStats(props) {
     const {playerInfo} = props;
-    const stats = playerInfo.seasons[0]
+    const stats = playerInfo.seasons[0];
 
     return (
         <>
-        
         <Container>
             {console.log(stats.teams)}
         {stats.teams.map(team => (
