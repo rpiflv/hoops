@@ -188,3 +188,17 @@ hr {
   margin-top:5px ;
   margin-bottom: 5px;
 }
+
+tr {
+  font-weight: 300;
+}
+
+tr:hover {
+  font-weight: 500;
+}
+
+td, th , tr{
+  padding: 0;
+  margin: 0;
+  text-align: center;
+}

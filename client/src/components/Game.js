@@ -148,7 +148,7 @@ function Game() {
                             <tbody>
                                 <tr>
                                 {game?.away?.scoring?.map(period => (
-                                    <td>T{period.number}</td>                                
+                                    <td style={{width:"25%"}}>T{period.number}</td>                                
                                     ))}
                                 </tr>
                                 <tr>
@@ -171,12 +171,12 @@ function Game() {
             <Container>
                 <Row>
                 <Container className="col-md-8">
-                    <Table striped hover>
+                    <Table striped hover style={{borderCollapse:"collapse"}}>
                         <thead>
                             <tr>
-                                <th>TEAM</th>
-                                <th>{game?.away.name}</th>
-                                <th>{game?.home.name}</th>
+                                <th style={{width:"33%"}}>TEAM</th>
+                                <th style={{width:"33%"}}>{game?.away.name}</th>
+                                <th style={{width:"33%"}}>{game?.home.name}</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -274,27 +274,27 @@ function Game() {
             {activeTab === `${game?.away.name}` && 
            <Container>
             <div>PLAYERS</div>
-                <Table striped size="sm">
+                <Table striped size="sm" hover>
                     <thead className="justify-content-center">
                         <th>
                         <h3>{game?.away.name}</h3>
                         </th>
-                        <th onClick={() => sortTableDataAway("minutes")} style={{cursor: "s-resize"}}>Mins</th>
-                        <th onClick={() => sortTableDataAway("two_points_made")} style={{cursor: "s-resize"}}>2pt FG</th>
-                        <th onClick={() => sortTableDataAway("three_points_made")} style={{cursor: "s-resize"}}>3pt FG</th>
-                        <th onClick={() => sortTableDataAway("field_goals_made")} style={{cursor: "s-resize"}}>FG</th>
-                        <th onClick={() => sortTableDataAway("field_goals_pct")} style={{cursor: "s-resize"}}> FG%</th>
-                        <th onClick={() => sortTableDataAway("effective_fg_pct")} style={{cursor: "s-resize"}}>eff. % </th>
-                        <th onClick={() => sortTableDataAway("free_throws_made")} style={{cursor: "s-resize"}}>FT</th>
-                        <th onClick={() => sortTableDataAway("points")} style={{cursor: "s-resize"}}>Pts</th>
-                        <th onClick={() => sortTableDataAway("offensive_rebounds")} style={{cursor: "s-resize"}}>O. Reb</th>
-                        <th onClick={() => sortTableDataAway("defensive_rebounds")} style={{cursor: "s-resize"}}>D. Reb</th>
-                        <th onClick={() => sortTableDataAway("rebounds")} style={{cursor: "s-resize"}}>Reb</th>
-                        <th onClick={() => sortTableDataAway("assists")} style={{cursor: "s-resize"}}>Ass</th>
-                        <th onClick={() => sortTableDataAway("turnovers")} style={{cursor: "s-resize"}}>TO</th>
-                        <th onClick={() => sortTableDataAway("steals")} style={{cursor: "s-resize"}}>Steals</th>
-                        <th onClick={() => sortTableDataAway("blocks")} style={{cursor: "s-resize"}}>Blks</th>
-                        <th onClick={() => sortTableDataAway("pls_min")} style={{cursor: "s-resize"}}>+/-</th>
+                        <th onClick={() => sortTableDataAway("minutes")} style={{cursor: "s-resize", width:"7%"}}>Mins</th>
+                        <th onClick={() => sortTableDataAway("two_points_made")} style={{cursor: "s-resize", width:"7%"}}>2pt FG</th>
+                        <th onClick={() => sortTableDataAway("three_points_made")} style={{cursor: "s-resize", width:"7%"}}>3pt FG</th>
+                        <th onClick={() => sortTableDataAway("field_goals_made")} style={{cursor: "s-resize", width:"7%"}}>FG</th>
+                        <th onClick={() => sortTableDataAway("field_goals_pct")} style={{cursor: "s-resize", width:"7%"}}> FG%</th>
+                        <th onClick={() => sortTableDataAway("effective_fg_pct")} style={{cursor: "s-resize", width:"7%"}}>eff. % </th>
+                        <th onClick={() => sortTableDataAway("free_throws_made")} style={{cursor: "s-resize", width:"7%"}}>FT</th>
+                        <th onClick={() => sortTableDataAway("points")} style={{cursor: "s-resize", width:"7%"}}>Pts</th>
+                        <th onClick={() => sortTableDataAway("offensive_rebounds")} style={{cursor: "s-resize", width:"7%"}}>O. Reb</th>
+                        <th onClick={() => sortTableDataAway("defensive_rebounds")} style={{cursor: "s-resize", width:"7%"}}>D. Reb</th>
+                        <th onClick={() => sortTableDataAway("rebounds")} style={{cursor: "s-resize", width:"7%"}}>Reb</th>
+                        <th onClick={() => sortTableDataAway("assists")} style={{cursor: "s-resize", width:"7%"}}>Ass</th>
+                        <th onClick={() => sortTableDataAway("turnovers")} style={{cursor: "s-resize", width:"7%"}}>TO</th>
+                        <th onClick={() => sortTableDataAway("steals")} style={{cursor: "s-resize", width:"7%"}}>Steals</th>
+                        <th onClick={() => sortTableDataAway("blocks")} style={{cursor: "s-resize", width:"7%"}}>Blks</th>
+                        <th onClick={() => sortTableDataAway("pls_min")} style={{cursor: "s-resize", width:"7%"}}>+/-</th>
                     </thead>
                     <tbody >
                         {playersAway?.map(player => (
@@ -359,27 +359,27 @@ function Game() {
             {activeTab === `${game?.home.name}` && 
             <Container>
                 <div>PLAYERS</div>
-                <Table striped size="sm">
+                <Table striped size="sm" hover>
                     <thead className="justify-content-center">
                         <th>
                         <h3>{game?.home.name}</h3>
                         </th>
-                        <th onClick={() => sortTableDataHome("minutes")} style={{cursor: "s-resize"}}>Mins</th>
-                        <th onClick={() => sortTableDataHome("two_points_made")} style={{cursor: "s-resize"}}>2pt FG</th>
-                        <th onClick={() => sortTableDataHome("three_points_made")} style={{cursor: "s-resize"}}>3pt FG</th>
-                        <th onClick={() => sortTableDataHome("field_goals_made")} style={{cursor: "s-resize"}}>FG</th>
-                        <th onClick={() => sortTableDataHome("field_goals_pct")} style={{cursor: "s-resize"}}> FG%</th>
-                        <th onClick={() => sortTableDataHome("effective_fg_pct")} style={{cursor: "s-resize"}}>eff. % </th>
-                        <th onClick={() => sortTableDataHome("free_throws_made")} style={{cursor: "s-resize"}}>FT</th>
-                        <th onClick={() => sortTableDataHome("points")} style={{cursor: "s-resize"}}>Pts</th>
-                        <th onClick={() => sortTableDataHome("offensive_rebounds")} style={{cursor: "s-resize"}}>O. Reb</th>
+                        <th onClick={() => sortTableDataHome("minutes")} style={{cursor: "s-resize", width:"7%"}}>Mins</th>
+                        <th onClick={() => sortTableDataHome("two_points_made")} style={{cursor: "s-resize", width:"7%"}}>2pt FG</th>
+                        <th onClick={() => sortTableDataHome("three_points_made")} style={{cursor: "s-resize", width:"7%"}}>3pt FG</th>
+                        <th onClick={() => sortTableDataHome("field_goals_made")} style={{cursor: "s-resize", width:"7%"}}>FG</th>
+                        <th onClick={() => sortTableDataHome("field_goals_pct")} style={{cursor: "s-resize", width:"7%"}}> FG%</th>
+                        <th onClick={() => sortTableDataHome("effective_fg_pct")} style={{cursor: "s-resize", width:"7%"}}>eff. % </th>
+                        <th onClick={() => sortTableDataHome("free_throws_made")} style={{cursor: "s-resize", width:"7%"}}>FT</th>
+                        <th onClick={() => sortTableDataHome("points")} style={{cursor: "s-resize", width:"7%"}}>Pts</th>
+                        <th onClick={() => sortTableDataHome("offensive_rebounds")} style={{cursor: "s-resize", width:"7%"}}>O. Reb</th>
                         <th onClick={() => sortTableDataHome("defensive_rebounds")} style={{cursor: "s-resize"}}>D. Reb</th>
-                        <th onClick={() => sortTableDataHome("rebounds")} style={{cursor: "s-resize"}}>Reb</th>
-                        <th onClick={() => sortTableDataHome("assists")} style={{cursor: "s-resize"}}>Ass</th>
-                        <th onClick={() => sortTableDataHome("turnovers")} style={{cursor: "s-resize"}}>TO</th>
-                        <th onClick={() => sortTableDataHome("steals")} style={{cursor: "s-resize"}}>Steals</th>
-                        <th onClick={() => sortTableDataHome("blocks")} style={{cursor: "s-resize"}}>Blks</th>
-                        <th onClick={() => sortTableDataHome("pls_min")} style={{cursor: "s-resize"}}>+/-</th>
+                        <th onClick={() => sortTableDataHome("rebounds")} style={{cursor: "s-resize", width:"7%"}}>Reb</th>
+                        <th onClick={() => sortTableDataHome("assists")} style={{cursor: "s-resize", width:"7%"}}>Ass</th>
+                        <th onClick={() => sortTableDataHome("turnovers")} style={{cursor: "s-resize", width:"7%"}}>TO</th>
+                        <th onClick={() => sortTableDataHome("steals")} style={{cursor: "s-resize", width:"7%"}}>Steals</th>
+                        <th onClick={() => sortTableDataHome("blocks")} style={{cursor: "s-resize", width:"7%"}}>Blks</th>
+                        <th onClick={() => sortTableDataHome("pls_min")} style={{cursor: "s-resize", width:"7%"}}>+/-</th>
                     </thead>
                     <tbody >
                         {playersHome?.map(player => (

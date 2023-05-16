@@ -8,6 +8,7 @@ import { Button, Card, Container, Nav, Row, ListGroup } from "react-bootstrap";
 import authHeader from "../services/authheader";
 import moment from 'moment';
 import PlayerInfo from "./PlayerInfo";
+import PlayerStats from "./PlayerStats";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -205,12 +206,15 @@ function PlayerProfile() {
                     </Nav>
                 </Card.Header>
                 <Card.Title>
-                <Card.Img src={logos[`${playerInfo?.team?.id}`]} style={{ width: "150px", marginBottom:"1%" }} alt="logo"/>
+                <Card.Img src={logos[`${playerInfo?.team?.id}`]} style={{ width: "150px", marginBottom:"1%" , marginTop:"3%"}} alt="logo"/>
                 <h4>{playerInfo.full_name}</h4>
                 </Card.Title>
                 <Card.Body>
                 {activeTab === "playerInfo" && 
                 <PlayerInfo playerInfo={playerInfo}/>
+                }
+                {activeTab === "playerStats" && 
+                <PlayerStats playerInfo={playerInfo}/>
                 }
                 </Card.Body>
 
