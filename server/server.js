@@ -163,12 +163,11 @@ app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
     }
 });
 
-app.delete('/api/myplayers/:playerId', authToken, async (req, res) => {
-    const playerId = req.params.playerId;
-    const reference = req.body.reference;
+app.delete('/api/myplayers/:reference', authToken, async (req, res) => {
+    const reference = req.params.reference;
     try {
         await knex('fav_players')
-            .where('referece', reference).del()
+            .where('reference', reference).del()
             .then(() => console.log('item deleted'));
     } catch (error) {
         console.error(error);

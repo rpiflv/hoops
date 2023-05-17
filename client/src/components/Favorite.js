@@ -53,11 +53,12 @@ function Favorite() {
         getMyFav();
     }, []);
 
-    const removeFav = async (playerId) => {
+    const removeFav = async (reference) => {
+        console.log(reference)
         try {
-            await fetch(BASE_URL + `/api/myplayers/${playerId}`, {
+            await fetch(BASE_URL + `/api/myplayers/${reference}`, {
                 method: "DELETE",
-                body: { playerId },
+                body: { reference },
                 headers: authHeader(),
             })
                 .then(getMyFav())
@@ -91,7 +92,7 @@ function Favorite() {
                                 <Link to={`${player.reference}`} >
                                     <Button>Details</Button>
                                 </Link>
-                                <Button onClick={() => removeFav(player.personId)}>Remove</Button>
+                                <Button onClick={() => removeFav(player.reference)}>Remove</Button>
                             </ListGroup.Item>
                         </Card>
                     ))}
