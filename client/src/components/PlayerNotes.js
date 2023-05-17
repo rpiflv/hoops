@@ -58,7 +58,7 @@ function PlayerNotes(props) {
               Player notes
               <Card.Body>
                 <Card.Title>
-                    {notes[0].note}
+                    {notes?.notes[0].notes}
                 </Card.Title>
                 {notes?.extraNotes?.map(note => (
                     <div>
