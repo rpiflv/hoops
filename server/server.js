@@ -341,7 +341,7 @@ app.post('/api/login/', async (req, res) => {
         { email },
         process.env.ACCESS_TOKEN_SECRET,
         {
-            expiresIn: "20m",
+            expiresIn: "60m",
         }
     );
     const refreshToken = await JWT.sign(

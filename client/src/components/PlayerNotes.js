@@ -19,8 +19,9 @@ function PlayerNotes(props) {
 
     const getPlayerNotes = async (playerId) => {
         try {
-            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/${user_id}`, { headers: authHeader() })
-            setNotes(fetchedData.data.notes);
+            const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/${user_id}`, { headers: authHeader() });
+            console.log(fetchedData.data)
+            setNotes(fetchedData.data);
         } catch (error) {
             console.error(error)
         }
@@ -32,6 +33,7 @@ function PlayerNotes(props) {
 
     const handleChange = (event) => {
         setNewNote(event.target.value); // Update the state when the input value changes
+
       };
 
     const handleSubmit = async () => {
@@ -39,10 +41,14 @@ function PlayerNotes(props) {
             await axios.post(BASE_URL + `/api/myplayers/${playerInfo.reference}/${user_id}/add`,
                 { newNote: newNote }, { headers: authHeader() }
             )
-                .then(getPlayerNotes(playerInfo.reference ));
+                .then(getPlayerNotes(playerInfo.reference ))
         } catch (error) {
             console.error(error);
         }
+    };
+
+    const clearInput = () => {
+        setNewNote("");
     }
 
     return (
@@ -51,14 +57,17 @@ function PlayerNotes(props) {
             <Card style={{width:"70%"}}>
               Player notes
               <Card.Body>
-                {notes?.map(note => (
+                <Card.Title>
+                    {notes[0].note}
+                </Card.Title>
+                {notes?.extraNotes?.map(note => (
                     <div>
-                        {note.notes}
+                        {note.note_content}
                     </div>
                 ))}
                 <input type="text" value={newNote} onChange={handleChange}> 
                 </input>
-                <button onClick={handleSubmit}>Submit</button>
+                <button onClick={() => {handleSubmit(); clearInput()}}>Submit</button>
               </Card.Body>
             </Card>
             {console.log(newNote)}        
