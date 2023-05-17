@@ -58,7 +58,7 @@ function Favorite() {
             await fetch(BASE_URL + `/api/myplayers/${playerId}`, {
                 method: "DELETE",
                 body: { playerId },
-                headers: authHeader()
+                headers: authHeader(),
             })
                 .then(getMyFav())
         } catch (err) {
@@ -88,7 +88,7 @@ function Favorite() {
                                     </Accordion.Item>
                                 </Accordion>
                                 <br />
-                                <Link to={`${player.personId}`} >
+                                <Link to={`${player.reference}`} >
                                     <Button>Details</Button>
                                 </Link>
                                 <Button onClick={() => removeFav(player.personId)}>Remove</Button>
