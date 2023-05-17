@@ -2,9 +2,7 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
-import {Container, Card, Stack, Row, Col} from 'react-bootstrap/';
-import logos from "../logos";
-import anonymous from "../anonymous.png";
+import {Container, Card, InputGroup, Form, Stack} from 'react-bootstrap/';
 import '../App.css';
 import authHeader from "../services/authheader";
 
@@ -15,32 +13,55 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function PlayerNotes(props) {
     const {playerInfo} = props;
-    const [notes, setNotes] = useState('');
+    const [notes, setNotes] = useState([]);
+    const [newNote, setNewNote] = useState("")
     const {playerId} = useParams();
 
     const getPlayerNotes = async (playerId) => {
         try {
             const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/${user_id}`, { headers: authHeader() })
-            // const notes = fetchedData.data.notes
-            console.log(fetchedData);
-            // setNotes(notes[0].notes);
-            setNotes(fetchedData.data);
+            setNotes(fetchedData.data.notes);
         } catch (error) {
             console.error(error)
         }
     }
-
+    
     useEffect(() => {
-        getPlayerNotes(playerId);
+        getPlayerNotes(playerInfo.reference );
     }, []);
+
+    const handleChange = (event) => {
+        setNewNote(event.target.value); // Update the state when the input value changes
+      };
+
+    const handleSubmit = async () => {
+        try {
+            await axios.post(BASE_URL + `/api/myplayers/${playerInfo.reference}/${user_id}/add`,
+                { newNote: newNote }, { headers: authHeader() }
+            )
+                .then(getPlayerNotes(playerInfo.reference ));
+        } catch (error) {
+            console.error(error);
+        }
+    }
 
     return (
         <>
         <Container className='d-flex justify-content-center align-items-center'>
             <Card style={{width:"70%"}}>
               Player notes
+              <Card.Body>
+                {notes?.map(note => (
+                    <div>
+                        {note.notes}
+                    </div>
+                ))}
+                <input type="text" value={newNote} onChange={handleChange}> 
+                </input>
+                <button onClick={handleSubmit}>Submit</button>
+              </Card.Body>
             </Card>
-            {console.log(playerInfo)}        
+            {console.log(newNote)}        
         </Container>
         </>
     )

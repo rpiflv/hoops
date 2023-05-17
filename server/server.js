@@ -174,8 +174,8 @@ app.delete('/api/myplayers/:reference', authToken, async (req, res) => {
     }
 });
 
+// getPlayerNotes()
 app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
-    
     const playerId = req.params.playerId;
     const user_id = req.params.user_id;
     console.log("=> ", playerId, user_id)
@@ -185,7 +185,7 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
         try {
             const notes = await knex('fav_players')
                 .select({
-                    notes: "notes"
+                    notes: "notes",
                 })
                 .where('player_id', playerId)
                 .where('user_id', user_id);
@@ -226,7 +226,8 @@ app.post('/api/myplayers/:playerId/:user_id/edit', authToken, async (req, res) =
 });
 
 app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) => {
-    const extraNote = req.body.extraNote;
+    const extraNote = req.body.newNote;
+    console.log(extraNote)
     const user_id = req.params.user_id;
     const playerId = req.params.playerId;
     const favPlayerId = await knex('fav_players')
