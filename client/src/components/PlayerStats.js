@@ -1,15 +1,32 @@
-import {Container, Table} from 'react-bootstrap/';
+import {Container, Table, Dropdown} from 'react-bootstrap/';
 import '../App.css';
+import { useState } from 'react';
 
 function PlayerStats(props) {
     const {playerInfo} = props;
-    const stats = playerInfo.seasons[0];
+    const [season, setSeason] = useState(0);
+    const stats = playerInfo.seasons[season];
+
+
+  const handleSelect = (value) => {
+    setSeason(value);
+  }
+    
 
     return (
         <>
         <Container>
-        <div className='d-flex ms-0' style={{fontWeight:"200"}}>
-            {stats.year}/{stats.year+1}
+        <div className='d-flex ms-0'>
+            <Dropdown >
+                <Dropdown.Toggle variant="secondary" id="dropdown-basic" drop={"down-center"}>
+                    {playerInfo.seasons[season].year}/{playerInfo.seasons[season].year +1}
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                    {playerInfo.seasons.map((season, index) => (
+                        <Dropdown.Item href="#/action-1" onClick={() => handleSelect(index)}>{season.year}/{season.year+1} </Dropdown.Item>
+                    ))}
+                </Dropdown.Menu>
+            </Dropdown>
         </div>
             {console.log(stats.teams)}
         {stats.teams.map(team => (
