@@ -1,7 +1,6 @@
 import axios from "axios";
 import logos from "../logos";
 import '../App.css';
-import authHeader from "../services/authheader";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { Card, Container, Nav } from "react-bootstrap";
@@ -172,8 +171,6 @@ const user_id = userData?.user_id;
 function PlayerProfile() {
     const [playerInfo, setPlayerInfo] = useState([]);
     const [activeTab, setActiveTab] = useState('playerInfo');
-    const [notes, setNotes] = useState([]);
-
     const { playerId } = useParams();
 
     useEffect(() => {
@@ -186,21 +183,6 @@ function PlayerProfile() {
             }
         };
         getPlayerInfo(playerId);
-    }, []);
-
-    console.log(playerId)
-    useEffect(() => {
-        const getPlayerNotes = async (playerId) => {
-            try {
-                    console.log(playerId, user_id)
-                    const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerId}/${user_id}`, { headers: authHeader() });
-                    setNotes(fetchedData.data);
-                    console.log("=>", fetchedData.data.notes, fetchedData.data.extraNotes)
-                } catch (error) {
-                    console.error(error)
-                }
-            }
-        getPlayerNotes(playerId);
     }, []);
 
     const handleSelect = (tab) => {
@@ -243,11 +225,9 @@ function PlayerProfile() {
                 <PlayerStats playerInfo={playerInfo}/>
                 }
                 {activeTab === "notes" && 
-                <PlayerNotes playerInfo={playerInfo} notes={notes}/>
+                <PlayerNotes playerInfo={playerInfo}/>
                 }
                 </Card.Body>
-
-
             </Card>
         </Container>
     )
