@@ -70,10 +70,10 @@ function PlayerStats(props) {
                 <thead>
                 <tr>
                     <th style={{width:"25%"}}>
-                        Tot. Points
+                        Avg. Points
                     </th>
                     <th style={{width:"25%"}}>
-                        Avg. Points
+                        Tot. Points
                     </th>
                     <th style={{width:"25%"}}>
                         Avg. Points in paint
@@ -86,10 +86,10 @@ function PlayerStats(props) {
                 <tbody>
                     <tr>
                         <td>
-                        {team.total.points}
+                        {team.average.points}
                         </td>
                         <td>
-                        {team.average.points}
+                        {team.total.points}
                         </td>
                         <td>
                         {team.average.points_in_paint}
@@ -102,32 +102,32 @@ function PlayerStats(props) {
                 <thead>
                 <tr>
                     <th style={{width:"25%"}}>
-                        Tot. Def. Reb.
-                    </th>
-                    <th style={{width:"25%"}}>
                         Avg. Def. Reb.
                     </th>
                     <th style={{width:"25%"}}>
-                        Tot. Off. Reb
+                        Tot. Def. Reb.
                     </th>
                     <th style={{width:"25%"}}>
                         Avg. Off. Reb.
+                    </th>
+                    <th style={{width:"25%"}}>
+                        Tot. Off. Reb
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                        {team.total.defensive_rebounds}
-                        </td>
-                        <td>
                         {team.average.def_rebounds}
                         </td>
                         <td>
-                        {team.total.offensive_rebounds}
+                        {team.total.defensive_rebounds}
                         </td>
                         <td>
                         {team.average.off_rebounds}
+                        </td>
+                        <td>
+                        {team.total.offensive_rebounds}
                         </td>
                     </tr>
                 </tbody>
@@ -198,64 +198,64 @@ function PlayerStats(props) {
                 <thead>
                 <tr>
                     <th style={{width:"25%"}}>
-                        Assist
-                    </th>
-                    <th style={{width:"25%"}}>
                         Avg Assist
                     </th>
                     <th style={{width:"25%"}}>
-                        TurnOver
+                        Assist
                     </th>
                     <th style={{width:"25%"}}>
                        Avg. TO
+                    </th>
+                    <th style={{width:"25%"}}>
+                        TurnOver
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                        {team.total.assists}
-                        </td>
-                        <td>
                         {team.average.assists}
                         </td>
                         <td>
-                        {team.total.turnovers}
+                        {team.total.assists}
                         </td>
                         <td>
                         {team.average.turnovers}
+                        </td>
+                        <td>
+                        {team.total.turnovers}
                         </td>
                     </tr>
                 </tbody>
                 <thead>
                 <tr>
                     <th style={{width:"25%"}}>
-                        Steals
-                    </th>
-                    <th style={{width:"25%"}}>
                         Avg Steals
                     </th>
                     <th style={{width:"25%"}}>
-                        Blocks
+                        Steals
                     </th>
                     <th style={{width:"25%"}}>
                        Avg. Blocks
+                    </th>
+                    <th style={{width:"25%"}}>
+                        Blocks
                     </th>
                 </tr>
                 </thead>
                 <tbody>
                     <tr>
                         <td>
-                        {team.total.steals}
-                        </td>
-                        <td>
                         {team.average.steals}
                         </td>
                         <td>
-                        {team.total.blocks}
+                        {team.total.steals}
                         </td>
                         <td>
                         {team.average.blocks}
+                        </td>
+                        <td>
+                        {team.total.blocks}
                         </td>
                     </tr>
                 </tbody>
