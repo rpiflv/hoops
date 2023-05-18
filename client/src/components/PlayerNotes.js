@@ -11,13 +11,13 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function PlayerNotes(props) {
     const {playerInfo} = props;
-    const [notes, setNotes] = useState([]);
+    const [allNotes, setAllNotes] = useState([]);
     const [newNote, setNewNote] = useState("");
 
     const getPlayerNotes = async (playerId) => {
         try {
             const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerInfo.id}/${user_id}`, { headers: authHeader() });
-            setNotes(fetchedData.data);
+            setAllNotes(fetchedData.data);
         } catch (error) {
             console.error(error);
         }
@@ -53,9 +53,14 @@ function PlayerNotes(props) {
               Player notes
               <Card.Body>
                 <Card.Title>
-                    {notes?.notes[0]?.notes}
+                    {console.log(allNotes)}
+                    {allNotes && allNotes?.notes?.map(note => (
+                      <>
+                      {note.notes}  
+                      </>
+                    ))}
                 </Card.Title>
-                {notes?.extraNotes?.map(note => (
+                {allNotes?.extraNotes?.map(note => (
                     <div>
                         {note?.note_content}
                     </div>

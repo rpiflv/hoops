@@ -47,7 +47,6 @@ function PlayerInfo(props) {
                         </Col>
                 </Row>
             </Card>
-            {console.log(playerInfo)}        
         </Container>
         </>
     )

@@ -180,31 +180,25 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
     const user_id = req.params.user_id;
     console.log("=> ", playerId, user_id)
     try {
-        const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-            .then((fetchedData) => fetchedData.json());
+        const notes = await knex('fav_players')
+            .select({
+                notes: "notes",
+            })
+            .where('reference', playerId)
+            .where('user_id', user_id);
         try {
-            const notes = await knex('fav_players')
+            const extraNotes = await knex('notes')
+                .join('fav_players', 'notes.fav_player_id', '=', 'fav_players.id')
                 .select({
-                    notes: "notes",
+                    note_content: "note_content",
+                    created_at: "created_at",
+                    id: "notes.id"
                 })
                 .where('reference', playerId)
                 .where('user_id', user_id);
-            try {
-                const extraNotes = await knex('notes')
-                    .join('fav_players', 'notes.fav_player_id', '=', 'fav_players.id')
-                    .select({
-                        note_content: "note_content",
-                        created_at: "created_at",
-                        id: "notes.id"
-                    })
-                    .where('reference', playerId)
-                    .where('user_id', user_id);
-                res.send({ allPlayers: allPlayers.league.standard, notes: notes, extraNotes: extraNotes })
-            } catch (err) {
-                console.log(err);
-            }
-        } catch (error) {
-            console.error(error);
+                res.send({ notes: notes, extraNotes: extraNotes });
+        } catch (err) {
+            console.log(err);
         }
     } catch (error) {
         console.error(error);

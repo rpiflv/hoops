@@ -11,7 +11,6 @@ function PlayerStats(props) {
         <div className='d-flex ms-0' style={{fontWeight:"200"}}>
             {stats.year}/{stats.year+1}
         </div>
-            {console.log(stats.teams)}
         {stats.teams.map(team => (
         <div key={team?.id}>
         <h3>{team.market} {team.name}</h3>
