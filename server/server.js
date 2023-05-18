@@ -187,7 +187,7 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
                 .select({
                     notes: "notes",
                 })
-                .where('player_id', playerId)
+                .where('reference', playerId)
                 .where('user_id', user_id);
             try {
                 const extraNotes = await knex('notes')
@@ -197,7 +197,7 @@ app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
                         created_at: "created_at",
                         id: "notes.id"
                     })
-                    .where('player_id', playerId)
+                    .where('reference', playerId)
                     .where('user_id', user_id);
                 res.send({ allPlayers: allPlayers.league.standard, notes: notes, extraNotes: extraNotes })
             } catch (err) {
