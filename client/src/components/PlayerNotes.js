@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import {Container, Card} from 'react-bootstrap/';
+import {Container, Card, Button} from 'react-bootstrap/';
 import '../App.css';
 import authHeader from "../services/authheader";
 
@@ -43,6 +43,19 @@ function PlayerNotes(props) {
         }
     };
 
+    const removeNote = async (noteId) => {
+        try {
+            await fetch(BASE_URL + `/api/myplayers/${playerInfo.reference}/${user_id}/delete/${noteId}`, {
+                method: "DELETE",
+
+                headers: authHeader()
+            })
+                .then(getPlayerNotes(playerInfo.reference))
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
     const clearInput = () => {
         setNewNote("");
     }
@@ -63,6 +76,9 @@ function PlayerNotes(props) {
                 {allNotes?.extraNotes?.map(note => (
                     <div>
                         {note?.note_content}
+                        <Button variant="outline-secondary" size="sm" className="mb-50" onClick={() => removeNote(note.id)}>
+                                         X
+                        </Button>
                     </div>
                 ))}
                 <input type="text" value={newNote} onChange={handleChange}> 
