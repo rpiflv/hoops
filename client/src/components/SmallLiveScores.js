@@ -7,7 +7,7 @@ import '../App.css';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
-function LiveScores ({onHeightChange, toggleLive}) {
+function SmallLiveScores ({onHeightChange, toggleLive}) {
 
     const ref = useRef();
 
@@ -71,9 +71,6 @@ function LiveScores ({onHeightChange, toggleLive}) {
         <>
           <Container className={`live-container ${isBlurry ? 'blur' : ''}`} ref={ref}>
             <div style={{display:"grid", gridTemplateColumns: "auto auto", justifyContent:"space-between"}}>
-                <div style={{justifySelf:"center"}} >
-                    <h4>today's matches</h4>
-                </div>
                 <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={toggleLive}>X</Button>
             </div>
                 <Row className="justify-content-center">
@@ -115,4 +112,4 @@ function LiveScores ({onHeightChange, toggleLive}) {
     )
 }
 
-export default LiveScores;
+export default SmallLiveScores;

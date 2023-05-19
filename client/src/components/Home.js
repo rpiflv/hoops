@@ -3,6 +3,7 @@ import axios from "axios";
 import { Card, Col, Container } from "react-bootstrap";
 import '../App.css';
 import LiveScores from "./LiveScores";
+import SmallLiveScores from "./SmallLiveScores";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -11,6 +12,7 @@ function Home() {
     const [lastNews, setLastNews] = useState([]);
     const [firstComponentHeight, setFirstComponentHeight] = useState(0);
     const [showScore, setShowScore] = useState(true);
+    const [showLive, setShowLive] = useState(true);
     
     useEffect(() => {
         const getNews = async () => {
@@ -36,12 +38,20 @@ function Home() {
         setFirstComponentHeight(height);
     };
 
+    const toggleLive = () => {
+        setShowLive(!showLive);
+    }
+
     return (
         <>
         <br/>
-        {/* {console.log(lastNews)} */}
         <Container>
-            <LiveScores onHeightChange={handleFirstComponentHeight}/>
+            {showLive &&
+            <LiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} showLive={showLive}/>
+            }
+            {!showLive &&
+            <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} showLive={showLive}/>
+            }
             <br/>
             <h1 style={{marginTop:firstComponentHeight + 5}}>Latest News</h1>
             <br/>
