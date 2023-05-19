@@ -28,9 +28,8 @@ function PlayerStats(props) {
                 </Dropdown.Menu>
             </Dropdown>
         </div>
-            {console.log(stats.teams)}
         {stats.teams.map(team => (
-        <div>
+        <div key={team?.id}>
         <h3>{team.market} {team.name}</h3>
         <Table striped hover size='sm'>
                 <thead>

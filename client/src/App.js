@@ -19,6 +19,7 @@ function App() {
   const [user, setUser] = useState(undefined);
   const [teams, setTeams] = useState([]);
   const [games, setGames] = useState([]);
+
   
   useEffect(() => {
     const user = authService.getCurrentUser();

@@ -18,8 +18,8 @@ function Roster(props) {
     const userData = JSON.parse(localStorage.getItem('user'));
     const user_id = userData?.user_id;
 
-    const addToFav = (playerId) => {
-        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, { playerId });
+    const addToFav = (playerId, reference) => {
+        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, {reference});
         navigate('/myplayers');
     }
 
@@ -60,7 +60,7 @@ function Roster(props) {
                                 <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`}} variant="outline-dark" onClick={() => {
                                     {
                                         user_id ?
-                                            addToFav(player?.id)
+                                            addToFav(player?.reference, player?.id)
                                             : navigate('/login')
                                     }
                                 }}>Add to favorite</Button>

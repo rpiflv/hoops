@@ -48,8 +48,8 @@ function Home() {
             <Container className="d-flex align-items-center justify-content-center news-container" >
                 <Col md='8' >          
                     {lastNews?.map((news, index) => (
-                        <a href={news.links.web.href} style={{textDecoration:"none", color:"darkgray"}} target="_blank" rel="noreferrer">
-                        <Card key={index} className="box-news mb-3"    >
+                        <a key={index} href={news.links.web.href} style={{textDecoration:"none", color:"darkgray"}} target="_blank" rel="noreferrer">
+                        <Card className="box-news mb-3"    >
                             <Card.Title style={{color: "black"}}> {news.headline}</Card.Title>
                             <div className="row no-gutters">
                                 <div className="col-md-6">

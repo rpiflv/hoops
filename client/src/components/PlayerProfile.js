@@ -1,16 +1,18 @@
 import axios from "axios";
 import logos from "../logos";
 import '../App.css';
-
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { Button, Card, Container, Nav, Row, ListGroup } from "react-bootstrap";
-import authHeader from "../services/authheader";
-import moment from 'moment';
+import { Card, Container, Nav } from "react-bootstrap";
 import PlayerInfo from "./PlayerInfo";
 import PlayerStats from "./PlayerStats";
+import PlayerNotes from "./PlayerNotes";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
+
+const userData = JSON.parse(localStorage.getItem('user'));
+const user_id = userData?.user_id;
+
 
 // function PlayerProfile() {
 //     const [playerInfo, setPlayerInfo] = useState({});
@@ -168,7 +170,7 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function PlayerProfile() {
     const [playerInfo, setPlayerInfo] = useState([]);
-    const [activeTab, setActiveTab] = useState('playerInfo')
+    const [activeTab, setActiveTab] = useState('playerInfo');
     const { playerId } = useParams();
 
     useEffect(() => {
@@ -197,12 +199,18 @@ function PlayerProfile() {
                             Details
                             </Nav.Link>
                         </Nav.Item>
-                        
                         <Nav.Item>
                             <Nav.Link eventKey="playerStats">
                             Stats
                             </Nav.Link>
                         </Nav.Item>
+                        {userData && 
+                        <Nav.Item>
+                            <Nav.Link eventKey="notes">
+                            Notes
+                            </Nav.Link>
+                    </Nav.Item>
+                        }
                     </Nav>
                 </Card.Header>
                 <Card.Title>
@@ -216,9 +224,10 @@ function PlayerProfile() {
                 {activeTab === "playerStats" && 
                 <PlayerStats playerInfo={playerInfo}/>
                 }
+                {activeTab === "notes" && 
+                <PlayerNotes playerInfo={playerInfo}/>
+                }
                 </Card.Body>
-
-
             </Card>
         </Container>
     )

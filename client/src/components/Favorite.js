@@ -53,12 +53,13 @@ function Favorite() {
         getMyFav();
     }, []);
 
-    const removeFav = async (playerId) => {
+    const removeFav = async (reference) => {
+        console.log(reference)
         try {
-            await fetch(BASE_URL + `/api/myplayers/${playerId}`, {
+            await fetch(BASE_URL + `/api/myplayers/${reference}`, {
                 method: "DELETE",
-                body: { playerId },
-                headers: authHeader()
+                body: { reference },
+                headers: authHeader(),
             })
                 .then(getMyFav())
         } catch (err) {
@@ -72,11 +73,11 @@ function Favorite() {
             <Container>
                 <Row >
                     {myPlayerInfo && myPlayerInfo.map((player) => (
-                        <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} key={player.personId}>
+                        <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} key={player.personId} className="fav-box">
                             <Card.Img variant="top"
                                 src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`} />
                             <ListGroup.Item >
-                                <div  >
+                                <div  style={{paddingBlock:"1rem"}}>
                                     <h3>{player.firstName} {player.lastName}</h3>
                                 </div>
                                 <Accordion >
@@ -87,11 +88,12 @@ function Favorite() {
                                         </Accordion.Body>
                                     </Accordion.Item>
                                 </Accordion>
-                                <br />
-                                <Link to={`${player.personId}`} >
-                                    <Button>Details</Button>
+                                <div className="d-flex" style={{justifyContent:"space-evenly", marginBlock:"1rem"}}>
+                                <Link to={`${player.reference}`} >
+                                    <Button variant="outline-secondary">Details</Button>
                                 </Link>
-                                <Button onClick={() => removeFav(player.personId)}>Remove</Button>
+                                <Button variant="outline-danger" onClick={() => removeFav(player.reference)}>Remove</Button>
+                                </div>
                             </ListGroup.Item>
                         </Card>
                     ))}
