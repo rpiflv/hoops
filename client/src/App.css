@@ -136,6 +136,10 @@ opacity: 1;
   box-shadow: 0 0 10px rgba(87, 87, 87, 0.5);
 }
 
+.fav-box:hover {
+  box-shadow: 0 0 7px rgba(87, 87, 87, 0.5);
+}
+
 .team-box {
   margin-top: 1rem;
   font-weight: 500;
@@ -184,9 +188,16 @@ opacity: 1;
   margin-bottom: 3%;
 }
 
+.hr-card-note {
+  size: 10px;
+  color: rgba(73, 73, 73, 0.584);
+  margin-top: 2%;
+  margin-bottom: 3%;
+}
+
 hr {
   margin-top:5px ;
-  margin-bottom: 5px;
+  margin-bottom: 15px;
 }
 
 tr {
@@ -201,4 +212,16 @@ td, th , tr{
   padding: 0;
   margin: 0;
   text-align: center;
+}
+
+input {
+  width: 89%;
+}
+
+.note-card {
+  background-color: #E8EBE6
+}
+
+.note-title:hover {
+  cursor: text;
 }
