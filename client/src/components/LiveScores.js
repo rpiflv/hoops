@@ -14,8 +14,6 @@ function LiveScores ({onHeightChange, toggleLive}) {
     const [todaysMatches, setTodaysMatches] = useState([]);
     const [showScore, setShowScore] = useState(false);
     const [isBlurry, setIsBlurry] = useState(false);
-    
-
 
     const getMatches = async () => {
         try {
@@ -48,7 +46,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
             const height = ref.current.clientHeight;
             onHeightChange(height);
         }
-    }, [onHeightChange]);
+    }, [todaysMatches.length]);
 
     useEffect(() => {
         const interval = setInterval(() => {
@@ -74,7 +72,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
                 <div style={{justifySelf:"center"}} >
                     <h4>today's matches</h4>
                 </div>
-                <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={toggleLive}>X</Button>
+                <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={() => {toggleLive(); onHeightChange()}}>X</Button>
             </div>
                 <Row className="justify-content-center">
                     <div className="col-md-12">
@@ -105,7 +103,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
                         }
                     </Row>
                     </div>
-                    <div className="col-md-2 d-flex align-items-center justify-content-center">
+                    <div className="col-md-2 d-flex align-items-end justify-content-end">
                         <label htmlFor="showscore" className="ms-auto">show scores</label>
                     <MDBSwitch id="showscore" onClick={toggleScore}/>    
                     </div>

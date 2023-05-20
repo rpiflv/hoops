@@ -1,9 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
-import ListGroup from 'react-bootstrap/ListGroup';
 import axios from "axios";
 import { Card, Col, Container, Row, Button} from "react-bootstrap";
-import { MDBSwitch } from 'mdb-react-ui-kit';
 import '../App.css';
+import { Grid } from "@mui/material";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -12,7 +11,6 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
     const ref = useRef();
 
     const [todaysMatches, setTodaysMatches] = useState([]);
-    const [showScore, setShowScore] = useState(false);
     const [isBlurry, setIsBlurry] = useState(false);
     
 
@@ -25,6 +23,13 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
             console.log(err);
         }
     }
+
+    useEffect(() => {
+        if (ref.current) {
+            const height = ref.current.clientHeight;
+            onHeightChange(height);
+        }
+    }, [onHeightChange]);
 
     useEffect(() => {
         function handleScroll() {
@@ -48,30 +53,18 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
             const height = ref.current.clientHeight;
             onHeightChange(height);
         }
-    }, [onHeightChange]);
-
-    useEffect(() => {
-        const interval = setInterval(() => {
-          getMatches();
-        }, 5000);
-    
-        return () => clearInterval(interval);
-      }, []);
-
+    }, [todaysMatches.length]);
 
     useEffect(() => {
         getMatches();
     }, [])
 
-    const toggleScore = () => {
-        setShowScore(!showScore);
-    }
-
     return (
         <>
-          <Container className={`live-container ${isBlurry ? 'blur' : ''}`} ref={ref}>
+        <Grid>
+        <Container className={`d-grid live-container ${isBlurry ? 'blur' : ''}`} ref={ref} style={{width:"10%", opacity:"0.7", justifyItems:"end"}}>
             <div style={{display:"grid", gridTemplateColumns: "auto auto", justifyContent:"space-between"}}>
-                <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={toggleLive}>X</Button>
+                <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={() => {toggleLive(); onHeightChange()}}>X</Button>
             </div>
                 <Row className="justify-content-center">
                     <div className="col-md-12">
@@ -81,20 +74,15 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
                                 <Card.Title>
                                     <Row>
                                         <Col>
-                                            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${match.awayTeam.teamTricode.toLowerCase()}.png`} style={{width:"2rem", marginLeft:"1px", marginRight:"1px"}}></img>
+                                            
                                             <strong>{match.awayTeam.teamTricode}</strong >
                                          
                                             <span style={{color: "gray"}}> vs </span>
                                             <strong>{match.homeTeam.teamTricode}</strong >
-                                            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${match.homeTeam.teamTricode.toLowerCase()}.png`} style={{width:"2rem"}}></img>
                                         </Col>
                                     </Row>  
                                 </Card.Title>
-                                    <ListGroup.Item className="live-score">{match.gameStatus === 2 &&
-                                            <span className={"live"}>LIVE</span>
-                                        }    score: {showScore ? <div>{match.awayTeam.score} : {match.homeTeam.score}</div>
-                                        : <div>-- : --</div>}
-                                    </ListGroup.Item>
+                                    
                             </Card>
                                 ) 
                                 :
@@ -102,12 +90,9 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
                         }
                     </Row>
                     </div>
-                    <div className="col-md-2 d-flex align-items-center justify-content-center">
-                        <label htmlFor="showscore" className="ms-auto">show scores</label>
-                    <MDBSwitch id="showscore" onClick={toggleScore}/>    
-                    </div>
                 </Row>
-            </Container>
+        </Container>
+        </Grid>
         </>
     )
 }

@@ -44,13 +44,16 @@ function Home() {
 
     return (
         <>
+        {console.log(firstComponentHeight)}
         <br/>
-        <Container>
-            {showLive &&
-            <LiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} showLive={showLive}/>
-            }
+        <div style={{display:"flex", marginLeft:"auto"}}>
             {!showLive &&
-            <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} showLive={showLive}/>
+                <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive}/>
+            }
+        </div>
+            <Container >
+            {showLive &&
+                <LiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} />
             }
             <br/>
             <h1 style={{marginTop:firstComponentHeight + 5}}>Latest News</h1>
