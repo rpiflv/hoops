@@ -6,7 +6,7 @@ import authHeader from "../services/authheader";
 import moment from "moment";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTrash } from '@fortawesome/free-solid-svg-icons';
+import { faTrash, faBoxArchive } from '@fortawesome/free-solid-svg-icons';
 
 
 
@@ -83,8 +83,12 @@ function PlayerNotes(props) {
         setNewNote("");
     };
 
-    const toggleEdit = () => {
-        setShowEditInput(!showEditInput);
+    const toggleEditOn = () => {
+        setShowEditInput(true);
+    }
+
+    const toggleEditOff = () => {
+        setShowEditInput(false);
     }
 
     return (
@@ -92,30 +96,23 @@ function PlayerNotes(props) {
         <Container className='d-flex justify-content-center align-items-center'>
             <Card style={{width:"70%"}} className="note-card">
               <div style={{padding:"1rem"}}>Player's profile</div>
-                {/* <Card.Title style={{background:"white", padding:"1rem", borderRadius:"5px", marginLeft:"1rem", marginRight:"1rem"}} className="d-flex align-text-right note-title" onClick={toggleEdit}>
-                    //  {notes} 
-                </Card.Title> */}
+
                 <Card.Body>
                     <Form className="mb-3" >
-                        <Form.Control as="textarea" rows={2} value={notes} onChange={editNote} className="resizedTextbox" onClick={toggleEdit}/>
+                        <Form.Control as="textarea" rows={2} value={notes} onChange={editNote} className="resizedTextbox" onClick={toggleEditOn}/>
                      {showEditInput && 
-                            <Button variant="outline-dark" onClick={() => {sendNote(); toggleEdit()}} style={{marginTop:"5px"}}>
-                                 Save
+                            <Button variant="outline-secondary" onClick={() => {sendNote(); toggleEditOff()}} style={{marginTop:"5px"}}>
+                                 <FontAwesomeIcon icon={faBoxArchive}/>
                             </Button>             
                      }
                      </Form>
-                     {/* {!showEditInput && 
-                     <Button onClick={toggleEdit} variant="outline-dark" style={{marginTop:"5px"}}>
-                        Edit
-                     </Button>
-                     } */}
                     <hr className="hr-card-note"/>
                     <div style={{padding:"1rem"}}>My Notes</div>
                     {extraNotes?.map(note => (
-                    <div className="note-box">
+                    <div className="note-box justify-content-center">
                         <Row>
-                            <Col md="2" style={{fontSize:"80%", fontWeight:"250", justifyContent:"center"}}> 
-                                {moment(note?.created_at).format("MMMM Do [']YY") }
+                            <Col md="2" style={{fontSize:"80%", fontWeight:"300", justifyContent:"center"}}> 
+                                {moment(note?.created_at).format("MMMM Do [']YY [-] HH:MM") }
                             </Col>
                             <Col md="8" className="d-flex align-text-right" >
                                 {note?.note_content}
@@ -133,7 +130,9 @@ function PlayerNotes(props) {
                 <Form>
                     <Form.Control as="textarea" rows="2" value={newNote} onChange={handleChangeExtraNote}/>
                 </Form>
-                    <Button onClick={() => {handleSubmit(); clearInput()}} variant="outline-dark" style={{marginTop:"5px"}}>Submit</Button>
+                    <Button onClick={() => {handleSubmit(); clearInput()}} variant="outline-secondary" style={{marginTop:"5px"}}>
+                    <FontAwesomeIcon icon={faBoxArchive}/>
+                    </Button>
               </Card.Body>
             </Card>
         </Container>
