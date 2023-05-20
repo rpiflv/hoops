@@ -50,7 +50,7 @@ function Home() {
             <Row className="d-flex justify-content-right">
             <Col>
             {!showLive &&
-                <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive}/>
+                <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} className="fade-in"/>
             }
             </Col>
             </Row>

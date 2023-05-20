@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Card, Col, Container, Row, Button} from "react-bootstrap";
+import { Card, Col, Container, Row, Button, CloseButton} from "react-bootstrap";
 import '../App.css';
 import { Grid } from "@mui/material";
 
@@ -60,9 +60,9 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
     return (
         <>
 
-        <Container fluid className={`d-grid live-container-small ${isBlurry ? 'blur' : ''}`} ref={ref} style={{width:"10%", opacity:"0.7", justifyItems:"end"}}>
+        <Container className={`d-grid live-container-small ${isBlurry ? 'blur' : ''}`} ref={ref} style={{width:"10%", opacity:"0.7", justifyItems:"end"}}>
             <div style={{display:"grid", gridTemplateColumns: "auto auto", justifyContent:"space-between"}}>
-                <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={() => {toggleLive(); onHeightChange()}}>X</Button>
+                <Button style={{justifySelf:"end", borderRadius:"50%"}} variant="outline-light" onClick={() => {toggleLive(); onHeightChange()}}>➕</Button>
             </div>
                 <Row className="justify-content-center">
                     <div className="col-md-12">

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from "axios";
-import { Card, Col, Container, Row, Button} from "react-bootstrap";
+import { Card, Col, Container, Row, Button, CloseButton} from "react-bootstrap";
 import { MDBSwitch } from 'mdb-react-ui-kit';
 import '../App.css';
 
@@ -72,7 +72,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
                 <div style={{justifySelf:"center"}} >
                     <h4>today's matches</h4>
                 </div>
-                <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={() => {toggleLive(); onHeightChange()}}>X</Button>
+                <Button style={{justifySelf:"end", borderRadius:"50%"}} variant="outline-light" onClick={() => {toggleLive(); onHeightChange()}}>➖</Button>
             </div>
                 <Row className="justify-content-center">
                     <div className="col-md-12">
