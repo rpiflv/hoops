@@ -9,6 +9,8 @@ import Row from 'react-bootstrap/Row';
 import authHeader from "../services/authheader";
 import authService from "../services/auth.service";
 import { useNavigate } from "react-router-dom";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrashCan, faQrcode } from '@fortawesome/free-solid-svg-icons';
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -90,9 +92,13 @@ function Favorite() {
                                 </Accordion>
                                 <div className="d-flex" style={{justifyContent:"space-evenly", marginBlock:"1rem"}}>
                                 <Link to={`${player.reference}`} >
-                                    <Button variant="outline-secondary">Details</Button>
+                                    <Button variant="outline-secondary">
+                                    <FontAwesomeIcon icon={faQrcode}/>
+                                    </Button>
                                 </Link>
-                                <Button variant="outline-danger" onClick={() => removeFav(player.reference)}>Remove</Button>
+                                <Button variant="outline-danger" onClick={() => removeFav(player.reference)}>
+                                    <FontAwesomeIcon icon={faTrashCan}/>
+                                </Button>
                                 </div>
                             </ListGroup.Item>
                         </Card>

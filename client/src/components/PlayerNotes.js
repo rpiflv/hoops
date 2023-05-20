@@ -93,46 +93,59 @@ function PlayerNotes(props) {
 
     return (
         <>
-        <Container className='d-flex justify-content-center align-items-center'>
+        <Container className='d-flex justify-content-center'>
             <Card style={{width:"70%"}} className="note-card">
-              <div style={{padding:"1rem"}}>Player's profile</div>
 
                 <Card.Body>
-                    <Form className="mb-3" >
-                        <Form.Control as="textarea" rows={2} value={notes} onChange={editNote} className="resizedTextbox" onClick={toggleEditOn}/>
-                     {showEditInput && 
-                            <Button variant="outline-secondary" onClick={() => {sendNote(); toggleEditOff()}} style={{marginTop:"5px"}}>
-                                 <FontAwesomeIcon icon={faBoxArchive}/>
-                            </Button>             
-                     }
-                     </Form>
-                    <hr className="hr-card-note"/>
-                    <div style={{padding:"1rem"}}>My Notes</div>
+              <div style={{padding:"1rem", paddingBottom:"0rem"}}>Player's profile</div>
+                            <hr/>
+                    <Row style={{padding:"0"}}>
+                        <Col md={11}> 
+                            <Form className="mb-3" >
+                                <Form.Control as="textarea" rows={2} value={notes} onChange={editNote} className="resizedTextbox" onClick={toggleEditOn}/>
+                            </Form>
+                        </Col>
+                        <Col md={1}>
+                            {showEditInput && 
+                                    <Button className="btn-sm" variant="outline-secondary" onClick={() => {sendNote(); toggleEditOff()}} style={{marginTop:"5px"}}>
+                                        <FontAwesomeIcon icon={faBoxArchive}/>
+                                    </Button>             
+                            }
+                        </Col>
+                     </Row>
+                    <div style={{padding:"1rem", paddingBottom:"0rem"}}>My Notes</div>
+                    <hr/>
                     {extraNotes?.map(note => (
-                    <div className="note-box justify-content-center">
+                    <div className="note-box">
                         <Row>
-                            <Col md="2" style={{fontSize:"80%", fontWeight:"300", justifyContent:"center"}}> 
+                            <Col md="2" style={{fontSize:"80%", fontWeight:"300", justifyContent:"center", marginBottom:"3%"}}> 
                                 {moment(note?.created_at).format("MMMM Do [']YY [-] HH:MM") }
                             </Col>
-                            <Col md="8" className="d-flex align-text-right" >
+                            <Col md="9" className="d-flex align-text-right" >
                                 {note?.note_content}
                             </Col>
-                            <Col md="2">
-                                <Button variant="outline-secondary" size="sm" className="mb-50" onClick={() => removeExtraNote(note.id)} style={{verticalAlign:"top"}}>
+                            <Col md="1" style={{marginRight:"0"}}>
+                                <Button variant="outline-secondary" size="sm" className="mb-100" onClick={() => removeExtraNote(note.id)} 
+                                style={{verticalAlign:"top", marginRight:"0"}}>
                                 <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                             </Col>
                         </Row>
-                        <hr/>
                     </div>
                     ))}
-                    <div className="d-flex align-text-right">New note</div>
-                <Form>
-                    <Form.Control as="textarea" rows="2" value={newNote} onChange={handleChangeExtraNote}/>
-                </Form>
-                    <Button onClick={() => {handleSubmit(); clearInput()}} variant="outline-secondary" style={{marginTop:"5px"}}>
-                    <FontAwesomeIcon icon={faBoxArchive}/>
-                    </Button>
+                    <div className="d-flex align-text-right" style={{fontWeight:"400"}}>New note</div>
+                    <Row style={{padding:"0"}}>
+                        <Col md={11}>
+                        <Form>
+                            <Form.Control as="textarea" rows="2" value={newNote} onChange={handleChangeExtraNote}/>
+                        </Form>
+                        </Col>
+                        <Col md={1}>
+                        <Button onClick={() => {handleSubmit(); clearInput()}} variant="outline-secondary" style={{marginTop:"5px"}} className="btn-sm">
+                            <FontAwesomeIcon icon={faBoxArchive}/>
+                        </Button>
+                        </Col>
+                    </Row>
               </Card.Body>
             </Card>
         </Container>

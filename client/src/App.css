@@ -198,9 +198,9 @@ opacity: 1;
 }
 
 .hr-card-note {
-  size: 10px;
+  size: 1px;
   color: rgba(73, 73, 73, 0.584);
-  margin-top: 2%;
+  margin-top: 2px;
   margin-bottom: 3%;
 }
 
