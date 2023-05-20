@@ -5,6 +5,11 @@ import '../App.css';
 import authHeader from "../services/authheader";
 import moment from "moment";
 
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTrash } from '@fortawesome/free-solid-svg-icons';
+
+
+
 const userData = JSON.parse(localStorage.getItem('user'));
 const user_id = userData?.user_id;
 
@@ -109,7 +114,7 @@ function PlayerNotes(props) {
                     {extraNotes?.map(note => (
                     <div className="note-box">
                         <Row>
-                            <Col md="2" style={{fontSize:"70%", fontWeight:"300", justifyContent:"center"}}> 
+                            <Col md="2" style={{fontSize:"80%", fontWeight:"250", justifyContent:"center"}}> 
                                 {moment(note?.created_at).format("MMMM Do [']YY") }
                             </Col>
                             <Col md="8" className="d-flex align-text-right" >
@@ -117,7 +122,7 @@ function PlayerNotes(props) {
                             </Col>
                             <Col md="2">
                                 <Button variant="outline-secondary" size="sm" className="mb-50" onClick={() => removeExtraNote(note.id)} style={{verticalAlign:"top"}}>
-                                x
+                                <FontAwesomeIcon icon={faTrash} />
                                 </Button>
                             </Col>
                         </Row>
