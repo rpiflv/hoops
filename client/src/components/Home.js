@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { Card, Col, Container } from "react-bootstrap";
+import { Card, Col, Container, Row } from "react-bootstrap";
 import '../App.css';
 import LiveScores from "./LiveScores";
 import SmallLiveScores from "./SmallLiveScores";
@@ -44,14 +44,18 @@ function Home() {
 
     return (
         <>
-        {console.log(firstComponentHeight)}
         <br/>
-        <div style={{display:"flex", marginLeft:"auto"}}>
+        <Container>
+
+            <Row className="d-flex justify-content-right">
+            <Col>
             {!showLive &&
                 <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive}/>
             }
-        </div>
-            <Container >
+            </Col>
+            </Row>
+            </Container>
+        <Container >
             {showLive &&
                 <LiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} />
             }

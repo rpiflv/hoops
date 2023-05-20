@@ -12,8 +12,6 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
 
     const [todaysMatches, setTodaysMatches] = useState([]);
     const [isBlurry, setIsBlurry] = useState(false);
-    
-
 
     const getMatches = async () => {
         try {
@@ -22,12 +20,12 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
         } catch (err) {
             console.log(err);
         }
-    }
+    };
 
     useEffect(() => {
         if (ref.current) {
             const height = ref.current.clientHeight;
-            onHeightChange(height);
+            onHeightChange(height / 8);
         }
     }, [onHeightChange]);
 
@@ -46,23 +44,23 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
         return () => {
             window.removeEventListener("scroll", handleScroll);
         }
-    }, [])
+    }, []);
 
     useEffect(() => {
         if (ref.current) {
             const height = ref.current.clientHeight;
-            onHeightChange(height);
+            onHeightChange(0);
         }
-    }, [todaysMatches.length]);
+    }, [todaysMatches?.length]);
 
     useEffect(() => {
         getMatches();
-    }, [])
+    }, []);
 
     return (
         <>
-        <Grid>
-        <Container className={`d-grid live-container ${isBlurry ? 'blur' : ''}`} ref={ref} style={{width:"10%", opacity:"0.7", justifyItems:"end"}}>
+
+        <Container fluid className={`d-grid live-container-small ${isBlurry ? 'blur' : ''}`} ref={ref} style={{width:"10%", opacity:"0.7", justifyItems:"end"}}>
             <div style={{display:"grid", gridTemplateColumns: "auto auto", justifyContent:"space-between"}}>
                 <Button style={{justifySelf:"end"}} variant="outline-secondary" onClick={() => {toggleLive(); onHeightChange()}}>X</Button>
             </div>
@@ -70,11 +68,11 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
                     <div className="col-md-12">
                     <Row className="justify-content-center align-items-center">
                         {todaysMatches?.length > 0 ? todaysMatches?.map((match, index) =>
+                        <Col>
                             <Card style={{ width: 'auto', padding: "1rem", margin: "3px" }} className="text-center live-box shadow" key={index} >
                                 <Card.Title>
                                     <Row>
                                         <Col>
-                                            
                                             <strong>{match.awayTeam.teamTricode}</strong >
                                          
                                             <span style={{color: "gray"}}> vs </span>
@@ -84,6 +82,7 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
                                 </Card.Title>
                                     
                             </Card>
+                        </Col>
                                 ) 
                                 :
                                 <h3>No matches today</h3>
@@ -92,7 +91,7 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
                     </div>
                 </Row>
         </Container>
-        </Grid>
+
         </>
     )
 }

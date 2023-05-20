@@ -46,7 +46,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
             const height = ref.current.clientHeight;
             onHeightChange(height);
         }
-    }, [todaysMatches.length]);
+    }, [todaysMatches?.length]);
 
     useEffect(() => {
         const interval = setInterval(() => {
