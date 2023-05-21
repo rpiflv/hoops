@@ -56,14 +56,13 @@ function Favorite() {
     }, []);
 
     const removeFav = async (reference) => {
-        console.log(reference)
         try {
             await fetch(BASE_URL + `/api/myplayers/${reference}`, {
                 method: "DELETE",
                 body: { reference },
                 headers: authHeader(),
             })
-                .then(getMyFav())
+                .then(getMyFav());
         } catch (err) {
             console.log(err);
         }
@@ -84,7 +83,7 @@ function Favorite() {
                                 </div>
                                 <Accordion >
                                     <Accordion.Item eventKey="0" key={player.personId}>
-                                        <Accordion.Header>Player Characteristics: </Accordion.Header>
+                                        <Accordion.Header>Player's profile: </Accordion.Header>
                                         <Accordion.Body>
                                             {player.notes}
                                         </Accordion.Body>

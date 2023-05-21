@@ -13,7 +13,7 @@ function PlayerInfo(props) {
                 <Row className='align-items-center'>
                     <Col md="6">
                         <Card.Img 
-                        style={{width:"20rem", marginTop:"2rem", marginLeft:"2rem"}} 
+                        style={{width:"70%", marginTop:"2rem", marginLeft:"auto"}} 
                         variant='left'
                         src={playerInfo?.reference ? 
                             `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerInfo?.reference}.png` : anonymous} />
@@ -31,9 +31,8 @@ function PlayerInfo(props) {
                     <Col md="6" className='text-center'>
                         <Stack>
                         <div>draft: {playerInfo?.draft?.year}</div>
-                        <div>draft round: #{playerInfo?.draft?.pick}</div>
-                        <div>draft pick: #{playerInfo?.draft?.round}</div>
-                        <div style={{marginBottom:"5%"}}>draft team: <img src={logos[`${playerInfo?.team?.id}`]} style={{ width: "30px", marginBottom:"1%" }} alt="logo"/></div>
+                        <div>draft round: {playerInfo?.draft?.pick ? "#"+playerInfo?.draft?.pick : "undrafted"} </div>
+                        <div style={{marginBottom:"5%"}}>draft pick: {playerInfo?.draft?.round ? "#"+playerInfo?.draft?.round : "undrafted"}</div>
                         </Stack>
                     </Col>
                     <Col>
