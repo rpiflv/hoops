@@ -174,7 +174,7 @@ app.delete('/api/myplayers/:reference', authToken, async (req, res) => {
     }
 });
 
-// getPlayerNotes()
+// getPlayerNotes
 app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
     const playerId = req.params.playerId;
     const user_id = req.params.user_id;
@@ -334,9 +334,9 @@ app.post('/api/login/', async (req, res) => {
     const accessToken = await JWT.sign(
         { email },
         process.env.ACCESS_TOKEN_SECRET,
-        {
-            expiresIn: "60m",
-        }
+        // {
+        //     expiresIn: "60m",
+        // }
     );
     const refreshToken = await JWT.sign(
         { email },
