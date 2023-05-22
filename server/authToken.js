@@ -4,26 +4,14 @@ require("dotenv").config();
 const authToken = async (req, res, next) => {
     const token = req.header("x-auth-token");
     if (!token) {
-        res.status(401).json({
-            errors: [
-              {
-                msg: "Token not found",
-              },
-            ],
-          });
+        res.send("missing token");
     }
     try {
         const user = await jwt.verify(token, process.env.ACCESS_TOKEN_SECRET);
         req.user = user.email;
         next();
     } catch (err) {
-        res.status(403).json({
-            errors: [
-              {
-                msg: "Invalid token",
-              },
-            ],
-          });
+        res.status(403).send("Token not correct");
     }
 }
 
