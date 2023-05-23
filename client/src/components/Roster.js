@@ -14,13 +14,11 @@ import { faHeart } from "@fortawesome/free-solid-svg-icons";
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 function Roster(props) {
     const {roster, teamcolor, teamcolorSec} = props;
-
-    const [favPlayers, setFavPlayers] = useState([]);
-    
     const { teamId } = useParams();
-
+    const [favPlayers, setFavPlayers] = useState([]);
     const userData = JSON.parse(localStorage.getItem('user'));
     const user_id = userData?.user_id;
+    const navigate = useNavigate();
 
     const addToFav = (playerId, reference) => {
         axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, {reference});
@@ -31,16 +29,17 @@ function Roster(props) {
         const checkFavPlayers = async () => {
             try {
                 const favList = await axios.get(BASE_URL + `/api/myplayers/${user_id}`, { body: user_id, headers: authHeader() });
-                const refList = favList.data.favPlayers.map(player => player.reference);
-                setFavPlayers(refList);
+                    const refList = favList?.data.favPlayers.map(player => player.reference);
+                    setFavPlayers(refList);
             } catch(err) {
                 console.log(err);
             }
         };
-        checkFavPlayers();
+        if (user_id) {
+            checkFavPlayers();
+        }
     }, [])
 
-    const navigate = useNavigate();
 
     return (
         <>
@@ -65,13 +64,13 @@ function Roster(props) {
                                 <Card.Body className="player-card-body" style={{backgroundColor:`${teamcolorSec}10`}}>
                                 <Card.Title>
                                     {player?.first_name} {player?.last_name} 
-                                    <hr className="hr" />
+                                    <hr/>
                                 </Card.Title>
                                 
                                 <Card.Text className="player-card-text">
                                     Draft: {player?.draft.year}<br/>
                                     Pick: {player?.draft.pick ? player?.draft.pick : "undrafted"} <br/>
-                                    <hr className="hr" />
+                                    <hr />
                                     Position: {player?.primary_position}<br />
                                     Height: {Math.floor(player?.height/12)}-{player?.height%12}<br />
                                     Weight: {player?.weight}<br />

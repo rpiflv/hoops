@@ -41,7 +41,7 @@ function Team () {
     };
 
     return (
-        <Container maxWidth="x1">
+        <Container maxwidth="x1">
             <Card className="border-light team-box"> 
             <Card.Header>
                 <Nav variant="pills" activeKey={activeTab} onSelect={handleSelect} className="custom-nav-pills">

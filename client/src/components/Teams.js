@@ -29,11 +29,9 @@ function Teams() {
             <br />
             <Container >
                 <h3>Standings</h3>
-                {console.log(conferences)}
                 <Row>
                     {conferences.map((conference) => (
-                    <Col className="d-flex flex-column align-items-top">
-                        <div key={conference.id} >
+                    <Col  key={conference.id} className="d-flex flex-column align-items-top">         
                             <h2>{conference.name}</h2>
                             <div>
                             {conference.divisions.map((division) => (
@@ -41,8 +39,8 @@ function Teams() {
                                     <h4>{division.name}</h4>
                                     <div className="align-self-center">
                                         {division.teams.map((team) => (
-                                            <Link to={`${team.id}`} style={{textDecoration: "none"}}>
-                                                <Card key={team.id} border="light" style={{height: "15%", width:"12rem", padding:"6px"}} 
+                                            <Link to={`${team.id}`} style={{textDecoration: "none"}} key={team.id}>
+                                                <Card  border="light" style={{height: "15%", width:"12rem", padding:"6px"}} 
                                                 className="team align-self-center">
                                                 {team.market} {team.name} 
                                                 <Card.Img src={`${logos[team.id]}`} variant="top" style={{ height: "12rem", width:"auto" }}></Card.Img>
@@ -65,7 +63,6 @@ function Teams() {
                                 </div>
                                 ))}
                             </div>
-                        </div>
                     </Col>
                     ))}
                 </Row>
