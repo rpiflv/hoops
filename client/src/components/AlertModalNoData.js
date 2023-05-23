@@ -7,9 +7,11 @@ function AlertModalNoData(props) {
       return (
         <div className={showModal ? "modal display-block" : "modal display-none"}>
             <section className="modal-main">
+              <div>
                 <span>The app may currently show mock data.</span><br/>
                 <span>Thank you for your understanding.</span><br/><br/>
                 <button onClick={() => setShowModal(false)}>Close</button>
+              </div>
             </section>
         </div>
 

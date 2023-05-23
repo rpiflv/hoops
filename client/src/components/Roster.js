@@ -64,13 +64,14 @@ function Roster(props) {
                                 <Card.Body className="player-card-body" style={{backgroundColor:`${teamcolorSec}10`}}>
                                 <Card.Title>
                                     {player?.first_name} {player?.last_name} 
-                                    <hr/>
                                 </Card.Title>
+                                    <hr/>
                                 
                                 <Card.Text className="player-card-text">
                                     Draft: {player?.draft.year}<br/>
                                     Pick: {player?.draft.pick ? player?.draft.pick : "undrafted"} <br/>
-                                    <hr />
+                                </Card.Text>
+                                <Card.Text className="player-card-text">
                                     Position: {player?.primary_position}<br />
                                     Height: {Math.floor(player?.height/12)}-{player?.height%12}<br />
                                     Weight: {player?.weight}<br />

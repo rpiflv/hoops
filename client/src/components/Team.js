@@ -24,7 +24,6 @@ function Team () {
         const getTeamData = async (teamId) => {
             try {
                 const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`);
-                console.log(response.data)
                 setRoster(response.data.data.players);
                 setTeamColor(response.data.data.team_colors[0].hex_color);
                 setTeamColorSec(response.data.data.team_colors[1].hex_color);
