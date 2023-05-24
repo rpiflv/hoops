@@ -4,12 +4,16 @@
 ## What it is
 This application let you browse NBA Teams and Players, pick your favorite players, and add your notes to it.
 
-   <a href="https://hoops.onrender.com/">Go to deployed version >>></a>
+   <a href="https://hoops.onrender.com/">Go to deployed version >>></a> <br/>
+   :warning: when launching the app for the first time, it may take some time to load 
 
-## How it works
-In the homepage you will immediately see the laterst News, just click on the title and you will be sent to the article itself.
-If you want to look up for a player, click on Teams in the navbar, then on the team to get the Roster. You will have the option to add the player to your Favorite Players. Try it! You can then go to My Players, where you can find the players you favorited before. In the player box, along with the basic information of the player, you can find the Notes section. Click on it to expand and read. 
-If you want to add notes, go to Details and the edit the input field.
+## How it works & features
+Browse the app using the navbar. Sign up and login to enjoy more fetaures. What you can do:
+- Latest NBA news from ESPN
+- LIVE updates on current games
+- Standings and schedules
+- Stats on every team, player and game
+- Personal notes and every player (only if logged in) 
 
 
 ## Tech
