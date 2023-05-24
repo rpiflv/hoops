@@ -7,6 +7,7 @@ import { Card, Container, Nav } from "react-bootstrap";
 import PlayerInfo from "./PlayerInfo";
 import PlayerStats from "./PlayerStats";
 import PlayerNotes from "./PlayerNotes";
+import authHeader from "../services/authheader";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
@@ -16,6 +17,7 @@ const user_id = userData?.user_id;
 function PlayerProfile() {
     const [playerInfo, setPlayerInfo] = useState([]);
     const [activeTab, setActiveTab] = useState('playerInfo');
+    const [isFav, setIsFav] = useState(false);
     const { playerId } = useParams();
 
     useEffect(() => {
@@ -34,6 +36,21 @@ function PlayerProfile() {
         setActiveTab(tab);
     };
 
+    useEffect(() => {
+        const checkFavPlayers = async () => {
+            try {
+                const favList = await axios.get(BASE_URL + `/api/myplayers/${user_id}`, { body: user_id, headers: authHeader() });
+                    const ref = favList?.data.favPlayers.map(player => player.reference);
+                    ref.indexOf(playerId) >= 0 && setIsFav(true);
+            } catch(err) {
+                console.log(err);
+            }
+        };
+        if (user_id) {
+            checkFavPlayers();
+        }
+    }, [])
+
     return (
         <Container>
             <Card className="border-light player-box">
@@ -49,7 +66,7 @@ function PlayerProfile() {
                             Stats
                             </Nav.Link>
                         </Nav.Item>
-                        {userData && 
+                        {isFav && 
                         <Nav.Item>
                             <Nav.Link eventKey="notes">
                             Notes
@@ -70,7 +87,7 @@ function PlayerProfile() {
                 <PlayerStats playerInfo={playerInfo}/>
                 }
                 {activeTab === "notes" && 
-                <PlayerNotes playerInfo={playerInfo}/>
+                <PlayerNotes playerInfo={playerInfo} isFav={isFav}/>
                 }
                 </Card.Body>
             </Card>
