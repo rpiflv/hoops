@@ -27,7 +27,7 @@ const Login = () => {
     return (
         <>
             <Container className='d-flex justify-content-center align-items-center'>
-                <Form style={{width:"70%", height:"100vh"}}>
+                <Form className='d-flex justify-content-center' style={{width:"70%", height:"100vh", marginTop:"3rem"}}>
                     <Col xs={7}>
                         <Form.Group className="mb-3 mt-3" controlId="email">
                             <Form.Label className="ml-auto">Email address</Form.Label>

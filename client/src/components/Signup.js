@@ -30,8 +30,8 @@ const Signup = () => {
     }
 
     return (
-        <Container>
-            <Form>
+        <Container className='d-flex justify-content-center align-items-center'>
+                <Form className='d-flex justify-content-center' style={{width:"70%", height:"100vh", marginTop:"3rem"}}>
                 <Col xs={7}>
                     <Form.Group className="mb-3" controlId="username">
                         <Form.Label>Username</Form.Label>
