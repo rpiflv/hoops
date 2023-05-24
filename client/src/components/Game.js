@@ -92,6 +92,7 @@ function Game() {
 
     return (
         <>
+        {console.log(game)}
         <Container>
         <Card className="border-light game-box">
             <Card.Header>

@@ -58,7 +58,7 @@ function Games () {
         {
             games?.games?.map((game) => 
             <Col key={game.id}>
-                { game.status !== "unnecessary" ? 
+                { game.status !== "unnecessary"? 
                     <Card className="games-box shadow-sm">
                         <Link style={{textDecoration: "none"}} to={game.id} className="link-light">
                             <Card.Title className="games-box-title text-truncate">
@@ -93,8 +93,8 @@ function Games () {
                     </Card> 
                     :
                     <Card className="games-box unnecessary shadow-sm">
-                        <Link style={{textDecoration: "none"}} to={game.id} className="link-light">
-                            <Card.Title className="games-box-title text-truncate">
+                        <div style={{textDecoration: "none"}} to={game.id} className="link-light">
+                            <Card.Title className="games-box-title text-truncate" style={{fontSize:"70%"}}>
                                 {game.title}
                             </Card.Title>
                             <Card.Subtitle>
@@ -125,7 +125,7 @@ function Games () {
                                     </Col>
                                 </Row>
                             </Card.Body>
-                        </Link>
+                        </div>
                     </Card> 
                 }
             </Col>
