@@ -92,11 +92,9 @@ app.get('/api/teams/:teamId', async (req, res) => {
         const teamInfo = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/teams/${req.params.teamId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`)
         const stats = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/seasons/2022/REG/teams/${req.params.teamId}/statistics.json?api_key=${process.env.SPORTRADAR_KEY}`);
         Promise.all([teamInfo.data, stats.data])
-
-        // Promise.all([response.stats, response.data])
         .then(response => res.send(response))
     } catch(err) {
-        console.error(err);
+        console.log(err);
         try {
             const data = require("../client/src/mockdata/teamRoster.json");
             const stats = require("../client/src/mockdata/teamstats.json");
