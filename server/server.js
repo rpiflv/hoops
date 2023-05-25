@@ -100,7 +100,7 @@ app.get('/api/teams/:teamId', async (req, res) => {
         try {
             const data = require("../client/src/mockdata/teamRoster.json");
             const stats = require("../client/src/mockdata/teamstats.json");
-            res.send({data, stats});
+            res.send([data, stats]);
         } catch(err) {
             console.error(err);
             res.status(500).send('Unable to fetch data');

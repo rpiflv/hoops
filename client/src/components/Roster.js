@@ -78,14 +78,14 @@ function Roster(props) {
                                 </Card.Text>
                             </Card.Body>
                             <Card.Footer style={{backgroundColor:`${teamcolorSec}50`}} className="player-card-footer">
-                                <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`}} variant="outline-dark" onClick={() => {
+                                <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`, color:`${teamcolor}`}} variant="outline-dark" onClick={() => {
                                     {
                                         user_id ?
                                             addToFav(player?.reference, player?.id)
                                             : navigate('/login')
                                     }
                                 }}>Add to favorite</Button>
-                                <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`, marginLeft:"5%"}} variant="outline-dark" onClick={() => navigate(`/${player.id}`)}>
+                                <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`, color:`${teamcolor}`, marginLeft:"5%"}} variant="outline-dark" onClick={() => navigate(`/${player.id}`)}>
                                     Details
                                 </Button>
                             </Card.Footer>
