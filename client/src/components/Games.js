@@ -40,6 +40,7 @@ function Games () {
     return (
         <>
         <div style={{margin:"5%"}}>
+        <hr/>
         <Row>
             <Col>
                 <Button onClick={() => { handleDateChange(-30)}} disabled={loading} className="Button day prev-month shadow-sm"> Previus month </Button>
@@ -57,6 +58,7 @@ function Games () {
 
             </Col>
         </Row>
+        <hr/>
         </div>
         <Container>
         <Row >
@@ -66,6 +68,7 @@ function Games () {
                 { (game.status !== "unnecessary" && game.status !== "scheduled") ? 
                     <Card className="games-box shadow-sm">
                         {console.log(game)}
+                    
                         <Link style={{textDecoration: "none"}} to={game.id} className="link-light">
                             <Card.Title className="games-box-title text-truncate">
                             {game.title}
