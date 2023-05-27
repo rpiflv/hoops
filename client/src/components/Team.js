@@ -16,15 +16,12 @@ function Team () {
     const [roster, setRoster] = useState([]);
     const [teamcolor, setTeamColor] = useState('');
     const [teamcolorSec, setTeamColorSec] = useState('');
-    const [teamStats, setTeamStats] = useState([])
+    const [teamStats, setTeamStats] = useState([]);
 
-
-    
     useEffect(() => {
         const getTeamData = async (teamId) => {
             try {
                 const response = await axios.get(BASE_URL + `/api/teams/${teamId}/`);
-                console.log(response)
                 setRoster(response.data[0].players);
                 setTeamColor(response.data[0].team_colors[0].hex_color);
                 setTeamColorSec(response.data[0].team_colors[1].hex_color);
@@ -49,8 +46,7 @@ function Team () {
                         <Nav.Link eventKey="roster">
                         Roster
                         </Nav.Link>
-                    </Nav.Item>
-                    
+                    </Nav.Item> 
                     <Nav.Item>
                         <Nav.Link eventKey="teamStats">
                         Team Stats
@@ -79,7 +75,6 @@ function Team () {
             <>
             <TeamStats
             teamStats={teamStats}
-            // setTeamStats={setTeamStats}
             />
             {console.log(teamStats)}
             </>

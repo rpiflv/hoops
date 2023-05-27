@@ -10,27 +10,30 @@
 
     &.next-day {
         background-color: #213bff;
-        border-top-right-radius: 0.75rem;
-        border-bottom-right-radius: 0.75rem;
+        // border-top-right-radius: 0.75rem;
+        // border-bottom-right-radius: 0.75rem;
     }
     &.next-week {
-        background-color: #8e9bff;
-        
-        border-top-right-radius: 1.25rem;
-        border-bottom-right-radius: 1.25rem;
+        background-color: #8e9bff;  
+        // border-top-right-radius: 1.25rem;
+        border-bottom-right-radius: 1.5rem;
+    }
+    &.next-month {
+        background-color: #c6ccfb;
+        // border-top-right-radius: 1.25rem;
+        border-bottom-right-radius: 2.75rem;
     }
     &.prev-day {
         background-color: #ff4242;
-        border-top-left-radius: 0.75rem;
-        border-bottom-left-radius: 0.75rem;
     }
 
     &.prev-week {
         background-color: #ff9696;
-        
-
-        border-top-left-radius: 1.25rem;
-        border-bottom-left-radius: 1.25rem;
+        border-bottom-left-radius: 1.5rem;
+    }
+    &.prev-month {
+        background-color: #fcbdbd;
+        border-bottom-left-radius: 2.75rem;
     }
     &:hover {
         background-color: #444444;
