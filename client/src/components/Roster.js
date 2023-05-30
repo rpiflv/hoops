@@ -20,8 +20,12 @@ function Roster(props) {
     const user_id = userData?.user_id;
     const navigate = useNavigate();
 
-    const addToFav = (playerId, reference) => {
-        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, {reference});
+    const addToFav = (playerId, reference, full_name) => {
+        const playerData = {
+            reference: reference,
+            full_name: full_name
+        }
+        axios.post(BASE_URL + `/api/teams/${teamId}/${playerId}/${user_id}`, playerData);
         navigate('/myplayers');
     }
 
@@ -50,6 +54,7 @@ function Roster(props) {
                             <Card style={{height:"100%", width: '15rem', marginRight:"1%", marginBottom:"2%", padding:"0", backgroundColor:`${teamcolor}10` }} key={player.id} 
                             className="player-card" border="light">
                                 <div style={{ position: 'relative', display: 'inline-block' }}>
+                                    {console.log(player)}
                                 {favPlayers.indexOf(player.id) >= 0 && 
                                 <FontAwesomeIcon icon={faHeart} color={teamcolorSec} style={{ position: 'absolute', top: "5%", right: "5%" }
                             }/>
@@ -81,7 +86,7 @@ function Roster(props) {
                                 <Button className="player-card-footer" style={{backgroundColor:`${teamcolorSec}`, color:`${teamcolor}`}} variant="outline-dark" onClick={() => {
                                     {
                                         user_id ?
-                                            addToFav(player?.reference, player?.id)
+                                            addToFav(player?.reference, player?.id, player?.full_name)
                                             : navigate('/login')
                                     }
                                 }}>Add to favorite</Button>

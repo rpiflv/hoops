@@ -29,15 +29,7 @@ function Favorite() {
         try {
             await axios.get(BASE_URL + `/api/myplayers/${user_id}`, { body: user_id, headers: authHeader() })
                 .then((fetchedData) => {
-                    const allPlayers = fetchedData.data.allPlayers;
-                    const favsPlayersNotes = fetchedData.data.favPlayers;
-                    const favPlayersID = fetchedData.data.favPlayers.map(id => id.playerId);
-                    const favPlayersInfo = [];
-                    favPlayersID?.map(id => favPlayersInfo.push(allPlayers.find(player => player.personId === id)));
-                    setMyFavsInfo(favPlayersInfo);
-                    setMyFavsNotes(favsPlayersNotes);
-                    const allData = favPlayersInfo.map((pIn) => ({ ...pIn, ...favsPlayersNotes.find(plNt => plNt.playerId === pIn.personId) }));
-                    setMyPlayerInfo(allData);
+                    setMyPlayerInfo(fetchedData.data.favPlayers);
                 },
                     (error) => {
                         if (error.response) {
@@ -71,15 +63,18 @@ function Favorite() {
     return (
         <>
             <h2>My Favorite Players</h2>
+            <hr/>
             <Container>
                 <Row >
                     {myPlayerInfo && myPlayerInfo.map((player) => (
-                        <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} key={player.personId} className="fav-box">
+                        <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} 
+                        key={player.personId} className="fav-box">
+                            {console.log(player)}
                             <Card.Img variant="top"
-                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`} />
+                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.playerId}.png`} />
                             <ListGroup.Item >
                                 <div  style={{paddingBlock:"1rem"}}>
-                                    <h3>{player.firstName} {player.lastName}</h3>
+                                    <h3>{player.full_name}</h3>
                                 </div>
                                 <Accordion >
                                     <Accordion.Item eventKey="0" key={player.personId}>

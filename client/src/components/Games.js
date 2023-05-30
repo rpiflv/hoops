@@ -49,7 +49,7 @@ function Games () {
 
             </Col>
             <Col>
-                <h3>Games {year}/{month}/{day}</h3> 
+                <h3>{year}/{month}/{day}</h3> 
             </Col>
             <Col>
                 <Button onClick={() => {handleDateChange(1)}} disabled={loading} className="Button day next-day shadow-sm"> Next day </Button>

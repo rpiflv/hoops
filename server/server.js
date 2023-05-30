@@ -111,12 +111,14 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
     const playerId = req.params.playerId;
     const user_id = req.params.user_id;
     const reference = req.body.reference;
+    const full_name = req.body.full_name;
     try {
         await knex('fav_players').insert({
             player_id: playerId,
             notes: '---',
             user_id: user_id,
             reference: reference,
+            full_name: full_name,
         })
             .then(() => console.log('added to favorite'));
     } catch (error) {
@@ -128,7 +130,6 @@ app.get('/api/:playerId', async (req, res) => {
     const playerId = req.params.playerId;
     try {
         const response = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`);
-        // await response.json();
         res.send(response.data);
     } catch(err) {
         console.error(err);
@@ -146,15 +147,16 @@ app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
     const user_id = req.params.user_id;
     try {
         const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-            .then((fetchedData) => fetchedData.json());
+            .then((fetchedData) => console.log(fetchedData));
         try {
             const favPlayers = await knex('fav_players').select({
                 id: "id",
                 playerId: "player_id",
                 notes: "notes",
                 reference: "reference",
+                full_name: "full_name"
             }).where("user_id", user_id);
-            res.send({ allPlayers: allPlayers.league.standard, favPlayers: favPlayers });
+            res.send({favPlayers: favPlayers });
         } catch (error) {
             console.error(error);
         }
