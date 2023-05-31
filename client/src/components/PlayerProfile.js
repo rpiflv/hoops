@@ -1,5 +1,6 @@
 import axios from "axios";
 import logos from "../logos";
+import loading from "../loading-gif.gif";
 import '../App.css';
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
@@ -76,7 +77,10 @@ function PlayerProfile() {
                     </Nav>
                 </Card.Header>
                 <Card.Title>
-                <Card.Img src={logos[`${playerInfo?.team?.id}`]} style={{ width: "150px", marginBottom:"1%" , marginTop:"3%"}} alt="logo"/>
+                    
+                        
+                <Card.Img src={playerInfo?.team ? logos[`${playerInfo?.team?.id}`] : loading} style={{ width: "150px", marginBottom:"1%" , marginTop:"3%"}} alt="logo"/> 
+                    
                 <h4>{playerInfo.full_name}</h4>
                 </Card.Title>
                 <Card.Body>
