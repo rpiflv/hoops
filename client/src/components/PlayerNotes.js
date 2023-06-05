@@ -34,7 +34,7 @@ function PlayerNotes(props) {
     
     useEffect(() => {
         getPlayerNotes(playerInfo.reference);
-    }, []);
+    }, [notes, extraNotes]);
 
     const handleChangeExtraNote = (event) => {
         setNewNote(event.target.value);
