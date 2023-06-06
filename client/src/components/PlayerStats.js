@@ -23,7 +23,7 @@ function PlayerStats(props) {
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                     {playerInfo.seasons.map((season, index) => (
-                        <Dropdown.Item href="#/action-1" onClick={() => handleSelect(index)}>{season.year}/{season.year+1} </Dropdown.Item>
+                        <Dropdown.Item key={index} href="#/action-1" onClick={() => handleSelect(index)}>{season.year}/{season.year+1} </Dropdown.Item>
                     ))}
                 </Dropdown.Menu>
             </Dropdown>

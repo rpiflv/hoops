@@ -66,10 +66,9 @@ function Favorite() {
             <hr/>
             <Container>
                 <Row >
-                    {myPlayerInfo && myPlayerInfo.map((player) => (
+                    {myPlayerInfo && myPlayerInfo.map((player, index) => (
                         <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} 
-                        key={player.personId} className="fav-box">
-                            {console.log(player)}
+                        key={index} className="fav-box">
                             <Card.Img variant="top"
                                 src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.playerId}.png`} />
                             <ListGroup.Item >
