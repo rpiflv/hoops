@@ -42,7 +42,11 @@ function Roster(props) {
         if (user_id) {
             checkFavPlayers();
         }
-    }, [])
+    }, []);
+
+    const imgError = (event) => {
+        event.target.src = anonymous; 
+    }
 
 
     return (
@@ -54,16 +58,16 @@ function Roster(props) {
                             <Card style={{height:"100%", width: '15rem', marginRight:"1%", marginBottom:"2%", padding:"0", backgroundColor:`${teamcolor}10` }} key={player.id} 
                             className="player-card" border="light">
                                 <div style={{ position: 'relative', display: 'inline-block' }}>
-                                    {console.log(player)}
                                 {favPlayers.indexOf(player.id) >= 0 && 
                                 <FontAwesomeIcon icon={faHeart} color={teamcolorSec} style={{ position: 'absolute', top: "5%", right: "5%" }
                             }/>
                         }
                                 <Card.Img variant="top" 
-                                src={player?.reference ? 
-                                    `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.reference}.png` : anonymous} 
+                                src={player?.reference &&
+                                    `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.reference}.png`} 
                                     className="player-card-img"
                                     style={{backgroundColor:`${teamcolor}`, zIndex:"9998"}}
+                                    onError={imgError}
                                     />
                                     </div>
                                 <Card.Body className="player-card-body" style={{backgroundColor:`${teamcolorSec}10`}}>
