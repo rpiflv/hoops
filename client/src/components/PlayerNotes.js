@@ -3,12 +3,9 @@ import React, { useEffect, useState } from "react";
 import {Container, Card, Button, Form, Col, Row} from 'react-bootstrap/';
 import '../App.css';
 import authHeader from "../services/authheader";
-import moment from "moment";
-
+import moment from "moment"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTrash, faBoxArchive } from '@fortawesome/free-solid-svg-icons';
-
-
 
 const userData = JSON.parse(localStorage.getItem('user'));
 const user_id = userData?.user_id;
@@ -25,36 +22,32 @@ function PlayerNotes(props) {
 
     useEffect(() => {
         getPlayerAllNotes(playerInfo.reference);
-        console.log("rendered");
+        loading && setLoading(false);
     }, [loading]);
 
     const getPlayerAllNotes = async () => {
         try {
             const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerInfo.id}/${user_id}`, { headers: authHeader() });
-            console.log(fetchedData.data.extraNotes.length)
             setNotes(fetchedData.data.notes[0].notes);
-            setExtraNotes(fetchedData.data.extraNotes)
+            setExtraNotes(fetchedData.data.extraNotes);
+            setLoading(false);
         } catch (error) {
             console.error(error);
-        } finally {
-            setLoading(false)
-        }
+        } 
     };
-    
 
     const handleChangeExtraNote = (event) => {
         setNewNote(event.target.value);
       };
 
     const handleSubmitExtraNote = async () => {
+        !loading && setLoading(true);
         try {
-            setLoading(true);
             await axios.post(BASE_URL + `/api/myplayers/${playerInfo.reference}/${user_id}/add`,
                 { newNote: newNote }, { headers: authHeader() }
             )
-            .then(clearInput())
-            .then(getPlayerAllNotes(playerInfo.reference))
-            // .then(() => setLoading(false))
+            getPlayerAllNotes(playerInfo.reference);
+            clearInput();
         } catch (error) {
             console.error(error);
         }
@@ -62,12 +55,12 @@ function PlayerNotes(props) {
 
     const removeExtraNote = async (noteId) => {
         try {
-            setLoading(true);
+            !loading && setLoading(true);
             await fetch(BASE_URL + `/api/myplayers/${playerInfo.reference}/${user_id}/delete/${noteId}`, {
                 method: "DELETE",
                 headers: authHeader()
             })
-                .then(getPlayerAllNotes(playerInfo.reference));
+            getPlayerAllNotes(playerInfo.reference);
         } catch (err) {
             console.log(err);
         } 
@@ -81,7 +74,8 @@ function PlayerNotes(props) {
         try {
             await axios.post(BASE_URL + `/api/myplayers/${playerInfo.reference}/${user_id}/edit`,
                 { notes }, { headers: authHeader() }
-            ).then(() => getPlayerAllNotes(playerInfo.reference));
+            )
+            getPlayerAllNotes(playerInfo.reference);
         } catch (error) {
             console.error(error);
         }
@@ -103,7 +97,6 @@ function PlayerNotes(props) {
         <>
         <Container className='d-flex justify-content-center'>
             <Card style={{width:"70%"}} className="note-card">
-
                 <Card.Body>
               <div style={{padding:"1rem", paddingBottom:"0rem"}}>Player's profile</div>
                             <hr/>
@@ -129,7 +122,8 @@ function PlayerNotes(props) {
                     <div className="note-box" key={note.id}>
                         <Row>
                             <Col md="2" style={{fontSize:"80%", fontWeight:"300", justifyContent:"center", marginBottom:"3%"}}> 
-                                {moment(note?.created_at).format("MMMM Do [']YY [-] HH:MM") }
+                                {moment(note?.created_at).format("DD MMMM [']YY hh:mm a") }
+
                             </Col>
                             <Col md="9" className="d-flex align-text-right" >
                                 {note?.note_content}
@@ -151,7 +145,7 @@ function PlayerNotes(props) {
                         </Form>
                         </Col>
                         <Col md={1}>
-                        <Button onClick={() => {handleSubmitExtraNote(); clearInput()}} variant="outline-secondary" style={{marginTop:"5px"}} className="btn-sm">
+                        <Button onClick={handleSubmitExtraNote} variant="outline-secondary" style={{marginTop:"5px"}} className="btn-sm">
                             <FontAwesomeIcon icon={faBoxArchive}/>
                         </Button>
                         </Col>
