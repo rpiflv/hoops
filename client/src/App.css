@@ -252,3 +252,7 @@ input {
   transform: translateX(0);
   transition: opacity 0.5s ease-in, transform 0.5s ease-in;
 }
+
+.nav-text:hover {
+  color: rgb(255, 205, 23);
+}

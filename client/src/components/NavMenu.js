@@ -31,8 +31,8 @@ function NavMenu(props) {
                 <Nav className="d-flex ms-auto">
                     {!user &&
                         <>
-                            <Nav.Link as={Link} to={"login"} className="ms-auto">Login</Nav.Link>
-                            <Nav.Link as={Link} to={"signup"} className="" >Sign Up</Nav.Link>
+                            <Nav.Link as={Link} to={"login"} className="nav-text">Login</Nav.Link>
+                            <Nav.Link as={Link} to={"signup"} className="nav-text" >Sign Up</Nav.Link>
                         </>
                     }
                     {user &&

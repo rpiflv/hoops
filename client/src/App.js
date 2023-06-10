@@ -32,7 +32,7 @@ function App() {
     <>
       <div className="App">
         <NavMenu user={user} />
-      <AlertModalNoData/>
+      {/* <AlertModalNoData/> */}
         <Routes >
           <Route path="/" index element={<Home />} />
           <Route path="/:playerId" index element={<PlayerProfile />} />

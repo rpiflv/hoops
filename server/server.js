@@ -107,7 +107,6 @@ app.get('/api/teams/:teamId', async (req, res) => {
 });
 
 app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
-    console.log(req.body)
     const playerId = req.params.playerId;
     const user_id = req.params.user_id;
     const reference = req.body.reference;
@@ -128,11 +127,12 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
 
 app.get('/api/:playerId', async (req, res) => {
     const playerId = req.params.playerId;
-    try {
-        const response = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`);
-        res.send(response.data);
-    } catch(err) {
-        console.error(err);
+    // try {
+        // const response = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`);
+        // res.send(response.data);
+    //     console.log("err")
+    // } catch(err) {
+        // console.error(err);
         try {
             const data = require("../client/src/mockdata/playerfake.json");
             res.send(data);
@@ -140,29 +140,23 @@ app.get('/api/:playerId', async (req, res) => {
             console.error(err);
             res.status(500).send("unable to fetch data");
         }
-    }
+    // }
 });
 
 app.get('/api/myplayers/:user_id', authToken, async (req, res) => {
     const user_id = req.params.user_id;
     try {
-        const allPlayers = await fetch(`http://data.nba.net/data/10s/prod/v1/2022/players.json`)
-            .then((fetchedData) => console.log(fetchedData));
-        try {
-            const favPlayers = await knex('fav_players').select({
-                id: "id",
-                playerId: "player_id",
-                notes: "notes",
-                reference: "reference",
-                full_name: "full_name"
-            }).where("user_id", user_id);
-            res.send({favPlayers: favPlayers });
-        } catch (error) {
-            console.error(error);
-        }
+        const favPlayers = await knex('fav_players').select({
+            id: "id",
+            playerId: "player_id",
+            notes: "notes",
+            reference: "reference",
+            full_name: "full_name"
+        }).where("user_id", user_id);
+        res.send({favPlayers: favPlayers });
     } catch (error) {
         console.error(error);
-    }
+    } 
 });
 
 app.delete('/api/myplayers/:reference', authToken, async (req, res) => {
@@ -223,7 +217,6 @@ app.post('/api/myplayers/:playerId/:user_id/edit', authToken, async (req, res) =
 
 app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) => {
     const extraNote = req.body.newNote;
-    console.log(extraNote)
     const user_id = req.params.user_id;
     const playerId = req.params.playerId;
     const favPlayerId = await knex('fav_players')
@@ -238,7 +231,8 @@ app.post('/api/myplayers/:playerId/:user_id/add', authToken, async (req, res) =>
             })
             .where('user_id', user_id)
             .where('player_id', playerId);
-        console.log('extra note added');
+        console.log('extra note added:', extraNote);
+        res.send(extraNote)
     } catch (err) {
         console.log(err);
     }
@@ -249,7 +243,7 @@ app.delete('/api/myplayers/:playerId/:user_id/delete/:noteId', authToken, async 
     try {
         await knex('notes')
             .where('notes.id', noteId).del()
-            .then(() => console.log('note deleted'));
+            .then(() => console.log('note deleted: ', noteId));
     } catch (error) {
         console.error(error);
     }
@@ -336,9 +330,9 @@ app.post('/api/login/', async (req, res) => {
     const accessToken = await JWT.sign(
         { email },
         process.env.ACCESS_TOKEN_SECRET,
-        // {
-        //     expiresIn: "60m",
-        // }
+        {
+            expiresIn: "60m",
+        }
     );
     const refreshToken = await JWT.sign(
         { email },
