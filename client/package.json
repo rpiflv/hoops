@@ -9,7 +9,6 @@
     "bootstrap": "^5.2.2",
     "dotenv": "^16.0.3",
     "mdb-react-ui-kit": "^5.0.0",
-    "moment": "^2.29.4",
     "react": "^18.2.0",
     "react-bootstrap": "^2.6.0",
     "react-dom": "^18.2.0",

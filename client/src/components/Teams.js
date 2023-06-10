@@ -28,22 +28,25 @@ function Teams() {
         <>
             <br />
             <Container >
-                <h3>Standings</h3>
                 <Row>
                     {conferences.map((conference) => (
                     <Col  key={conference.id} className="d-flex flex-column align-items-top">         
                             <h2>{conference.name}</h2>
+                            <hr/>
                             <div>
                             {conference.divisions.map((division) => (
                                 <div key={division.id} className="d-flex flex-column">
                                     <h4>{division.name}</h4>
+                                    <hr className="hr-division"/>
                                     <div className="align-self-center">
+                                        <Row>
                                         {division.teams.map((team) => (
+                                            <Col>
                                             <Link to={`${team.id}`} style={{textDecoration: "none"}} key={team.id}>
-                                                <Card  border="light" style={{height: "15%", width:"12rem", padding:"6px"}} 
+                                                <Card  border="light" style={{height: "15%", width:"12rem", padding:"0.5rem"}} 
                                                 className="team align-self-center">
                                                 {team.market} {team.name} 
-                                                <Card.Img src={`${logos[team.id]}`} variant="top" style={{ height: "12rem", width:"auto" }}></Card.Img>
+                                                <Card.Img src={`${logos[team.id]}`} variant="top" style={{ height: "12rem", width:"auto" }} className="team-img"></Card.Img>
                                                 <div className="visibility" style={{color:"black"}}>
                                                     <h5>{team.wins} - {team.losses}<br/></h5>
                                                     <Row>
@@ -58,7 +61,9 @@ function Teams() {
                                                 </div>
                                                 </Card>
                                             </Link>
+                                            </Col>
                                         ))}
+                                            </Row>
                                     </div>
                                 </div>
                                 ))}

@@ -62,7 +62,7 @@ background-color: rgba(20, 20, 20);
 }
 
 .visibility {
-  display: none;
+  visibility: hidden;
   text-shadow:1rem;
 }
 
@@ -83,12 +83,17 @@ background-color: rgba(20, 20, 20);
 }
 
 .team:hover .visibility {
-  display:block;
+  visibility:visible;
 }
 
 .team:hover {
-background-color: rgba(0, 136, 255, 0.347);
 opacity: 1;
+}
+
+.team:hover .team-img{
+height: 5rem;
+width: auto;
+background-color: rgba(0, 136, 255, 0.168);
 }
 
 .nav-text {
@@ -202,6 +207,13 @@ opacity: 1;
   color: rgba(73, 73, 73, 0.584);
   margin-top: 2px;
   margin-bottom: 3%;
+}
+
+.hr-division {
+  color: blue;
+  width: 50%;
+  align-self: center;
+  height: 10px;
 }
 
 hr {
