@@ -45,28 +45,31 @@ function Home() {
     return (
         <>
         <br/>
-        <Container>
-
-            <Row className="d-flex justify-content-right">
+        <div className="live-score-container">
+            <Row className="d-flex justify-content-center ">
             <Col>
-            {!showLive &&
-                <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} className="fade-in"/>
-            }
+            {!showLive ? (
+                <SmallLiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} className="fade-in" />
+                ) : (
+                    <LiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} />
+                    )
+                }
             </Col>
             </Row>
-            </Container>
-        <Container >
-            {showLive &&
-                <LiveScores onHeightChange={handleFirstComponentHeight} toggleLive={toggleLive} />
-            }
-            <br/>
+        </div>
+            {/* <Row>
+            <Col>
             <h1 style={{marginTop:firstComponentHeight + 5}}>Latest News</h1>
-            <br/>
+            </Col>
+            </Row> */}
+           
+            <Row>
+                
             <Container className="d-flex align-items-center justify-content-center news-container" >
                 <Col md='8' >          
                     {lastNews?.map((news, index) => (
                         <a key={index} href={news.links.web.href} style={{textDecoration:"none", color:"darkgray"}} target="_blank" rel="noreferrer">
-                        <Card className="box-news mb-4"    >
+                        <Card className="box-news mb-3">
                             <Card.Title style={{color: "black"}}> {news.headline}</Card.Title>
                             <div className="row no-gutters">
                                 <div className="col-md-6">
@@ -84,8 +87,8 @@ function Home() {
                     }                 
                 </Col>
             </Container>
+                    </Row>
             <br />
-        </Container>
         </>
     )
 }

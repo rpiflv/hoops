@@ -13,6 +13,7 @@ import Games from "./components/Games";
 import Game from "./components/Game";
 import AlertModalNoData from "./components/AlertModalNoData";
 import Team from "./components/Team";
+import Sidebar from "./components/Sidebar";
 
 function App() {
 
@@ -31,7 +32,13 @@ function App() {
   return (
     <>
       <div className="App">
+        <header>
         <NavMenu user={user} />
+        </header>
+        <div className="content">
+        <aside>
+          <Sidebar/>
+        </aside>
       {/* <AlertModalNoData/> */}
         <Routes >
           <Route path="/" index element={<Home />} />
@@ -52,6 +59,10 @@ function App() {
           <Route path="login" element={<Login />} />
           <Route path="signup" element={<Signup />} />
         </Routes>
+        <aside>
+          <Sidebar className="sidebar"/>
+        </aside>
+        </div>
       </div>
     </>
   );

@@ -1,6 +1,16 @@
 .App {
   text-align: center;
   font-family: 'Oswald', sans-serif;
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.content {
+  display: flex;
+  flex: 1;
+  justify-content: center;
+  /* align-items: center; */
 }
 
 body {
@@ -10,10 +20,31 @@ body {
   background-color: hsl(0, 0%, 97.5%);
 }
 
+.navbar {
+  margin-top: 0;
+  align-items: center;
+}
+
+.sidebar {
+  background-color: #5d5d5db8;
+  width: 10vw;
+  opacity: 0.5;
+  background-image: url("../public/basketscoutpaper.png");
+  background-blend-mode:color-dodge;
+  background-size: auto;
+  height: 100%;
+
+}
+
 .live-score {
   color: aliceblue;
   background-color: rgb(13, 61, 101);
 }
+
+.lie-score-container {
+  margin-bottom: 40px;
+}
+
 .live-box {
   background-color: rgba(52, 91, 248, 0.835);
   color: rgb(253, 157, 73);
@@ -24,8 +55,8 @@ body {
 .live-container {
   position: fixed;
   top: auto;
-  left: 0;
-  right: 0;
+  /* left: 10rem;
+  right: 10rem; */
   z-index: 000;
   background-color: rgba(220, 220, 220, 0.356);
   z-index: 9999;
@@ -34,7 +65,6 @@ body {
 .live-container-small{
   position: fixed;
   top: auto;
-  right: 0;
   z-index: 000;
   background-color: rgba(220, 220, 220, 0.356);
   z-index: 9999;
@@ -42,6 +72,7 @@ body {
 
 .news-container {
   z-index: 9998;
+  margin-top: 200px;
 }
 
 .blur {
