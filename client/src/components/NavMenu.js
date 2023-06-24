@@ -17,7 +17,7 @@ function NavMenu(props) {
         window.location.reload();
     }
     return (
-        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="sticky-top">
+        <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="sticky-top navbar">
             <Navbar.Brand as={Link} to="/" className="mx-3">
                 <img src={logo} className="d-inline-block align-top" height={55} />
             </Navbar.Brand>
@@ -37,8 +37,8 @@ function NavMenu(props) {
                     }
                     {user &&
                         <>
-                            <Nav.Link as={Link} to={"myplayers"} className="ms-auto">My Players</Nav.Link>
-                            <Nav.Link as={Link} to={"/"} onClick={logout}>Logout</Nav.Link>
+                            <Nav.Link as={Link} to={"myplayers"} className="nav-text">My Players</Nav.Link>
+                            <Nav.Link as={Link} to={"/"} onClick={logout} className="nav-text">Logout</Nav.Link>
                         </>
                     }
                 </Nav>
