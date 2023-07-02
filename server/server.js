@@ -91,6 +91,7 @@ app.get('/api/teams/:teamId', async (req, res) => {
     try {
         const teamInfo = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/teams/${req.params.teamId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`)
         const stats = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/seasons/2022/REG/teams/${req.params.teamId}/statistics.json?api_key=${process.env.SPORTRADAR_KEY}`);
+        // console.log(teamInfo.data, stats)
         Promise.all([teamInfo.data, stats.data])
         .then(response => res.send(response))
     } catch(err) {
@@ -127,12 +128,11 @@ app.post('/api/teams/:teamId/:playerId/:user_id', async (req, res) => {
 
 app.get('/api/:playerId', async (req, res) => {
     const playerId = req.params.playerId;
-    // try {
-        // const response = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`);
-        // res.send(response.data);
-    //     console.log("err")
-    // } catch(err) {
-        // console.error(err);
+    try {
+        const response = await axios.get(`http://api.sportradar.us/nba/trial/v8/en/players/${playerId}/profile.json?api_key=${process.env.SPORTRADAR_KEY}`);
+        res.send(response.data);
+    } catch(err) {
+        console.error(err);
         try {
             const data = require("../client/src/mockdata/playerfake.json");
             res.send(data);
@@ -140,7 +140,7 @@ app.get('/api/:playerId', async (req, res) => {
             console.error(err);
             res.status(500).send("unable to fetch data");
         }
-    // }
+    }
 });
 
 app.get('/api/myplayers/:user_id', authToken, async (req, res) => {

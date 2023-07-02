@@ -4,7 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
-import {Row, Col} from 'react-bootstrap';
+import {Row} from 'react-bootstrap';
 import authHeader from "../services/authheader";
 import anonymous from "../anonymous.png";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -46,8 +46,7 @@ function Roster(props) {
 
     const imgError = (event) => {
         event.target.src = anonymous; 
-    }
-
+    };
 
     return (
         <>
@@ -63,8 +62,8 @@ function Roster(props) {
                             }/>
                         }
                                 <Card.Img variant="top" 
-                                src={player?.reference &&
-                                    `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.reference}.png`} 
+                                src={player?.reference ?
+                                    `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.reference}.png` : anonymous}
                                     className="player-card-img"
                                     style={{backgroundColor:`${teamcolor}`, zIndex:"9998"}}
                                     onError={imgError}
