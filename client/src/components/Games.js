@@ -39,7 +39,7 @@ function Games () {
 
     return (
         <>
-        <div style={{margin:"5%"}}>
+        <Container style={{margin:"5%"}}>
         <hr/>
         <Row>
             <Col>
@@ -59,8 +59,8 @@ function Games () {
             </Col>
         </Row>
         <hr/>
-        </div>
-        <Container>
+        {/* </Container>
+        <Container> */}
         <Row >
         {
             games?.games?.map((game) => 
