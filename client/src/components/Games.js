@@ -59,8 +59,6 @@ function Games () {
             </Col>
         </Row>
         <hr/>
-        {/* </Container>
-        <Container> */}
         <Row >
         {
             games?.games?.map((game) => 
