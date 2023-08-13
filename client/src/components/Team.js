@@ -31,7 +31,7 @@ function Team () {
             }
         };
         getTeamData(teamId);
-    }, []);
+    }, [teamId]);
 
     const handleSelect = (tab) => {
         setActiveTab(tab);
@@ -76,7 +76,6 @@ function Team () {
             <TeamStats
             teamStats={teamStats}
             />
-            {console.log(teamStats)}
             </>
             }
             </Card.Body>

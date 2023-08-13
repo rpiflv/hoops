@@ -45,6 +45,7 @@ function Home() {
     return (
         <>
         <br/>
+        <Container>
         <div className="live-score-container">
             <Row className="d-flex justify-content-center ">
             <Col>
@@ -82,6 +83,7 @@ function Home() {
             </Container>
                     </Row>
             <br />
+            </Container>
         </>
     )
 }

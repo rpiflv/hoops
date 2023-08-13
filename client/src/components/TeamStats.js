@@ -8,7 +8,6 @@ const teamStats = props.teamStats;
     return (
         <>
         <Container>
-            {console.log(teamStats)}
             <Table striped="columns" hover>
                 <tbody>
                     <tr style={{fontWeight:"500"}}>

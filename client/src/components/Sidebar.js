@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import React from "react";
 import "../App.css";
 
-function Sidebar(props) {
+function Sidebar() {
     
     return (
         <div className="sidebar"></div>

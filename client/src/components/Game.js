@@ -24,7 +24,7 @@ function Game() {
             }
         }
         getGameInfo();
-    }, [])
+    }, [gameId])
 
     const handleSelect = (tab) => {
         setActiveTab(tab);
