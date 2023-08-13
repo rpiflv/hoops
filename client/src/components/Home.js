@@ -56,15 +56,8 @@ function Home() {
                 }
             </Col>
             </Row>
-        </div>
-            {/* <Row>
-            <Col>
-            <h1 style={{marginTop:firstComponentHeight + 5}}>Latest News</h1>
-            </Col>
-            </Row> */}
-           
-            <Row>
-                
+        </div>           
+            <Row>  
             <Container className="d-flex align-items-center justify-content-center news-container" >
                 <Col md='8' >          
                     {lastNews?.map((news, index) => (

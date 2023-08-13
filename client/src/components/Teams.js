@@ -41,6 +41,7 @@ function Teams() {
                                     <div className="align-self-center">
                                         <Row>
                                         {division.teams.map((team) => (
+                                            <span key={team.id}>
                                             <Col>
                                             <Link to={`${team.id}`} style={{textDecoration: "none"}} key={team.id}>
                                                 <Card  border="light" style={{height: "15%", width:"12rem", padding:"0.5rem"}} 
@@ -62,6 +63,7 @@ function Teams() {
                                                 </Card>
                                             </Link>
                                             </Col>
+                                            </span>
                                         ))}
                                             </Row>
                                     </div>

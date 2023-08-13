@@ -65,8 +65,6 @@ function Games () {
             <Col key={game.id}>
                 { (game.status !== "unnecessary" && game.status !== "scheduled") ? 
                     <Card className="games-box shadow-sm">
-                        {console.log(game)}
-                    
                         <Link style={{textDecoration: "none"}} to={game.id} className="link-light">
                             <Card.Title className="games-box-title text-truncate">
                             {game.title}
