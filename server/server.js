@@ -172,7 +172,6 @@ app.delete('/api/myplayers/:reference', authToken, async (req, res) => {
 app.get('/api/myplayers/:playerId/:user_id', authToken, async (req, res) => {
     const playerId = req.params.playerId;
     const user_id = req.params.user_id;
-    console.log("=> ", playerId, user_id)
     try {
         const notes = await knex('fav_players')
             .select({
