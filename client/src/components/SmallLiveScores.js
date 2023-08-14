@@ -1,8 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import { Card, Col, Container, Row, Button, CloseButton} from "react-bootstrap";
+import { Card, Col, Container, Row, Button} from "react-bootstrap";
 import '../App.css';
-import { Grid } from "@mui/material";
 
 const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 

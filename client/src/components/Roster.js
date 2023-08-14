@@ -42,7 +42,7 @@ function Roster(props) {
         if (user_id) {
             checkFavPlayers();
         }
-    }, []);
+    }, [user_id]);
 
     const imgError = (event) => {
         event.target.src = anonymous; 

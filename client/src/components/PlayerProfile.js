@@ -31,7 +31,7 @@ function PlayerProfile() {
             }
         };
         getPlayerInfo(playerId);
-    }, []);
+    }, [playerId]);
 
     const handleSelect = (tab) => {
         setActiveTab(tab);

@@ -1,5 +1,4 @@
 import {Container, Card, Stack, Row, Col} from 'react-bootstrap/';
-import logos from "../logos";
 import anonymous from "../anonymous.png";
 import '../App.css';
 

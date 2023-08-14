@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react";
 import ListGroup from 'react-bootstrap/ListGroup';
 import axios from "axios";
-import { Card, Col, Container, Row, Button, CloseButton} from "react-bootstrap";
+import { Card, Col, Container, Row, Button} from "react-bootstrap";
 import { MDBSwitch } from 'mdb-react-ui-kit';
 import '../App.css';
 
@@ -17,7 +17,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
 
     const getMatches = async () => {
         try {
-            const fetchedData = await axios.get(BASE_URL + '/api/')
+            const fetchedData = await axios.get(BASE_URL + '/api/');
             setTodaysMatches(fetchedData.data[1].scoreboard.games);
         } catch (err) {
             console.log(err);

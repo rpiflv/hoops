@@ -11,7 +11,7 @@ import Login from "./components/Login";
 import Signup from "./components/Signup";
 import Games from "./components/Games";
 import Game from "./components/Game";
-import AlertModalNoData from "./components/AlertModalNoData";
+// import AlertModalNoData from "./components/AlertModalNoData";
 import Team from "./components/Team";
 import Sidebar from "./components/Sidebar";
 

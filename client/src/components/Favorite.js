@@ -16,8 +16,6 @@ const BASE_URL = process.env.REACT_APP_BASE_URL || '';
 
 function Favorite() {
 
-    const [myFavsInfo, setMyFavsInfo] = useState([]);
-    const [myFavsNotes, setMyFavsNotes] = useState([]);
     const [myPlayerInfo, setMyPlayerInfo] = useState([]);
 
     const userData = JSON.parse(localStorage.getItem('user'));

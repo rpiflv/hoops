@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import Navbar from 'react-bootstrap/Navbar';
 import authService from "../services/auth.service";
 import { useNavigate, Link } from "react-router-dom";
@@ -19,7 +19,7 @@ function NavMenu(props) {
     return (
         <Navbar collapseOnSelect expand="sm" bg="dark" variant="dark" className="sticky-top navbar">
             <Navbar.Brand as={Link} to="/" className="mx-3">
-                <img src={logo} className="d-inline-block align-top" height={55} />
+                <img src={logo} className="d-inline-block align-top" height={55} alt="logo"/>
             </Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
