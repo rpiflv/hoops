@@ -1,11 +1,32 @@
-import Livescores from "../LiveScores";
-import {render, cleanup, screen} from "@testing-library/react";
+import React from 'react';
+import { render, screen } from '@testing-library/react';
+import axios from 'axios'; // You might need to mock Axios for your tests
+import LiveScores from '../LiveScores';
 
-test("test", () => {
-    expect(true).toBe(true);
-})
+jest.mock('axios');
 
-test("test-01", () => {
-    render(<Livescores/>);
-    const LiveScoreElement = screen.getByTestId("test-01");
-})
+const mockData = {
+    data: [
+      {
+        scoreboard: {
+          games: [
+            {
+              awayTeam: { teamTricode: 'AWY', score: 10 },
+              homeTeam: { teamTricode: 'HME', score: 20 },
+              gameStatus: 2,
+            },
+          ],
+        },
+      },
+    ],
+  };
+
+axios.get.mockResolvedValue(mockData);
+
+test('renders today\'s matches', async () => {
+    render(<LiveScores onHeightChange={() => {}} toggleLive={() => {}} />);
+    const containerElement = await screen.findByTestId('test-01');
+    expect(containerElement).toBeInTheDocument();
+  });
+  
+  
