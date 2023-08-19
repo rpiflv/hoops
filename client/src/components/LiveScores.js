@@ -67,7 +67,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
 
     return (
         <>
-          <Container className={`live-container ${isBlurry ? 'blur' : ''}`} ref={ref} data-testid="test-01">
+          <Container className={`live-container ${isBlurry ? 'blur' : ''}`} ref={ref} data-testid="container-matches">
             <div style={{display:"grid", gridTemplateColumns: "auto auto", justifyContent:"space-between"}}>
                 <div style={{justifySelf:"center"}} >
                     <h4>today's matches</h4>
