@@ -103,7 +103,7 @@ function PlayerNotes(props) {
                     <Row style={{padding:"0"}}>
                         <Col md={11}> 
                             <Form className="mb-3" >
-                                <Form.Control as="textarea" rows={2} value={notes} onChange={editNote} className="resizedTextbox" onClick={toggleEditOn}/>
+                                <Form.Control data-testid="player-profile-note" as="textarea" rows={2} value={notes} onChange={editNote} className="resizedTextbox" onClick={toggleEditOn}/>
                             </Form>
                         </Col>
                         <Col md={1}>

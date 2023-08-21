@@ -77,22 +77,19 @@ function PlayerProfile() {
                     </Nav>
                 </Card.Header>
                 <Card.Title>
-                    
-                        
-                <Card.Img src={playerInfo?.team ? logos[`${playerInfo?.team?.id}`] : loading} style={{ width: "150px", marginBottom:"1%" , marginTop:"3%"}} alt="logo"/> 
-                    
-                <h4>{playerInfo.full_name}</h4>
-                </Card.Title>
+                    <Card.Img src={playerInfo?.team ? logos[`${playerInfo?.team?.id}`] : loading} style={{ width: "150px", marginBottom:"1%" , marginTop:"3%"}} alt="logo"/> 
+                    <h4>{playerInfo.full_name}</h4>
+                    </Card.Title>
                 <Card.Body>
-                {activeTab === "playerInfo" && 
-                <PlayerInfo playerInfo={playerInfo}/>
-                }
-                {activeTab === "playerStats" && 
-                <PlayerStats playerInfo={playerInfo}/>
-                }
-                {activeTab === "notes" && 
-                <PlayerNotes playerInfo={playerInfo} isFav={isFav}/>
-                }
+                    {activeTab === "playerInfo" && 
+                    <PlayerInfo playerInfo={playerInfo}/>
+                    }
+                    {activeTab === "playerStats" && 
+                    <PlayerStats playerInfo={playerInfo}/>
+                    }
+                    {activeTab === "notes" && 
+                    <PlayerNotes playerInfo={playerInfo} isFav={isFav}/>
+                    }
                 </Card.Body>
             </Card>
         </Container>
