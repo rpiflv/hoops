@@ -23,7 +23,7 @@ import LiveScores from '../LiveScores';
 
 // axios.get.mockResolvedValue(mockData);
 
-test('renders live score', async () => {
+test('Renders live score', async () => {
     render(<LiveScores onHeightChange={() => {}} toggleLive={() => {}} />);
     const containerElement = await screen.findByTestId('container-matches');
     expect(containerElement).toBeInTheDocument();

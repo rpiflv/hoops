@@ -141,7 +141,7 @@ function PlayerNotes(props) {
                     <Row style={{padding:"0"}}>
                         <Col md={11}>
                         <Form>
-                            <Form.Control as="textarea" rows="2" value={newNote} onChange={handleChangeExtraNote}/>
+                            <Form.Control data-testid="extranote" as="textarea" rows="2" value={newNote} onChange={handleChangeExtraNote}/>
                         </Form>
                         </Col>
                         <Col md={1}>

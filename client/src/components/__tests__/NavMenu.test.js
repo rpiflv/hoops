@@ -11,7 +11,7 @@ const MockNavMenu = () => {
     )
 }
 
-describe("navbar", () => {
+describe("Navbar", () => {
     
     it("navbar containes multiple links", () => {
         render(<MockNavMenu user={""}/>);

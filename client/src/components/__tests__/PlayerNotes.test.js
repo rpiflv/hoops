@@ -1,25 +1,26 @@
 import React from "react";
 import PlayerNotes from "../PlayerNotes";
-import {render, screen, fireEvent, cleanup, waitFor} from "@testing-library/react";
+import {cleanup, render, screen, waitFor} from "@testing-library/react";
 
-describe("notes is added correctly", () => {
 
+describe("Notes are added correctly", () => {
+
+    beforeEach(() => jest.mock("../../__mocks__/axios"));
     afterEach(cleanup);
 
-    it("should render input element", async () => {
-        render(<PlayerNotes playerInfo={[]} notes="ciao"/>);
-        const textareaPlayerProfileNoteElement = await screen.findByTestId("player-profile-note");
-        
-        await waitFor(() => {
-            expect(textareaPlayerProfileNoteElement).toBeInTheDocument();
-        })
+    it('should fetch and render input element', async () => {
+        render(
+            <PlayerNotes playerInfo={[]}/>
+        );
+        const followerDivElement = await screen.findByTestId(`player-profile-note`);
+        waitFor(() => expect(followerDivElement.value).toBe('ciao from note'));        
     });
     
-    it("should render input element 2", async () => {
-        render(<PlayerNotes playerInfo={[]} />);
-        const textareaPlayerProfileNoteElement = await screen.findByTestId("player-profile-note");
-        await waitFor(() => {
-            expect(textareaPlayerProfileNoteElement).toBeInTheDocument();
-        })
+    it('should fetch and render input element', async () => {
+        render(
+            <PlayerNotes playerInfo={[]}/>
+        );
+        const followerDivElement = await screen.findByTestId(`extranote`);
+        waitFor(() => expect(followerDivElement.value).toBe('extranote #1'));        
     });
 })
