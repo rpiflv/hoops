@@ -93,8 +93,8 @@ function LiveScores ({onHeightChange, toggleLive}) {
                                 </Card.Title>
                                     <ListGroup.Item className="live-score">{match.gameStatus === 2 &&
                                             <span className={"live"}>LIVE</span>
-                                        }    score: {showScore ? <div>{match.awayTeam.score} : {match.homeTeam.score}</div>
-                                        : <div>-- : --</div>}
+                                        }    score: {showScore ? <div data-testid="score-tab">{match.awayTeam.score} : {match.homeTeam.score}</div>
+                                        : <div data-testid="score-tab-nogames">-- : --</div>}
                                     </ListGroup.Item>
                             </Card>
                                 ) 
