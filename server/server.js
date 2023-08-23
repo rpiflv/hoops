@@ -24,18 +24,23 @@ app.get('/', (req, res) => {
     res.send('Hello World!');
 });
 
-app.get('/api/', async (req, res) => {
+app.get('/api/news', async (req, res) => {
     try {
         const news = await fetch('http://site.api.espn.com/apis/site/v2/sports/basketball/nba/news')
-        .then((fetchedData) => fetchedData.json());
-        
-        const liveMatches = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json')
-        .then((fetchedData) => fetchedData.json());
-        
-        Promise.all([news, liveMatches])
+        .then((fetchedData) => fetchedData.json())
         .then(data => res.send(data))
-    } catch (err) {
-        console.log(err);
+    } catch(err) {
+        res.send([])
+    }
+});
+
+app.get('/api/live-matches', async (req, res) => {
+    try {
+        const news = await fetch('https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json')
+        .then((fetchedData) => fetchedData.json())
+        .then(data => res.send(data))
+    } catch(err) {
+        res.send([])
     }
 });
 
