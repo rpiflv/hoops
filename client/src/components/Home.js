@@ -17,8 +17,8 @@ function Home() {
     useEffect(() => {
         const getNews = async () => {
             try {
-                const fetchedData = await axios.get(BASE_URL + '/api/');
-                setLastNews(fetchedData.data[0].articles);
+                const fetchedData = await axios.get(BASE_URL + '/api/news');
+                setLastNews(fetchedData.data.articles);
                 
             } catch (error) {
                 console.log(error);
@@ -60,9 +60,9 @@ function Home() {
         </div>           
             <Row>  
             <Container className="d-flex align-items-center justify-content-center news-container" >
-                <Col md='8' >          
+                <Col md='8' >       
                     {lastNews?.map((news, index) => (
-                        <a key={index} href={news.links.web.href} style={{textDecoration:"none", color:"darkgray"}} target="_blank" rel="noreferrer">
+                        <a key={index} href={news.links.web.href} style={{textDecoration:"none", color:"darkgray"}} target="_blank" rel="noreferrer" data-testid="newsbox">
                         <Card className="box-news mb-3">
                             <Card.Title style={{color: "black"}}> {news.headline}</Card.Title>
                             <div className="row no-gutters">

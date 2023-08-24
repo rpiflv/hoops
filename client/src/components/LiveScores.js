@@ -17,8 +17,8 @@ function LiveScores ({onHeightChange, toggleLive}) {
 
     const getMatches = async () => {
         try {
-            const fetchedData = await axios.get(BASE_URL + '/api/');
-            setTodaysMatches(fetchedData.data[1].scoreboard.games);
+            const fetchedData = await axios.get(BASE_URL + '/api/live-matches');
+            setTodaysMatches(fetchedData.data.scoreboard.games);
         } catch (err) {
             console.log(err);
         }
@@ -91,15 +91,15 @@ function LiveScores ({onHeightChange, toggleLive}) {
                                         </Col>
                                     </Row>  
                                 </Card.Title>
-                                    <ListGroup.Item className="live-score">{match.gameStatus === 2 &&
+                                    <ListGroup.Item className="live-score" data-testid="score-tab-games">{match.gameStatus === 2 &&
                                             <span className={"live"}>LIVE</span>
                                         }    score: {showScore ? <div data-testid="score-tab">{match.awayTeam.score} : {match.homeTeam.score}</div>
-                                        : <div data-testid="score-tab-nogames">-- : --</div>}
+                                        : <div>-- : --</div>}
                                     </ListGroup.Item>
                             </Card>
                                 ) 
                                 :
-                                <h3>No matches today</h3>
+                                <h3 data-testid="score-tab-nogames">No matches today</h3>
                         }
                     </Row>
                     </div>

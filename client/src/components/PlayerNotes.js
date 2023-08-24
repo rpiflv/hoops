@@ -28,8 +28,8 @@ function PlayerNotes(props) {
     const getPlayerAllNotes = async () => {
         try {
             const fetchedData = await axios.get(BASE_URL + `/api/myplayers/${playerInfo.id}/${user_id}`, { headers: authHeader() });
-            setNotes(fetchedData.data.notes[0].notes);
             setExtraNotes(fetchedData.data.extraNotes);
+            setNotes(fetchedData.data.notes[0].notes);
             setLoading(false);
         } catch (error) {
             console.error(error);
@@ -125,8 +125,9 @@ function PlayerNotes(props) {
                                 {moment(note?.created_at).format("DD MMMM [']YY hh:mm a") }
 
                             </Col>
-                            <Col md="9" className="d-flex align-text-right" >
-                                {note?.note_content}
+                            
+                            <Col md="9" className="d-flex align-text-right">
+                                <div data-testid="extranote-content">{note?.note_content}</div>
                             </Col>
                             <Col md="1" style={{marginRight:"0"}}>
                                 <Button variant="outline-secondary" size="sm" className="mb-100" onClick={() => removeExtraNote(note.id)} 
