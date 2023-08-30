@@ -59,7 +59,7 @@ function SmallLiveScores ({onHeightChange, toggleLive}) {
     return (
         <>
 
-        <Container className={`d-grid live-container-small ${isBlurry ? 'blur' : ''}`} ref={ref} style={{width:"10%", opacity:"0.7", justifyItems:"end"}}>
+        <Container className={`d-grid live-container-small ${isBlurry ? 'blur' : ''}`} ref={ref} style={{width:"10%", opacity:"0.7", justifyItems:"end"}} data-testid={"container-matches-small"}>
             <div style={{display:"grid", gridTemplateColumns: "auto auto", justifyContent:"space-between"}}>
                 <Button style={{justifySelf:"end", borderRadius:"50%"}} variant="outline-light" onClick={() => {toggleLive(); onHeightChange()}}>➕</Button>
             </div>

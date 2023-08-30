@@ -9,11 +9,11 @@ const mockPlayerNotes = {
     extraNotes: [
         {
         note_content: "extranote #1", 
-        created_at: "12/08/23 06:06", 
+        created_at: "24 August '23 01:30 AM", 
         id:1}, 
         {
         note_content: "extranote #2",
-        created_at: "12/08/23 06:06",
+        created_at: "24 August '23 01:35 AM",
         id:2
         }
     ],

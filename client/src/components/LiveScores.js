@@ -18,7 +18,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
     const getMatches = async () => {
         try {
             const fetchedData = await axios.get(BASE_URL + '/api/live-matches');
-            setTodaysMatches(fetchedData.data.scoreboard.games);
+            setTodaysMatches(fetchedData?.data.scoreboard.games);
         } catch (err) {
             console.log(err);
         }
@@ -72,7 +72,7 @@ function LiveScores ({onHeightChange, toggleLive}) {
                 <div style={{justifySelf:"center"}} >
                     <h4>today's matches</h4>
                 </div>
-                <Button style={{justifySelf:"end", borderRadius:"50%"}} variant="outline-light" onClick={() => {toggleLive(); onHeightChange()}}>➖</Button>
+                <Button style={{justifySelf:"end", borderRadius:"50%"}} variant="outline-light" data-testid={"toggle-btn-games-banner"} onClick={() => {toggleLive(); onHeightChange()}}>➖</Button>
             </div>
                 <Row className="justify-content-center">
                     <div className="col-md-12">

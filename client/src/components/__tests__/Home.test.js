@@ -1,12 +1,12 @@
 import React from 'react';
-import { cleanup, render, screen, waitFor } from '@testing-library/react';
+import { cleanup, render, screen, waitFor, fireEvent } from '@testing-library/react';
 import axios from 'axios'; 
 import Home from '../Home';
 
 jest.mock('axios');
-jest.mock("../LiveScores", () => {
-    return () => <div>Mocked LiveScores</div>
-})
+// jest.mock("../LiveScores", () => {
+//     return () => <div>Mocked LiveScores</div>
+// })
 
 const mockData = {
     data: 
@@ -21,25 +21,35 @@ const mockData = {
                                 web: "xxxx"
                             }
                         },
+                        {
+                            headline: "news 2",
+                            images: [{url: "https://a.espncdn.com/photo/2022/1104/r1085823_1296x729_16-9.jpg"}],
+                            description: "blablabla" ,
+                            links: {
+                                web: "xxxx"
+                            }
+                        },
                     ]
             }
   };
-  // data[0].articles[0].headline
   axios.get.mockResolvedValue(mockData);
-  
+
   test('Renders fetched news', async () => {
       render(<Home />);
-    // console.log(mockData.data.articles.description)
-    // const cardNewsElement = ;
     const resolvedNewsElement = await waitFor(() => screen.getAllByTestId('newsbox'));
-    expect(resolvedNewsElement.length).toBe(1);
+    expect(resolvedNewsElement.length).toBe(2);
   });
 
-//   test('Renders 6 news', async () => {
-//     render(<Home />);
-//     const cardNewsElement = screen.getAllByTestId('newsbox');
-//     waitFor(() => expect(cardNewsElement.length).toBe(6))
-//   });
+  test('Conditional rendering of games banner', () => {
+    render(<Home/>);
+    const gameBannerElement = screen.getByTestId("container-matches");
+    expect(gameBannerElement).toBeInTheDocument();
+    const gameBannerBtnElement = screen.getByTestId("toggle-btn-games-banner");
+    fireEvent.click(gameBannerBtnElement);
+    expect(gameBannerElement).not.toBeInTheDocument();
+    const gameBannerElementSmall = screen.getByTestId("container-matches-small");
+    expect(gameBannerElementSmall).toBeInTheDocument();
+  });
 
   
   

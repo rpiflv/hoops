@@ -19,11 +19,11 @@ const MockNavMenu = () => {
 
 describe("Navbar", () => {
     
-    // it("navbar containes multiple links", () => {
-    //     render(<MockNavMenu user={""}/>);
-    //     const linkElement = screen.getAllByRole("link");
-    //     expect(linkElement.length).toBeGreaterThan(1);
-    // });
+    it("navbar containes multiple links", () => {
+        render(<MockNavMenu user={""}/>);
+        const linkElement = screen.getAllByRole("link");
+        expect(linkElement.length).toBeGreaterThan(1);
+    });
     
     it("Contains the link to NBA Teams", async () => {
         render(<MockNavMenu/>);
@@ -31,10 +31,15 @@ describe("Navbar", () => {
         expect(linkElementNBATeams).toBeInTheDocument();
     });
 
-    // it("It shows My Players link if signed in", async () => {
-    //     render(<MockNavMenu />);
-    //     const linkElementMyPlayers = await screen.findByText("My Players");
-    //     waitFor(() => expect(linkElementMyPlayers).toBeInTheDocument()); 
+    it("It shows 'My Players' link if signed in", async () => {
+        render(<MockNavMenu user={{username: "flavio"}}/>);
+        const linkElementMyPlayers = await screen.findByText("My Players");
+        waitFor(() => expect(linkElementMyPlayers).toBeInTheDocument()); 
+    });
 
-    // })
+    it("It shows 'Logout' link if signed in", async () => {
+        render(<MockNavMenu user={{username: "flavio"}}/>);
+        const linkElementMyPlayers = await screen.findByText("Logout");
+        waitFor(() => expect(linkElementMyPlayers).toBeInTheDocument()); 
+    })
 })
