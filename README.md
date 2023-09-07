@@ -5,8 +5,8 @@
 ## What it is
 This application let you browse NBA Teams and Players, pick your favorite players, and add your notes to it.
 
-   <a href="https://hoops.onrender.com/">Go to deployed version >>></a> <br/>
-   :warning: when launching the app for the first time, it may take some time to load 
+   <a href="https://hoops.onrender.com/">Go to deployed version >>></a> </br>
+  🔴 when launching 🚀 the app for the first time, it may take some time to load 🐢
 
 ## How it works & features
 
