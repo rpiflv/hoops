@@ -82,12 +82,12 @@ function LiveScores ({onHeightChange, toggleLive}) {
                                 <Card.Title>
                                     <Row>
                                         <Col>
-                                            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${match.awayTeam.teamTricode.toLowerCase()}.png`} style={{width:"2rem", marginLeft:"1px", marginRight:"1px"}}></img>
+                                            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${match.awayTeam.teamTricode.toLowerCase()}.png`} style={{width:"2rem", marginLeft:"1px", marginRight:"1px"}} alt=""></img>
                                             <strong>{match.awayTeam.teamTricode}</strong >
                                          
                                             <span style={{color: "gray"}}> vs </span>
                                             <strong>{match.homeTeam.teamTricode}</strong >
-                                            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${match.homeTeam.teamTricode.toLowerCase()}.png`} style={{width:"2rem"}}></img>
+                                            <img src={`https://a.espncdn.com/i/teamlogos/nba/500-dark/${match.homeTeam.teamTricode.toLowerCase()}.png`} style={{width:"2rem"}} alt=""></img>
                                         </Col>
                                     </Row>  
                                 </Card.Title>

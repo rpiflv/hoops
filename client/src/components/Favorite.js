@@ -68,7 +68,7 @@ function Favorite() {
                         <Card style={{ width: '18rem', marginBlockEnd: "10px", marginInline: "10px", marginBlockStart: "20px" }} 
                         key={index} className="fav-box">
                             <Card.Img variant="top"
-                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.playerId}.png`} />
+                                src={`https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.playerId}.png`} alt=""/>
                             <ListGroup.Item >
                                 <div  style={{paddingBlock:"1rem"}}>
                                     <h3>{player.full_name}</h3>

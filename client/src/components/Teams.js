@@ -46,7 +46,7 @@ function Teams() {
                                                 <Card  border="light" style={{height: "15%", width:"12rem", padding:"0.5rem"}} 
                                                 className="team align-self-center">
                                                 {team.market} {team.name} 
-                                                <Card.Img src={`${logos[team.id]}`} variant="top" style={{ height: "12rem", width:"auto" }} className="team-img"></Card.Img>
+                                                <Card.Img src={`${logos[team.id]}`} variant="top" style={{ height: "12rem", width:"auto" }} className="team-img" alt=""></Card.Img>
                                                 <div className="visibility" style={{color:"black"}}>
                                                     <h5>{team.wins} - {team.losses}<br/></h5>
                                                     <Row>

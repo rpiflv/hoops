@@ -15,7 +15,7 @@ function PlayerInfo(props) {
                         style={{width:"70%", marginTop:"2rem", marginLeft:"auto"}} 
                         variant='left'
                         src={playerInfo?.reference ? 
-                            `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerInfo?.reference}.png` : anonymous} />
+                            `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${playerInfo?.reference}.png` : anonymous} alt=''/>
                     </Col>
                     <Col md="6">
                             <Stack gap={3}>

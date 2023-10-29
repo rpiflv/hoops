@@ -67,6 +67,7 @@ function Roster(props) {
                                     className="player-card-img"
                                     style={{backgroundColor:`${teamcolor}`, zIndex:"9998"}}
                                     onError={imgError}
+                                    alt=""
                                     />
                                     </div>
                                 <Card.Body className="player-card-body" style={{backgroundColor:`${teamcolorSec}10`}}>
